@@ -1,10 +1,12 @@
 import reactLogo from './assets/lazybutts.png'
+import TopNavBar from './components/TopNavBar.jsx'
 import './App.css'
 
 function App() {
 
   return (
     <>
+      <TopNavBar />
       <div>
         <a href="#">
           <img src={reactLogo} className="logo react" alt="React logo" />
