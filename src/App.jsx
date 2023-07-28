@@ -17,7 +17,7 @@ const Main = ({ isMobile }) => {
         <h1>Lazy GIF</h1>
       </div>
       <div className="card">
-        Explanation of why we did Lazy Butts
+        Explanation of why we created Lazy Butts
       </div>
       <div className="card">
         <img src={HowToBuildAButt} className="how-to-build-a-butt" alt="How to build a butt" />
@@ -26,7 +26,7 @@ const Main = ({ isMobile }) => {
         <button>Claim my Butts</button>
       </div>
       <div className="card">
-        Infographic of mint funds
+        Infographic of mint funds allocation
       </div>
       <div className="card">
         <TeamInfo />
