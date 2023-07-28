@@ -1,5 +1,6 @@
 import Logo from './assets/lazybutts-horizontal.png'
 import LogoMobile from './assets/lazybutts.png'
+import HowToBuildAButt from './assets/how-to-build-a-butt.jpeg'
 import TopNavBar from './components/TopNavBar.jsx'
 import { useIsMobile } from './utils/tools.js'
 import './App.css'
@@ -20,7 +21,7 @@ const Main = ({isMobile}) => {
         Explanation of why we did Lazy Butts
       </div>
       <div className="card">
-        Infographic of how traits work
+        <img src={HowToBuildAButt} className="how-to-build-a-butt" alt="How to build a butt" />
       </div>
       <div className="card">
         <button>Claim my Butts</button>
