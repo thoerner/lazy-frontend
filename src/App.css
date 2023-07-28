@@ -10,21 +10,22 @@
   font-family: 'Permanent Marker', cursive;
 }
 
-@keyframes pulsate {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.05); }
-  100% { transform: scale(1); }
-}
-
-@keyframes rotate {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-@keyframes colorChange {
-  0% { filter: drop-shadow(0 0 2em #00caf8aa); }
-  50% { filter: drop-shadow(0 0 2em #ff2b06aa); }
-  100% { filter: drop-shadow(0 0 2em #00caf8aa); }
+@keyframes wobble {
+  0% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(2deg);
+  }
+  50% {
+    transform: rotate(-5deg);
+  }
+  75% {
+    transform: rotate(2deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
 }
 
 .logo {
@@ -35,7 +36,7 @@
 }
 
 .logo:hover {
-  animation: colorChange 5s infinite ease-in-out;
+  animation: wobble 1s;
 }
 
 
