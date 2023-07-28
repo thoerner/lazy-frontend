@@ -41,11 +41,11 @@ const Footer = props => {
 
 function App() {
   return (
-    <>
+    <div className="app">
       <TopNavBar />
       <Main />
       <Footer />
-    </>
+    </div>
   )
 }
 

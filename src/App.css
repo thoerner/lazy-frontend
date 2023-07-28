@@ -3,11 +3,13 @@
 #root {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 0 1rem;
-  padding-top: 2.5rem;
   text-align: center;
   color: #888;
   font-family: 'Permanent Marker', cursive;
+}
+
+.app {
+  padding-top: 3rem;
 }
 
 @keyframes wobble {
