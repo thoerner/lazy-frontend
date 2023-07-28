@@ -1,13 +1,17 @@
 import Logo from './assets/lazybutts-horizontal.png'
 import LogoMobile from './assets/lazybutts.png'
 import TopNavBar from './components/TopNavBar.jsx'
+import { useIsMobile } from './utils/tools.js'
 import './App.css'
 
-const Main = props => {
+const Main = ({isMobile}) => {
   return (
     <>
       <div>
-        <img src={Logo} className="logo react" alt="React logo" />
+        {isMobile ? 
+          <img src={LogoMobile} className="logo" alt="Lazy Butts Logo" /> : 
+          <img src={Logo} className="logo" alt="Lazy Butts Logo" />
+        }
       </div>
       <div className="card">
         <h1>Lazy GIF</h1>
@@ -40,10 +44,16 @@ const Footer = props => {
 }
 
 function App() {
+  const isMobile = useIsMobile()
+
   return (
     <div className="app">
-      <TopNavBar />
-      <Main />
+      <TopNavBar 
+        isMobile={isMobile}
+      />
+      <Main
+        isMobile={isMobile} 
+      />
       <Footer />
     </div>
   )
