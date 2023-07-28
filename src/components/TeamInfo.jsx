@@ -29,15 +29,14 @@ const TeamInfo = props => {
             />
             <TeamMember
                 name="Localcryptogod"
-                role="Project Organizer and Community Manager"
+                role="Project Organizer"
                 image={Localcryptogod}
             />
             <TeamMember
                 name="Crypt0potamus"
-                role="Software Developer and Maintainer"
+                role="Software Developer"
                 image={Crypt0potamus}
             />
-            
         </div>
     )
 }
