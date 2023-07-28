@@ -1,12 +1,11 @@
-import Logo from './assets/lazybutts.png'
+import Logo from './assets/lazybutts-horizontal.png'
+import LogoMobile from './assets/lazybutts.png'
 import TopNavBar from './components/TopNavBar.jsx'
 import './App.css'
 
-function App() {
-
+const Main = props => {
   return (
     <>
-      <TopNavBar />
       <div>
         <img src={Logo} className="logo react" alt="React logo" />
       </div>
@@ -28,6 +27,24 @@ function App() {
       <div className="card">
         Team info
       </div>
+    </>
+  )
+}
+
+const Footer = props => {
+  return (
+    <div className="footer">
+      Lazy Butts is not affiliated with Lazy Lions. Read the docs <a href="https://lazybuttsnft.gitbook.io/lazy-butts/" target="_blank" rel="noreferrer">here</a>.
+    </div>
+  )
+}
+
+function App() {
+  return (
+    <>
+      <TopNavBar />
+      <Main />
+      <Footer />
     </>
   )
 }

@@ -22,9 +22,9 @@
 }
 
 @keyframes colorChange {
-  0% { filter: drop-shadow(0 0 2em #646cffaa); }
-  50% { filter: drop-shadow(0 0 2em red); }
-  100% { filter: drop-shadow(0 0 2em #646cffaa); }
+  0% { filter: drop-shadow(0 0 2em #00caf8aa); }
+  50% { filter: drop-shadow(0 0 2em #ff2b06aa); }
+  100% { filter: drop-shadow(0 0 2em #00caf8aa); }
 }
 
 .logo {
@@ -51,20 +51,23 @@
   border-radius: 0.5em;
   background-color: #ffffff;
   transition: box-shadow 300ms;
-  box-shadow: 10px 5px 5px red, -10px -5px 5px #646cff;
+  box-shadow: 10px 5px 5px #ff2b06, -10px -5px 5px #00caf8;
 }
 
 .card:hover {
-  box-shadow: -10px -5px 5px red, 10px 5px 5px #646cff;
+  box-shadow: -10px -5px 5px #ff2b06, 10px 5px 5px #00caf8;
   transition: box-shadow 300ms;
 }
 
-.read-the-docs {
+.footer {
   color: #888;
+  font-size: 0.8rem;
+  padding: 1rem;
 }
 
 .active, .active:hover {
-  color: #fff;
+  color: white;
+  text-shadow: 3px 0px 0px #ff0000, -3px 0px 0px #0000ff;
 }
 
 .topnav {
@@ -78,4 +81,5 @@
   background-color: #111;
   padding: 0.8rem;
   z-index: 1;
+  border-bottom: 1px solid #888;
 }
