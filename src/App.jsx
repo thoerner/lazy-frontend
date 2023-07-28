@@ -1,4 +1,4 @@
-import reactLogo from './assets/lazybutts.png'
+import Logo from './assets/lazybutts.png'
 import TopNavBar from './components/TopNavBar.jsx'
 import './App.css'
 
@@ -8,9 +8,7 @@ function App() {
     <>
       <TopNavBar />
       <div>
-        <a href="#">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+        <img src={Logo} className="logo react" alt="React logo" />
       </div>
       <div className="card">
         <h1>Lazy GIF</h1>
