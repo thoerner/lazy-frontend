@@ -16,7 +16,7 @@ const HamburgerMenu = props => {
             </div>
             {isActive ?
                     <div className="overlay">
-                        <a href="https://twitter.com/lazybuttsnft" target="_blank" rel="noreferrer">Twitter</a>
+                        <a href="https://twitter.com/3DKingsNFT" target="_blank" rel="noreferrer">Twitter</a>
                         <a href="#mylions">My Lions</a>
                         <a href="https://opensea.io/collection/lazy-lions" target="_blank" rel="noreferrer">LL OpenSea</a>
                         <a className="active" href="#home">Home</a>
@@ -43,7 +43,7 @@ const MobileView = props => {
 const DesktopView = props => {
     return (
         <div className="topnav">
-            <a href="https://twitter.com/lazybuttsnft" target="_blank" rel="noreferrer">Twitter</a>
+            <a href="https://twitter.com/3DKingsNFT" target="_blank" rel="noreferrer">Twitter</a>
             <a href="#mylions">My Lions</a>
             <a href="https://opensea.io/collection/lazy-lions" target="_blank" rel="noreferrer">LL OpenSea</a>
             <a className="active" href="#home">Home</a>
