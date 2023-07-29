@@ -13,8 +13,8 @@ const Main = ({ isMobile }) => {
           isMobile={isMobile}
         />
       </div>
-      <div className="card">
-        <h1>Lazy GIF</h1>
+      <div className="card" style={{minWidth: '300px', minHeight: '300px', display: 'flex', alignItems: 'center'}}>
+        <p style={{margin: '0 auto'}}>Lazy Butts GIF</p>
       </div>
       <div className="card">
         <h2>Welcome to Lazy Butts</h2>
@@ -31,8 +31,8 @@ const Main = ({ isMobile }) => {
       <div className="card">
         <button>Claim my Butts</button>
       </div>
-      <div className="card">
-        Infographic of mint funds allocation
+      <div className="card" style={{minWidth: '500px', minHeight: '300px', display: 'flex', alignItems: 'center'}}>
+        <p style={{margin: '0 auto'}}>Infographic of mint funds allocation</p>
       </div>
       <div className="card">
         <h3>Embrace the Full ROAR of Your Lion with <span style={{fontSize: 'larger'}}>Lazy Butts</span>! </h3>
