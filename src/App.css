@@ -103,6 +103,14 @@
   }
 }
 
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+}
+
 .card {
   padding: 1em;
   margin: 2em;
@@ -111,6 +119,12 @@
   background-color: #ffffff;
   transition: box-shadow 300ms;
   box-shadow: 10px 5px 5px #ff2b06, -10px -5px 5px #00caf8;
+}
+
+@media screen and (min-width: 600px) {
+  .card {
+    max-width: 40vw;
+  }
 }
 
 .card:hover {
