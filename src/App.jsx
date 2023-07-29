@@ -13,7 +13,7 @@ const Main = ({ isMobile }) => {
           isMobile={isMobile}
         />
       </div>
-      <div className="card" style={{minWidth: '300px', minHeight: '300px', display: 'flex', alignItems: 'center'}}>
+      <div className="card" style={{width: '300px', height: '300px', display: 'flex', alignItems: 'center'}}>
         <p style={{margin: '0 auto'}}>Lazy Butts GIF</p>
       </div>
       <div className="card">
@@ -31,7 +31,7 @@ const Main = ({ isMobile }) => {
       <div className="card">
         <button>Claim my Butts</button>
       </div>
-      <div className="card" style={{minWidth: '500px', minHeight: '300px', display: 'flex', alignItems: 'center'}}>
+      <div className="card" style={{width: '500px', height: '300px', display: 'flex', alignItems: 'center'}}>
         <p style={{margin: '0 auto'}}>Infographic of mint funds allocation</p>
       </div>
       <div className="card">
