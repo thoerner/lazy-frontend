@@ -34,7 +34,8 @@ const Main = ({ isMobile }) => {
         {isMobile ? <div className="howto" alt="How to build a butt" ></div> : null}
       </div>
       <div className="card">
-        <button>Claim my Butts</button>
+       👇 Claim your Lazy Butt! 👇<br/><br/>
+        <button>Add Sass to My Lion's...!</button>
       </div>
       <div className="card" style={{width: '500px', height: '300px', display: 'flex', alignItems: 'center'}}>
         <span style={{margin: '0 auto'}}>Infographic of mint funds allocation</span>

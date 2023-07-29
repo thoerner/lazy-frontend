@@ -1,10 +1,13 @@
+/* Import Google fonts */
 @import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&family=REM:wght@400;700&family=Roboto&display=swap');
 
+/* Special font face */
 @font-face {
   font-family: 'SpecialAlphabets';
   src: local('SpecialAlphabets'), url('./assets/specialalphabetsp04.otf') format('opentype');
 }
 
+/* Default styles for the root */
 #root {
   max-width: 1280px;
   margin: 0 auto;
@@ -13,28 +16,12 @@
   font-family: 'Permanent Marker', cursive;
 }
 
+/* Top padding for the app */
 .app {
   padding-top: 3rem;
 }
 
-@keyframes wobble {
-  0% {
-    transform: rotate(0deg);
-  }
-  25% {
-    transform: rotate(2deg);
-  }
-  50% {
-    transform: rotate(-5deg);
-  }
-  75% {
-    transform: rotate(2deg);
-  }
-  100% {
-    transform: rotate(0deg);
-  }
-}
-
+/* Logo styles */
 .logo {
   height: 10em;
   padding: 1.5em;
@@ -42,10 +29,14 @@
   transition: filter 300ms, transform 300ms;
 }
 
-.logo:hover {
-  animation: wobble 1s;
+/* Logo hover animation */
+@media (prefers-reduced-motion: no-preference) {
+  .logo:hover {
+    animation: wobble 1s;
+  }
 }
 
+/* Hamburger menu styles */
 .hamburger-menu {
   position: fixed;
   top: 0.25rem;
@@ -55,6 +46,7 @@
   z-index: 3;
 }
 
+/* Styles for the lines in the hamburger menu */
 .hamburger-menu div {
   width: 35px;
   height: 5px;
@@ -64,6 +56,7 @@
   border-radius: 5px;
 }
 
+/* Hamburger menu transition */
 .change .bar1 {
   transform: rotate(-45deg) translate(-8px, 8px);
 }
@@ -77,6 +70,7 @@
   transform: rotate(45deg) translate(-8px, -8px);
 }
 
+/* Overlay styles */
 .overlay {
   position: fixed;
   display: flex;
@@ -94,6 +88,7 @@
   cursor: pointer;
 }
 
+/* Styles for links in the overlay */
 .overlay a {
   padding: 1rem;
   font-size: 1.6rem;
@@ -102,12 +97,7 @@
   transition: all 300ms;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
+/* Styles for the main content area */
 .main {
   display: flex;
   flex-direction: column;
@@ -116,15 +106,13 @@
   padding: 1rem;
 }
 
+/* Styles for cards */
 .card {
-  /* padding: 1em; */
   margin: 1em;
   max-width: 90vw;
   border-radius: 0.5em;
-  /* background-color: white; */
   background-color: black;
   transition: box-shadow 300ms;
-  /* box-shadow: 10px 5px 5px #ff2b06, -10px -5px 5px #00caf8; */
 }
 
 @media screen and (min-width: 800px) {
@@ -133,17 +121,14 @@
   }
 }
 
-/* .card:hover {
-  box-shadow: -10px -5px 5px #ff2b06, 10px 5px 5px #00caf8;
-  transition: box-shadow 300ms;
-} */
-
+/* Footer styles */
 .footer {
   color: #888;
   font-size: 0.8rem;
   padding: 1rem;
 }
 
+/* Active styles */
 .active {
   color: white;
   text-shadow: 3px 0px 0px #ff2b06, -3px 0px 0px #00caf8;
@@ -157,11 +142,16 @@
   text-shadow: 5px 0px 0px #ff2b06, -5px 0px 0px #00caf8;
 }
 
+/* Styles for how-to-build-a-butt class */
 .how-to-build-a-butt {
   position: absolute;
   left: 0;
   width: 100%;
   max-width: 100%;
+}
+
+.howto {
+  height: 100vw;
 }
 
 @media screen and (min-width: 800px) {
@@ -170,29 +160,15 @@
     left: auto;
     max-width: 100%;
     border-radius: 0.5em;
-    box-shadow: 0px 0px 5px #333;
   }
+
+  /* .how-to-build-a-butt:hover {
+    box-shadow: 0 0 10px #333;
+  } */
 }
 
-.howto {
-  height: 100vw;
-}
-
-
-.topnav {
-  display: flex;
-  justify-content: space-around;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  overflow: hidden;
-  background-color: #111;
-  padding: 0.8rem;
-  z-index: 1;
-  border-bottom: 1px solid #888;
-}
-
+/* Top navigation styles */
+.topnav,
 .topnav-mobile {
   display: flex;
   justify-content: space-around;
@@ -207,6 +183,7 @@
   border-bottom: 1px solid #888;
 }
 
+/* Team information styles */
 .team-info {
   display: flex;
   flex-direction: column;
@@ -215,6 +192,7 @@
   color: #555;
 }
 
+/* Individual team member styles */
 .team-member {
   display: flex;
   flex-direction: column;
@@ -231,11 +209,13 @@
   transition: all 300ms ease;
 }
 
+/* Team member hover effect */
 .team-member:hover {
   box-shadow: -5px -5px 5px #ff2b06, 5px 5px 5px #00caf8;
   transition: all 300ms ease;
 }
 
+/* Team member name styles */
 .team-member-name {
   font-size: 1.5rem;
   font-weight: bold;
@@ -243,12 +223,14 @@
   cursor: default;
 }
 
+/* Team member role styles */
 .team-member-role {
   font-size: 1rem;
   font-weight: bold;
   cursor: default;
 }
 
+/* Team member image styles */
 .team-member-image {
   width: 100%;
   max-width: 200px;
@@ -256,9 +238,25 @@
   box-shadow: 0px 0px 5px #333;
 }
 
+/* Heading styles */
 h1, h2, h3 {
   color: #d6b33a;
 }
+
+/* Paragraph styles */
 p {
   font-family: 'REM', sans-serif;
+}
+
+/* Animation keyframes */
+@keyframes wobble {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  25%, 75% {
+    transform: rotate(2deg);
+  }
+  50% {
+    transform: rotate(-5deg);
+  }
 }
