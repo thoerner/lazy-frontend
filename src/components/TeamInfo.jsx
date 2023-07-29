@@ -1,17 +1,8 @@
+import TeamMember from './TeamMember.jsx'
 import Crypt0potamus from '../assets/team/crypt0potamus.png'
 import Localcryptogod from '../assets/team/localcryptogod.png'
 import JohnTheCraftsman from '../assets/team/johnthecraftsman.png'
 import GlutenFree from '../assets/team/glutenfree.png'
-
-const TeamMember = ({ name, role, image }) => {
-    return (
-        <div className="team-member">
-            <img src={image} className="team-member-image" alt={name} />
-            <div className="team-member-name">{name}</div>
-            <div className="team-member-role">{role}</div>
-        </div>
-    )
-}
 
 const TeamInfo = ({isMobile}) => {
     return (

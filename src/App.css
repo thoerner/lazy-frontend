@@ -1,11 +1,5 @@
 /* Import Google fonts */
-@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&family=REM:wght@400;700&family=Roboto&display=swap');
-
-/* Special font face */
-@font-face {
-  font-family: 'SpecialAlphabets';
-  src: local('SpecialAlphabets'), url('./assets/specialalphabetsp04.otf') format('opentype');
-}
+@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&family=REM:wght@400;700&display=swap');
 
 /* Default styles for the root */
 #root {
@@ -13,7 +7,7 @@
   margin: 0 auto;
   text-align: center;
   color: #eee;
-  font-family: 'Permanent Marker', cursive;
+  font-family: 'REM', sans-serif;
 }
 
 /* Top padding for the app */
@@ -161,10 +155,6 @@
     max-width: 100%;
     border-radius: 0.5em;
   }
-
-  /* .how-to-build-a-butt:hover {
-    box-shadow: 0 0 10px #333;
-  } */
 }
 
 /* Top navigation styles */
@@ -189,6 +179,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  font-family: 'Permanent Marker', cursive;
   color: #555;
 }
 
@@ -240,12 +231,17 @@
 
 /* Heading styles */
 h1, h2, h3 {
+  font-family: 'Permanent Marker', cursive;
   color: #d6b33a;
 }
 
 /* Paragraph styles */
 p {
   font-family: 'REM', sans-serif;
+}
+
+.marker {
+  font-family: 'Permanent Marker', cursive;
 }
 
 /* Animation keyframes */

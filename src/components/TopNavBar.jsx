@@ -1,17 +1,15 @@
 import HamburgerMenu from "./HamburgerMenu.jsx"
 
-const MobileView = ({links}) => {
+const MobileView = ({ links }) => {
     return (
-        <>
-            <div className='topnav-mobile'>
-                <a className="active" href="#home">Home</a>
-                <HamburgerMenu links={links}/>
-            </div>
-        </>
+        <div className='topnav-mobile'>
+            <a className="active" href="#home">Home</a>
+            <HamburgerMenu links={links} />
+        </div>
     )
 }
 
-const DesktopView = ({links}) => {
+const DesktopView = ({ links }) => {
     return (
         <div className="topnav">
             {links}
@@ -19,8 +17,8 @@ const DesktopView = ({links}) => {
     )
 }
 
-const TopNavBar = ({isMobile}) => {
-    const links = 
+const TopNavBar = ({ isMobile }) => {
+    const links =
         <>
             <a href="https://x.com/3DKingsNFT" target="_blank" rel="noreferrer">X (@3DKingsNFT)</a>
             <a href="#mylions">My Lions</a>
@@ -31,7 +29,7 @@ const TopNavBar = ({isMobile}) => {
         </>
     return (
         <>
-            {isMobile ? <MobileView links={links}/> : <DesktopView links={links}/>}
+            {isMobile ? <MobileView links={links} /> : <DesktopView links={links} />}
         </>
     )
 }

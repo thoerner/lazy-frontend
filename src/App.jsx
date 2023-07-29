@@ -4,17 +4,13 @@ import Footer from './components/Footer.jsx'
 import { useIsMobile } from './utils/tools.js'
 import './App.css'
 
-function App() {
+const App = () => {
   const isMobile = useIsMobile()
 
   return (
     <div className="app">
-      <TopNavBar
-        isMobile={isMobile}
-      />
-      <Main
-        isMobile={isMobile}
-      />
+      <TopNavBar isMobile={isMobile} />
+      <Main isMobile={isMobile} />
       <Footer />
     </div>
   )
