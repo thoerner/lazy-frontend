@@ -1,5 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&family=REM:wght@400;700&family=Roboto&display=swap');
 
+@font-face {
+  font-family: 'SpecialAlphabets';
+  src: local('SpecialAlphabets'), url('./assets/specialalphabetsp04.otf') format('opentype');
+}
+
 #root {
   max-width: 1280px;
   margin: 0 auto;
