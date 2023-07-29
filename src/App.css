@@ -255,3 +255,6 @@
 h1, h2, h3 {
   color: #d6b33a;
 }
+p {
+  font-family: 'REM', sans-serif;
+}
