@@ -26,8 +26,10 @@ const Main = ({ isMobile }) => {
         <p>Each Lazy Butt NFT is an unofficial extension designed especially for the Lazy Lion NFT holders. And just like our original Lazy Lions, these unique extensions are as diverse and distinctive as the lions in our pride. Whether your lion has a shiny, glittering bottom or a rugged, warrior's wear, the Lazy Butts NFT lets you express your full lion-ness in a whole new way.</p>
         <p>So come join the hilarity, embrace the charm, and let's ROAR with laughter together! Adopt a Lazy Butt today, and show the world that your Lazy Lion truly is the king of the NFT jungle, from top to bottom!</p>
       </div>
-      <div className="card">
-        <h2>What's in a Butt?</h2>
+      <div className="card" style={!isMobile ? null : null}>
+        {isMobile? <h2>What's in a Butt?</h2> :
+          <h1>What's in a Butt?</h1>
+        }
         <img src={HowToBuildAButt} className="how-to-build-a-butt" alt="How to build a butt" />
         {isMobile ? <div className="howto" alt="How to build a butt" ></div> : null}
       </div>
