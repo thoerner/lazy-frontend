@@ -17,8 +17,7 @@ const Main = ({ isMobile }) => {
         <h1>Lazy GIF</h1>
       </div>
       <div className="card">
-        <h1>Behind the Tail</h1>
-        <h2>The Lazy Butts Story</h2>
+        <h2>Welcome to Lazy Butts</h2>
         <p style={{ fontFamily: "REM" }}>Welcome to the extraordinary kingdom of the 3D Kings! We are a group of playful and mighty Lazy Lions, who've ventured far beyond the savannah and into the realm of the NFTs!</p>
         <p style={{ fontFamily: "REM" }}>In our dynamic jungle, we are not just about the roars, the mane, or the striking, swaggering stride; we're about the whole lion! So, we thought - why stop at the top half? Let's give our pride something to truly ROAR about! And thus, the Lazy Butts NFT was born.</p>
         <p style={{ fontFamily: "REM" }}>As the 3D Kings, we understand that every lion in our pride is a complete individual - from the tip of their majestic mane right down to their unique and expressive...well...butts. We realized our community was missing something crucial: a bottom half!</p>
