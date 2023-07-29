@@ -45,8 +45,10 @@ const Main = ({ isMobile }) => {
         <p>Lazy Butts is an independent venture, created by lions, for lions. A delightful, full-bodied expression of our love for our Lazy Lions, and a testament to the creativity, fun, and camaraderie within our Pride. Embrace the ROAR, adopt a Lazy Butt today!</p>
         <p style={{fontSize: '50px'}}>🦁 👑 🎉</p>
       </div>
-      <div className="card">
-        <TeamInfo />
+      <div className="card" style={!isMobile ? {maxWidth: '90vw', flexWrap: 'wrap'} : null}>
+        <TeamInfo 
+          isMobile={isMobile}
+        />
       </div>
     </div>
   )

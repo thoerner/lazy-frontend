@@ -13,17 +13,18 @@ const TeamMember = ({ name, role, image }) => {
     )
 }
 
-const TeamInfo = props => {
+const TeamInfo = ({isMobile}) => {
     return (
         <div className="team-info">
             <h1>Team</h1>
+            <div style={!isMobile ? {flexDirection: 'row', display: 'flex', justifyContent: 'center', alignItems: 'center'} : null}>
             <TeamMember
                 name="John the Craftsman"
                 role="Artist"
                 image={JohnTheCraftsman}
             />
             <TeamMember
-                name="Gluten Free"
+                name="Gluten&nbsp;Free"
                 role="Artist"
                 image={GlutenFree}
             />
@@ -37,6 +38,7 @@ const TeamInfo = props => {
                 role="Software Developer and Maintainer"
                 image={Crypt0potamus}
             />
+            </div>
         </div>
     )
 }
