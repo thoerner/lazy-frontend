@@ -17,6 +17,8 @@ const Main = ({ isMobile }) => {
         <h1>Lazy GIF</h1>
       </div>
       <div className="card" style={{fontFamily: "REM"}}>
+        <h1 style={{fontFamily: 'Permanent Marker'}}>Behind the Tail</h1>
+        <h2 style={{fontFamily: 'Permanent Marker'}}>The Lazy Butts Story</h2>
         Welcome to the extraordinary kingdom of the 3D Kings! We are a group of playful and mighty Lazy Lions, who've ventured far beyond the savannah and into the realm of the NFTs!<br/><br/>
 In our dynamic jungle, we are not just about the roars, the mane, or the striking, swaggering stride; we're about the whole lion! So, we thought - why stop at the top half? Let's give our pride something to truly ROAR about! And thus, the Lazy Butts NFT was born.<br/><br/>
 As the 3D Kings, we understand that every lion in our pride is a complete individual - from the tip of their majestic mane right down to their unique and expressive...well...butts. We realized our community was missing something crucial: a bottom half!<br/><br/>
