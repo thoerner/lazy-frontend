@@ -269,3 +269,51 @@ p {
     transform: rotate(-5deg);
   }
 }
+
+.claim-area-main {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  margin: 1rem;
+  border-radius: 0.5em;
+  box-shadow: 0px 0px 5px #333;
+  max-width: 200px;
+  background-color: #eee;
+  min-height: 310px;
+  box-shadow: 5px 5px 5px #ff2b06, -5px -5px 5px #00caf8;
+  transition: all 300ms ease;
+}
+
+.claim-area-left {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 1rem;
+  margin: 1rem;
+  border-radius: 0.5em;
+  box-shadow: 0px 0px 5px #333;
+  max-width: 200px;
+  background-color: #eee;
+  min-height: 310px;
+  box-shadow: 5px 5px 5px #ff2b06, -5px -5px 5px #00caf8;
+  transition: all 300ms ease;
+}
+
+.claim-area-right {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 1rem;
+  margin: 1rem;
+  border-radius: 0.5em;
+  box-shadow: 0px 0px 5px #333;
+  max-width: 200px;
+  background-color: #eee;
+  min-height: 310px;
+  box-shadow: 5px 5px 5px #ff2b06, -5px -5px 5px #00caf8;
+  transition: all 300ms ease;
+}
