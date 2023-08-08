@@ -30,14 +30,18 @@ const Claim = ({ isMobile }) => {
         { id: 5, name: 'Lion 5' }
     ])
     const [selectedLions, setSelectedLions] = useState([])
+    const [price, setPrice] = useState(0.05)
+    const [totalPrice, setTotalPrice] = useState(0)
 
     useEffect(() => {
         window.scrollTo(0, 0)
     }, [])
 
     useEffect(() => {
-        console.log(selectedLions)
-    }, [selectedLions])
+        let total = 0
+        total = Math.round(((price * selectedLions.length) + Number.EPSILON) * 100) / 100
+        setTotalPrice(total)
+    }, [selectedLions, setTotalPrice])
 
     const handleLionClick = (lion) => {
         // check for matching lion object by id in selectedLions
@@ -56,7 +60,7 @@ const Claim = ({ isMobile }) => {
         <div className="claim">
             <div className="main">
                 <div className="claim-title">
-                    <h1>Claim Your Butts</h1>
+                    <h1>Claim Lazy Butts</h1>
                 </div>
                 <div className="claim-info">
                     <p>Claiming your Lazy Butts NFTs is a straightforward process. Begin by selecting the Lazy Lion NFTs for which you'd like to claim Butts. After selection, click the "Claim Butts" button. Following this, you'll be asked to sign a transaction in order to claim your Butts.</p>
@@ -74,7 +78,7 @@ const Claim = ({ isMobile }) => {
                             </div>
                             <div className="claim-area-left-info">
                                 <div className="my-lions-container">
-                                    <MyLions 
+                                    <MyLions
                                         lions={myLions}
                                         handleLionClick={handleLionClick}
                                         selectedLions={selectedLions}
@@ -82,12 +86,21 @@ const Claim = ({ isMobile }) => {
                                 </div>
                             </div>
                         </div>
-                        <div className="claim-area-right">
-                            <div className="claim-area-right-title">
+                        <div className="claim-area-middle">
+                            <div className="claim-area-middle-title">
                                 <h3>Lazy Butts</h3>
                             </div>
-                            <div className="claim-area-right-info">
+                            <div className="claim-area-middle-info">
                                 <p>0/0</p>
+                            </div>
+                        </div>
+                        <div className="claim-area-right">
+                            <div className="claim-area-right-title">
+                                <h3>Claim Butts</h3>
+                            </div>
+                            <div className="claim-area-right-info">
+                                <p>{totalPrice} ETH</p>
+                                <button>Claim Butts</button>
                             </div>
                         </div>
                     </div>
