@@ -10,6 +10,20 @@
   font-family: 'REM', sans-serif;
 }
 
+/* Scroll Bar styles for chrome */
+::-webkit-scrollbar {
+  width: 0.3em;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #00caf8;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #ff2b06;
+  border-radius: 0.5em;
+}
+
 /* Top padding for the app */
 .app {
   padding-top: 3rem;
@@ -157,6 +171,51 @@
   }
 }
 
+#three-d-kings-logo {
+  position: absolute;
+  height: 2em;
+  padding: 0;
+  will-change: filter, transform;
+  transition: filter 300ms, transform 300ms;
+  -webkit-filter: drop-shadow(2px 2px 5px #ff2b06);
+  filter: drop-shadow(2px 2px 5px #ff2b06);
+}
+
+#three-d-kings-logo-overlay {
+  height: 2em;
+  -webkit-filter: drop-shadow(-2px -2px 5px #00caf8);
+  filter: drop-shadow(-2px -2px 5px #00caf8);
+  transition: all 0.3s ease-in-out;
+}
+
+/* #three-d-kings-target:hover {
+  transform: scale(1.1);
+  -webkit-filter: drop-shadow(0px 0px 2px #ff00ff55); 
+  filter: drop-shadow(0px 0px 2px #ff00ff55);
+  cursor: pointer;
+} */
+
+#three-d-kings-logo-mobile {
+  position: fixed;
+  top: 1em;
+  left: 1em;
+  height: 2em;
+  -webkit-filter: drop-shadow(2px 2px 5px #ff2b06);
+  filter: drop-shadow(2px 2px 5px #ff2b06);
+  cursor: pointer;
+}
+
+#three-d-kings-logo-overlay-mobile {
+  position: fixed;
+  top: 1em;
+  left: 1em;
+  height: 2em;
+  -webkit-filter: drop-shadow(-2px -2px 5px #00caf8);
+  filter: drop-shadow(-2px -2px 5px #00caf8);
+  cursor: pointer;
+}
+
+
 /* Top navigation styles */
 .topnav {
   display: flex;
@@ -174,7 +233,7 @@
 
 .topnav-mobile {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   position: fixed;
   top: 0;
   left: 0;
@@ -186,6 +245,15 @@
   border-bottom: 1px solid #888;
 }
 
+.teamSection {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  border: 1px solid #888;
+}
+
 /* Team information styles */
 .team-info {
   display: flex;
@@ -194,6 +262,14 @@
   align-items: center;
   font-family: 'Permanent Marker', cursive;
   color: #555;
+}
+
+.team-members {
+  display: flex; 
+  flex-direction: row; 
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
 /* Individual team member styles */
@@ -273,15 +349,17 @@ p {
 .claim-area-main {
   display: flex;
   flex-direction: row;
-  justify-content: center;
-  align-items: center;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-wrap: wrap;
   padding: 1rem;
   margin: 1rem;
   border-radius: 0.5em;
   box-shadow: 0px 0px 5px #333;
-  max-width: 200px;
-  background-color: #eee;
+  background-color: #333;
   min-height: 310px;
+  min-width: 90vw;
+  max-height: 75vh;
   box-shadow: 5px 5px 5px #ff2b06, -5px -5px 5px #00caf8;
   transition: all 300ms ease;
 }
@@ -291,15 +369,92 @@ p {
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  padding: 1rem;
+  padding: 0 1vw;
   margin: 1rem;
   border-radius: 0.5em;
   box-shadow: 0px 0px 5px #333;
-  max-width: 200px;
-  background-color: #eee;
+  /* max-width: 200px; */
+  min-width: 300px;
+  width: 33%;
+  background-color: #000;
   min-height: 310px;
+  max-height: calc(75vh - 4rem);
   box-shadow: 5px 5px 5px #ff2b06, -5px -5px 5px #00caf8;
   transition: all 300ms ease;
+  overflow: hidden;
+}
+
+.claim-area-left-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  /* margin-top: 0.5rem; */
+  cursor: default;
+  color: #333;
+}
+
+.claim-area-left-info {
+  /* border: 1px solid red; */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  /* padding: 1rem; */
+  /* margin: 1rem; */
+  /* border-radius: 0.5em; */
+  /* max-width: 200px; */
+  background-color: #000;
+  min-height: 310px;
+  color: black;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.my-lions-container {
+  background-color: #111;
+  border-radius: 0.5em;
+  margin: 1rem 0;
+}
+
+.my-lions {
+  padding: 1rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.my-lion {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  /* padding: 1rem; */
+  margin: 1rem;
+  border: 3px solid transparent;
+  border-radius: 0.5em;
+  max-width: 200px;
+  background-color: #eee;
+  background-color: black;
+  color: white;
+  cursor: pointer;
+}
+
+.my-lion.selected {
+  /* background-color: #333; */
+  /* color: white; */
+  /* box-shadow: 5px 5px 5px #ff2b06, -5px -5px 5px #00caf8; */
+  transition: all 300ms ease;
+  border: 3px solid #d6b33a;
+}
+
+.my-lion img {
+  /* margin-right: 1rem; */
+  /* margin-left: 1rem; */
+  max-width: 190px;
+  border-radius: 0.5em;
+  box-shadow: 0px 0px 5px #333;
 }
 
 .claim-area-right {
@@ -348,4 +503,87 @@ p {
 #walletButton {
   max-height: 2rem;
   line-height: 0.8rem;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown .dropbtn {
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  color: #eee;
+  background-color: inherit;
+  font-family: 'Permanent Marker', cursive;
+  margin: 0;
+  padding: 0;
+  transition: all 300ms ease;
+}
+
+.dropdown .dropbtn:hover {
+  text-shadow: 3px 1px 0px #ff2b06, -3px -1px 0px #00caf8;
+}
+
+.dropdown .dropbtn.active {
+  text-shadow: 10px 2px 0px #ff2b06, -10px -2px 0px #00caf8;
+}
+
+.dropdown .dropdown-content {
+  display: none;
+  position: fixed;
+  background-color: #1a1a1a;
+  min-width: 100px;
+  box-shadow: 0px 0px 5px #eee;
+  border-radius: 0.5em;
+  padding: 0.5rem;
+  z-index: 10;
+  transition: all 300ms ease;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+}
+
+.dropdown .dropdown-content.show {
+  display: block;
+  animation: fadeIn 300ms ease;
+}
+
+.dropdown-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -100;
+}
+
+.dropdown .dropdown-content a {
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  color: #eee;
+  background-color: inherit;
+  font-family: 'Permanent Marker', cursive;
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown .dropdown-content a:hover {
+  text-shadow: 1.5px 1.5px 3px #ff2b06, -1.5px -1.5px 3px #00caf8;
 }

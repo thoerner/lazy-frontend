@@ -7,6 +7,10 @@ const HamburgerMenu = ({ links }) => {
         setIsActive(!isActive)
     }
 
+    const onOverlayClick = () => {
+        setIsActive(false)
+    }
+
     return (
         <>
             <div className={`hamburger-menu ${isActive ? 'change' : ''}`} onClick={toggleClass}>
@@ -15,7 +19,7 @@ const HamburgerMenu = ({ links }) => {
                 <div className="bar3"></div>
             </div>
             {isActive ?
-                <div className="overlay">
+                <div className="overlay" onClick={onOverlayClick}>
                     {links}
                 </div>
                 : null

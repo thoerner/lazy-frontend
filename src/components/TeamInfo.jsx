@@ -8,7 +8,7 @@ const TeamInfo = ({isMobile}) => {
     return (
         <div className="team-info">
             <h1>Team</h1>
-            <div style={!isMobile ? {flexDirection: 'row', display: 'flex', justifyContent: 'center', alignItems: 'center'} : null}>
+            <div className={!isMobile ? 'team-members' : 'team-members-mobile'} >
             <TeamMember
                 name="John the Craftsman"
                 role="Artist"

@@ -41,7 +41,7 @@ function Root() {
           '--w3m-accent-color': '#d6b228',
           '--w3m-overlay-backdrop-filter': 'blur(10px)',
           '--w3m-logo-image-url': 'https://lazybutts.s3.amazonaws.com/public/images/www/3dkingslogo.png',
-          '--w3m-background-image-url': 'https://lazybutts.s3.amazonaws.com/public/images/www/wallet-connect-banner.png'
+          '--w3m-background-image-url': 'https://lazybutts.s3.amazonaws.com/public/images/www/lazybutts-horizontal.png'
         }} />
     </div>
   )

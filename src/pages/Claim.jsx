@@ -1,4 +1,57 @@
+import { useState, useEffect } from 'react'
+import DummyLion from '../assets/lion.jpeg'
+
+const MyLions = ({ lions, handleLionClick, selectedLions }) => {
+    const lionList = lions.map(lion => {
+        return (
+            <div className={`my-lion ${selectedLions.findIndex(l => l.id === lion.id) !== -1 ? 'selected' : null}`} key={lion.id} onClick={() => handleLionClick(lion)}>
+                <img src={DummyLion} alt="lion" />
+                <div className="my-lion-info">
+                    <p className="my-lion-name">{lion.name}</p>
+                    <p className="my-lion-id">ID: {lion.id}</p>
+                </div>
+            </div>
+        )
+    })
+
+    return (
+        <div className="my-lions">
+            {lionList}
+        </div>
+    )
+}
+
 const Claim = ({ isMobile }) => {
+    const [myLions, setMyLions] = useState([
+        { id: 1, name: 'Lion 1' },
+        { id: 2, name: 'Lion 2' },
+        { id: 3, name: 'Lion 3' },
+        { id: 4, name: 'Lion 4' },
+        { id: 5, name: 'Lion 5' }
+    ])
+    const [selectedLions, setSelectedLions] = useState([])
+
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [])
+
+    useEffect(() => {
+        console.log(selectedLions)
+    }, [selectedLions])
+
+    const handleLionClick = (lion) => {
+        // check for matching lion object by id in selectedLions
+        const lionIndex = selectedLions.findIndex(l => l.id === lion.id)
+        if (lionIndex === -1) {
+            // if lion not found, add to selectedLions
+            setSelectedLions([...selectedLions, lion])
+        } else {
+            // if lion found, remove from selectedLions
+            const newSelectedLions = selectedLions.filter(l => l.id !== lion.id)
+            setSelectedLions(newSelectedLions)
+        }
+    }
+
     return (
         <div className="claim">
             <div className="main">
@@ -14,13 +67,19 @@ const Claim = ({ isMobile }) => {
                         <h2>Claim Area</h2>
                     </div>
                     <div className="claim-area-main">
-                        {/* Need to divide this area into two parts. Large part on left, small part on right*/}
                         <div className="claim-area-left">
                             <div className="claim-area-left-title">
-                                <h3>Lazy Lions</h3>
+                                <h3>My Lazy Lions</h3>
+                                <p>{selectedLions.length}/{myLions.length} selected</p>
                             </div>
                             <div className="claim-area-left-info">
-                                <p>0/0</p>
+                                <div className="my-lions-container">
+                                    <MyLions 
+                                        lions={myLions}
+                                        handleLionClick={handleLionClick}
+                                        selectedLions={selectedLions}
+                                    />
+                                </div>
                             </div>
                         </div>
                         <div className="claim-area-right">
