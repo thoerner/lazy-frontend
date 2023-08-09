@@ -349,17 +349,16 @@ p {
 .claim-area-main {
   display: flex;
   flex-direction: row;
-  justify-content: flex-start;
-  align-items: flex-start;
+  justify-content: space-evenly;
+  align-items: center;
   flex-wrap: wrap;
   padding: 1rem;
   margin: 1rem;
   border-radius: 0.5em;
   box-shadow: 0px 0px 5px #333;
   background-color: #333;
-  min-height: 310px;
   min-width: 90vw;
-  max-height: 75vh;
+  min-height: 600px;
   box-shadow: 5px 5px 5px #ff2b06, -5px -5px 5px #00caf8;
   transition: all 300ms ease;
 }
@@ -373,13 +372,12 @@ p {
   margin: 1rem;
   border-radius: 0.5em;
   box-shadow: 0px 0px 5px #333;
-  /* max-width: 200px; */
   min-width: 300px;
   width: 33%;
   background-color: #000;
   min-height: 310px;
-  max-height: calc(75vh - 4rem);
-  box-shadow: 5px 5px 5px #ff2b06, -5px -5px 5px #00caf8;
+  max-height: calc(75vh - 2rem);
+  /* box-shadow: 5px 5px 5px #ff2b06, -5px -5px 5px #00caf8; */
   transition: all 300ms ease;
   overflow: hidden;
 }
@@ -406,14 +404,15 @@ p {
   background-color: #000;
   min-height: 310px;
   color: black;
-  overflow-y: scroll;
-  overflow-x: hidden;
+  
 }
 
 .my-lions-container {
   background-color: #111;
   border-radius: 0.5em;
   margin: 1rem 0;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 .my-lions {
@@ -460,7 +459,7 @@ p {
 .claim-area-middle {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
   padding: 1rem;
   margin: 1rem;
@@ -470,9 +469,9 @@ p {
   min-width: 300px;
   width: 33%;
   background-color: #000;
-  min-height: 310px;
+  min-height: calc(75vh - 4rem);
   max-height: calc(75vh - 4rem);
-  box-shadow: 5px 5px 5px #ff2b06, -5px -5px 5px #00caf8;
+  /* box-shadow: 5px 5px 5px #ff2b06, -5px -5px 5px #00caf8; */
   transition: all 300ms ease;
   overflow: hidden;
 }
@@ -483,6 +482,69 @@ p {
   /* margin-top: 0.5rem; */
   cursor: default;
   color: #333;
+}
+
+.sillouette-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 500px;
+  width: 250px;
+  /* padding: 1rem; */
+  /* margin: 1rem; */
+  border-radius: 0.5em;
+  background-color: #333;
+  color: white;
+  cursor: pointer;
+  z-index: 0;
+  box-shadow: 3px 3px 3px #ff2b06, -3px -3px 3px #00caf8;
+  overflow: hidden;
+}
+
+.sillouette-card.stacked-one {
+  position: absolute;
+  transform: translate(-2%, -2%);
+  transition: all 300ms ease;
+  z-index: 1;
+}
+
+.sillouette-card.stacked-two {
+  position: absolute;
+  transform: translate(-4%, -4%);
+  transition: all 300ms ease;
+  z-index: 2;
+}
+
+.sillouette-card.stacked-three {
+  position: absolute;
+  transform: translate(-6%, -6%);
+  transition: all 300ms ease;
+  z-index: 3;
+}
+
+.sillouette-card.stacked-four {
+  position: absolute;
+  transform: translate(-8%, -8%);
+  transition: all 300ms ease;
+  z-index: 4;
+}
+
+.sillouette-card.stacked-five {
+  position: absolute;
+  transform: translate(-10%, -10%);
+  transition: all 300ms ease;
+  z-index: 5;
+}
+
+.sillouette-card-image-top img {
+  height: 100%;
+  width: 100%;
+}
+
+.sillouette-card-image-bottom img {
+  height: 100%;
+  width: 100%;
 }
 
 .claim-area-right {
@@ -497,12 +559,14 @@ p {
   /* max-width: 200px; */
   /* min-width: 300px; */
   width: 20%;
+  min-width: 300px;
   background-color: #000;
-  min-height: 310px;
-  max-height: calc(75vh - 4rem);
-  box-shadow: 5px 5px 5px #ff2b06, -5px -5px 5px #00caf8;
+  min-height: calc(75vh - 4rem);
+  max-height: 100%;
+  /* box-shadow: 5px 5px 5px #ff2b06, -5px -5px 5px #00caf8; */
   transition: all 300ms ease;
   overflow: hidden;
+  /* border: 1px solid green; */
 }
 
 .claim-area-right-title {
@@ -511,6 +575,15 @@ p {
   /* margin-top: 0.5rem; */
   cursor: default;
   color: #333;
+  /* border: 1px solid blue; */
+}
+
+.claim-area-right-info {
+  /* border: 1px solid red; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .buttCard {
@@ -543,6 +616,16 @@ p {
 #walletButton {
   max-height: 2rem;
   line-height: 0.8rem;
+}
+
+.quote {
+  background-color: #111;
+  padding: 1rem;
+  border-radius: 0.5em;
+  box-shadow: 0 0 3px #d6b33a;
+  font-family: 'Permanent Marker', cursive;
+  font-size: 1.5rem;
+  color: #d6b33a;
 }
 
 .dropdown {
