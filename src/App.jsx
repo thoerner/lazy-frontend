@@ -20,6 +20,7 @@ export default function App() {
 function Root() {
   const isMobile = useIsMobile()
   const [activePage, setActivePage] = useState('home')
+  const [authenticated, setAuthenticated] = useState(false)
   console.log(wagmiConfig)
 
   return (
@@ -28,8 +29,8 @@ function Root() {
         <TopNavBar isMobile={isMobile} setActivePage={setActivePage} activePage={activePage} />
         <Routes>
           <Route path="/" element={<Home isMobile={isMobile} />} />
-          <Route path="/claim" element={<Claim isMobile={isMobile} />} />
-          <Route path="/butts" element={<MyButts isMobile={isMobile} />} />
+          <Route path="/claim" element={<Claim isMobile={isMobile} setActivePage={setActivePage} />} />
+          <Route path="/butts" element={<MyButts isMobile={isMobile} setActivePage={setActivePage} authenticated={authenticated} setAuthenticated={setAuthenticated} />} />
         </Routes>
       </WagmiConfig>
       <Web3Modal

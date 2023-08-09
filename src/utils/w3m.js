@@ -1,5 +1,5 @@
 import { EthereumClient, w3mConnectors } from '@web3modal/ethereum'
-import { configureChains, createConfig, WagmiConfig } from 'wagmi'
+import { configureChains, createConfig, WagmiConfig, useAccount, useSignMessage } from 'wagmi'
 import { alchemyProvider } from '@wagmi/core/providers/alchemy'
 import { goerli, mainnet } from 'wagmi/chains'
 
@@ -20,4 +20,6 @@ export {
     WagmiConfig,
     wagmiConfig,
     projectId,
+    useAccount,
+    useSignMessage,
 }

@@ -1,77 +1,8 @@
 import { useState, useEffect } from 'react'
-import ButtZero from '../assets/0.png'
-import ButtOne from '../assets/1.png'
-import ButtTwo from '../assets/2.png'
-import ButtThree from '../assets/3.png'
-import ButtFour from '../assets/4.png'
-import ButtFive from '../assets/5.png'
 import SparkleOverlay from '../components/SparkleOverlay'
 import Logo from '../assets/lazybutts.png'
-
-const butts = [
-    ButtZero,
-    ButtOne,
-    ButtTwo,
-    ButtThree,
-    ButtFour,
-    ButtFive
-]
-
-const quotes = [
-    "Unleash the roar, claim your score!",
-    "Every lion deserves its pride. Claim yours now!",
-    "In the digital savannah, every lion finds its stride.",
-    "Claiming today keeps the FOMO away!",
-    "Where there's a lion, there's a roar. Make yours heard!",
-    "Paws, claim, roar! Dive into the NFT lore.",
-    "Let your digital pride shine, one claim at a time.",
-    "Become a part of the tale, where Lazy Lions prevail.",
-    "The art of claiming is just a click away.",
-    "Hear the digital roar? It's your Lazy Butt waiting to be explored!",
-    "Where 3D glasses gleam, your Lazy Butt is ready to beam!",
-    "From the plains of the 3D Kings, to your wallet it clings.",
-    "In the NFT jungle, let your Lazy Butt mingle!",
-    "The pride awaits, don’t hesitate. Claim your fate!",
-    "Roaring in 3D has never been this breezy!",
-    "Join the pride's stride, one Lazy Butt at a time.",
-    "Every claim is a roar in the vast NFT lore.",
-    "Your lion. Your claim. Your fame.",
-    "Today's claim is tomorrow's digital acclaim.",
-    "Let the Lazy Lions' vision be your claiming mission!",
-    "Unleash the roar, claim your lore!",
-    "Every lion deserves its distinguished half. Claim yours now.",
-    "Make your pride heard. Claim today!",
-    "A roar louder, with every claim you make.",
-    "Elevate your collection. Add a Lazy Butt to your pride.",
-    "In the world of NFTs, it's not just about owning; it's about belonging.",
-    "Roaring just got a little louder. Make your claim!",
-    "Add depth to your digital savannah. Claim your Lazy Butt.",
-    "Stay ahead in the digital jungle. Every claim counts.",
-    "3D Kings envision. You claim. Together, we roar louder.",
-    "Claiming isn't just an action; it's a statement. Make yours.",
-    "Pioneering the future of NFTs, one claim at a time.",
-    "Join the chorus of roaring lions. Start with a claim.",
-    "Your Lazy Lion awaits its better half. Don't keep it waiting.",
-    "By the vision of 3D Kings, make your claim felt in the digital wilderness."
-]
-
-const RandomQuote = () => {
-    const [quote, setQuote] = useState(quotes[0])
-
-    useEffect(() => {
-        const interval = setInterval(() => {
-            const randomIndex = Math.floor(Math.random() * quotes.length)
-            setQuote(quotes[randomIndex])
-        }, 10 * 1000)
-        return () => clearInterval(interval)
-    }, [])
-
-    return (
-        <p className="quote">{quote}</p>
-    )
-}
-
-const DummyLion = 'https://lazybutts.s3.amazonaws.com/public/images/small-lazy-lions/0.png'
+import { useAccount } from '../utils/w3m.js'
+import RandomQuote from '../components/RandomQuote'
 
 const MyLions = ({ lions, handleLionClick, selectedLions }) => {
     const lionList = lions.map(lion => {
@@ -92,22 +23,51 @@ const MyLions = ({ lions, handleLionClick, selectedLions }) => {
     )
 }
 
-const Claim = ({ isMobile }) => {
+const Silhouette = ({ lionId, isTwinkling }) => {
+    return (
+        <>
+            <div className="silhouette-card-image-top">
+                <img src={`https://lazybutts.s3.amazonaws.com/public/images/small-lazy-lions/${lionId}.png`} alt="lion" />
+            </div>
+            <div className="silhouette-card-image-bottom">
+                <SparkleOverlay
+                    baseImageUrl={`https://lazybutts.s3.amazonaws.com/public/images/silhouettes/${lionId}.png`}
+                    isTwinkling={isTwinkling}
+                />
+            </div>
+        </>
+    )
+}
+
+const Claim = ({ isMobile, setActivePage }) => {
+    const { address, isConnected } = useAccount()
     const [myLions, setMyLions] = useState([
-        { id: 0, name: 'Lion 0' },
-        { id: 1, name: 'Lion 1' },
-        { id: 2, name: 'Lion 2' },
-        { id: 3, name: 'Lion 3' },
-        { id: 4, name: 'Lion 4' },
-        { id: 5, name: 'Lion 5' }
+        // { id: 1 },
     ])
     const [selectedLions, setSelectedLions] = useState([])
     const [price, setPrice] = useState(0.02)
     const [totalPrice, setTotalPrice] = useState(0)
 
-    // useEffect(() => {
-    //     window.scrollTo(0, 0)
-    // }, [])
+    useEffect(() => {
+        setActivePage('claim')
+    }, [setActivePage])
+
+    useEffect(() => {
+        if (isConnected) {
+            const getLions = async () => {
+                const res = await fetch(`${import.meta.env.VITE_API_URL}/api/lions/${address}`)
+                let lions = []
+                const data = await res.json()
+                for (let i = 0; i < data.length; i++) {
+                    lions.push({id: data[i]})
+                }
+                if (data) {
+                    setMyLions(lions)
+                }
+            }
+            getLions()
+        }
+    }, [address, isConnected])
 
     useEffect(() => {
         let total = 0
@@ -116,150 +76,152 @@ const Claim = ({ isMobile }) => {
     }, [selectedLions, setTotalPrice])
 
     const handleLionClick = (lion) => {
-
-        // check for matching lion object by id in selectedLions
         const lionIndex = selectedLions.findIndex(l => l.id === lion.id)
         if (lionIndex === -1) {
-            // check if five lions already selected
             if (selectedLions.length === 5) {
                 return
             }
-            // if lion not found, add to selectedLions
             setSelectedLions([...selectedLions, lion])
         } else {
-            // if lion found, remove from selectedLions
             const newSelectedLions = selectedLions.filter(l => l.id !== lion.id)
             setSelectedLions(newSelectedLions)
         }
     }
 
-    const SillouetteContents = ({lionId, isTwinkling}) => {
-        return (
-            <>
-                <div className="sillouette-card-image-top">
-                    <img src={`https://lazybutts.s3.amazonaws.com/public/images/small-lazy-lions/${lionId}.png`} alt="lion" />
-                </div>
-                <div className="sillouette-card-image-bottom">
-                    <SparkleOverlay 
-                        baseImageUrl={butts[lionId]} 
-                        isTwinkling={isTwinkling}
-                    />
-                </div>
-            </>
-        )
-    }
+    
 
-        return (
-            <div className="claim">
-                <div className="main">
-                    <div className="claim-title">
-                        <h1>Claim Lazy Butts</h1>
+    return (
+        <div className="claim">
+            <div className="main">
+                <div className="claim-title">
+                    <h1>Claim Lazy Butts</h1>
+                </div>
+                <div className="claim-info">
+                    <p>Claiming your Lazy Butts NFTs is a straightforward process. Begin by selecting the Lazy Lion NFTs for which you'd like to claim Butts. After selection, click the "Claim Butts" button. Following this, you'll be asked to sign a transaction in order to claim your Butts.</p>
+                    <p>Upon transaction confirmation, your newly claimed Butts will appear in your wallet. Please make sure to revisit our website after claiming. Here, you can download your high-resolution Lazy Butts NFTs along with your full-body Lion NFTs and other exclusive items. However, note that full-body Lion downloads are only available if you own both the corresponding Lazy Lions and Lazy Butts NFTs.</p>
+                </div>
+                <div className="claim-area">
+                    <div className="claim-area-title">
+                        <h2>Pick Your Butt</h2>
                     </div>
-                    <div className="claim-info">
-                        <p>Claiming your Lazy Butts NFTs is a straightforward process. Begin by selecting the Lazy Lion NFTs for which you'd like to claim Butts. After selection, click the "Claim Butts" button. Following this, you'll be asked to sign a transaction in order to claim your Butts.</p>
-                        <p>Upon transaction confirmation, your newly claimed Butts will appear in your wallet. Please make sure to revisit our website after claiming. Here, you can download your high-resolution Lazy Butts NFTs along with your full-body Lion NFTs and other exclusive items. However, note that full-body Lion downloads are only available if you own both the corresponding Lazy Lions and Lazy Butts NFTs.</p>
-                    </div>
-                    <div className="claim-area">
-                        <div className="claim-area-title">
-                            <h2>Pick Your Butt</h2>
-                        </div>
-                        <div className="claim-area-main">
-                            <div className="claim-area-left">
-                                <div className="claim-area-left-title">
-                                    <h3>My Lazy Lions</h3>
-                                    <p style={{ color: selectedLions.length === 5 ? '#00caf8' : '#aaa' }}>{selectedLions.length}/5 selected</p>
-                                </div>
-                                <div className="claim-area-left-info">
-                                    <div className="my-lions-container">
+                    <div className="claim-area-main">
+                        <div className="claim-area-left">
+                            <div className="claim-area-left-title">
+                                <h3>My Lazy Lions</h3>
+                                {myLions.length > 0 && isConnected ?
+                                    <p style={{ color: selectedLions.length === 5 ? '#00caf8' : '#aaa', fontSize: "1rem" }}>{selectedLions.length === 5 ? `Max Lions Selected` : `Choose Your Lion(s)`}</p>
+                                    :
+                                    null
+                                }
+                            </div>
+                            <div className="claim-area-left-info">
+                                <div className="my-lions-container">
+                                    {isConnected && myLions.length === 0 ?
+                                        <div className="my-lions-empty">
+                                            <p>You don't own any Lazy Lions yet.</p>
+                                            <p>Head over to the <a href="https://opensea.io/collection/lazy-lions" target='_blank' rel="noreferrer">Lazy Lions OpenSea</a> page to find some.</p>
+                                        </div>
+                                        :
+                                        isConnected ?
                                         <MyLions
                                             lions={myLions}
                                             handleLionClick={handleLionClick}
                                             selectedLions={selectedLions}
                                         />
-                                    </div>
+                                        :
+                                        <div className="my-lions-empty">
+                                            <p>Connect your wallet to view your Lazy Lions.</p>
+                                        </div>
+                                    }
                                 </div>
                             </div>
-                            <div className="claim-area-middle">
-                                    <img src={Logo} alt="Lazy Butts" 
-                                        style={{
-                                            width: '100%',
-                                            maxWidth: '25%',
-                                            position: 'absolute',
-                                            opacity: selectedLions.length === 0 ? 1 : 0.15,
-                                        }}
+                        </div>
+                        <div className="claim-area-middle">
+                            <img src={Logo} alt="Lazy Butts"
+                                style={{
+                                    width: '100%',
+                                    maxWidth: '25%',
+                                    position: 'absolute',
+                                    opacity: selectedLions.length === 0 ? 1 : 0.15,
+                                }}
+                            />
+                            {selectedLions.length > 4 ?
+                                <div className="silhouette-card stacked-four">
+                                    <Silhouette
+                                        lionId={selectedLions[4].id}
+                                        isTwinkling={true}
                                     />
-                                {selectedLions.length > 4 ?
-                                    <div className="sillouette-card stacked-four">
-                                        <SillouetteContents
-                                            lionId={selectedLions[4].id}
-                                            isTwinkling={true}
-                                        />
-                                    </div>
-                                    :
-                                    null
-                                }
-                                {selectedLions.length > 3 ?
-                                    <div className="sillouette-card stacked-three">
-                                        <SillouetteContents
-                                            lionId={selectedLions[3].id}
-                                            isTwinkling={selectedLions.length < 5 ? true : false}
-                                        />
-                                    </div>
-                                    :
-                                    null
-                                }
-                                {selectedLions.length > 2 ?
-                                    <div className="sillouette-card stacked-two">
-                                        <SillouetteContents
-                                            lionId={selectedLions[2].id}
-                                            isTwinkling={selectedLions.length < 4 ? true : false}
-                                        />
-                                    </div>
-                                    :
-                                    null
-                                }
-                                {selectedLions.length > 1 ?
-                                    <div className="sillouette-card stacked-one">
-                                        <SillouetteContents
-                                            lionId={selectedLions[1].id}
-                                            isTwinkling={selectedLions.length < 3 ? true : false}
-                                        />
-                                    </div>
-                                    :
-                                    null
-                                }
-                                {selectedLions.length > 0 ?
-                                    <div className="sillouette-card">
-                                        <SillouetteContents
-                                            lionId={selectedLions[0].id}
-                                            isTwinkling={selectedLions.length < 2 ? true : false}
-                                        />
-                                    </div>
-                                    :
-                                    null}
+                                </div>
+                                :
+                                null
+                            }
+                            {selectedLions.length > 3 ?
+                                <div className="silhouette-card stacked-three">
+                                    <Silhouette
+                                        lionId={selectedLions[3].id}
+                                        isTwinkling={selectedLions.length < 5 ? true : false}
+                                    />
+                                </div>
+                                :
+                                null
+                            }
+                            {selectedLions.length > 2 ?
+                                <div className="silhouette-card stacked-two">
+                                    <Silhouette
+                                        lionId={selectedLions[2].id}
+                                        isTwinkling={selectedLions.length < 4 ? true : false}
+                                    />
+                                </div>
+                                :
+                                null
+                            }
+                            {selectedLions.length > 1 ?
+                                <div className="silhouette-card stacked-one">
+                                    <Silhouette
+                                        lionId={selectedLions[1].id}
+                                        isTwinkling={selectedLions.length < 3 ? true : false}
+                                    />
+                                </div>
+                                :
+                                null
+                            }
+                            {selectedLions.length > 0 ?
+                                <div className="silhouette-card">
+                                    <Silhouette
+                                        lionId={selectedLions[0].id}
+                                        isTwinkling={selectedLions.length < 2 ? true : false}
+                                    />
+                                </div>
+                                :
+                                null}
 
+                        </div>
+                        <div className="claim-area-right">
+                            <div className="claim-area-right-title">
+                                <h3>Claim Lazy Butts</h3>
+                                {myLions.length > 0 && isConnected ?
+                                    <p style={{ color: selectedLions.length === 5 ? '#00caf8' : '#aaa' }}>{selectedLions.length}/5 selected</p>
+                                    :
+                                    null
+                                }
                             </div>
-                            <div className="claim-area-right">
-                                <div className="claim-area-right-title">
-                                    <h3>Claim Lazy Butts</h3>
-                                </div>
-                                <div className="claim-area-right-info">
-                                    <p>{totalPrice} ETH</p>
-                                    <button>{selectedLions.length > 1 ? 'Claim Butts' : selectedLions.length > 0 ? 'Claim Butt' : 'Select Lions'}</button>
-                                    <p>
-                                        Lazy Butts are priced at {price} ETH each. You can claim up to 5 Butts per transaction.
-                                    </p>
-                                    <p>
-                                        Note that you must own the corresponding Lazy Lions NFTs in order to claim Lazy Butts.
-                                    </p>
-                                    <RandomQuote />
-                                </div>
+                            <div className="claim-area-right-info">
+                                <p>{totalPrice} ETH</p>
+                                <button>{selectedLions.length > 1 ? 'Claim Butts' : selectedLions.length > 0 ? 'Claim Butt' : 'Claim Butt'}</button>
+                                <p>
+                                    Lazy Butts are priced at {price} ETH each. You can claim up to 5 Butts per transaction.
+                                </p>
+                                <p>
+                                    Note that you must own the corresponding Lazy Lions NFTs in order to claim Lazy Butts.
+                                </p>
+                                <RandomQuote />
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        )
-    }
+        </div>
+    )
+}
 
-    export default Claim
+export default Claim

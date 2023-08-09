@@ -44,6 +44,13 @@
   }
 }
 
+.my-lions-empty {
+  background-color: #aaa;
+  padding: 1.5em;
+  will-change: filter, transform;
+  transition: filter 300ms, transform 300ms;
+}
+
 /* Hamburger menu styles */
 .hamburger-menu {
   position: fixed;
@@ -484,7 +491,7 @@ p {
   color: #333;
 }
 
-.sillouette-card {
+.silhouette-card {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -502,47 +509,47 @@ p {
   overflow: hidden;
 }
 
-.sillouette-card.stacked-one {
+.silhouette-card.stacked-one {
   position: absolute;
   transform: translate(-2%, -2%);
   transition: all 300ms ease;
   z-index: 1;
 }
 
-.sillouette-card.stacked-two {
+.silhouette-card.stacked-two {
   position: absolute;
   transform: translate(-4%, -4%);
   transition: all 300ms ease;
   z-index: 2;
 }
 
-.sillouette-card.stacked-three {
+.silhouette-card.stacked-three {
   position: absolute;
   transform: translate(-6%, -6%);
   transition: all 300ms ease;
   z-index: 3;
 }
 
-.sillouette-card.stacked-four {
+.silhouette-card.stacked-four {
   position: absolute;
   transform: translate(-8%, -8%);
   transition: all 300ms ease;
   z-index: 4;
 }
 
-.sillouette-card.stacked-five {
+.silhouette-card.stacked-five {
   position: absolute;
   transform: translate(-10%, -10%);
   transition: all 300ms ease;
   z-index: 5;
 }
 
-.sillouette-card-image-top img {
+.silhouette-card-image-top img {
   height: 100%;
   width: 100%;
 }
 
-.sillouette-card-image-bottom img {
+.silhouette-card-image-bottom img {
   height: 100%;
   width: 100%;
 }
@@ -594,16 +601,16 @@ p {
   padding: 1rem;
   margin: 1rem;
   border-radius: 0.5em;
-  box-shadow: 0px 0px 5px #333;
+  /* box-shadow: 0px 0px 5px #333; */
   max-width: 200px;
-  background-color: #eee;
+  /* background-color: #eee; */
   min-height: 310px;
-  box-shadow: 5px 5px 5px #ff2b06, -5px -5px 5px #00caf8;
   transition: all 300ms ease;
+  cursor: pointer;
 }
 
 .buttCard:hover {
-  box-shadow: -5px -5px 5px #ff2b06, 5px 5px 5px #00caf8;
+  transform: scale(1.1);
   transition: all 300ms ease;
 }
 
@@ -611,6 +618,171 @@ p {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-gap: 1rem;
+}
+
+.buttModalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.75);
+  width: 100vw;
+  height: 100vh;
+  z-index: 99;
+}
+
+.buttModal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #111;
+  border: 3px solid #eee;
+  padding: 1rem;
+  border-radius: 0.5em;
+  z-index: 100;
+}
+
+.buttModalClose {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 0.5rem;
+  right: 0.5rem;
+  padding: 0 0.2rem;
+  border-radius: 0.2em;
+  cursor: pointer;
+  background-color: red;
+}
+
+.buttModalCloseInner {
+  color: white;
+  font-weight: bold;
+  line-height: 1rem;
+}
+
+.downloadButton {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin: 0.5rem;
+  border-radius: 0.5em;
+  background-color: #333;
+  color: white;
+  z-index: 0;
+  transition: all 300ms ease;
+  overflow: hidden;
+}
+
+.downloadButtonInnerFirst {
+  width: 100%;
+  cursor: pointer;
+  font-family: 'Permanent Marker', cursive;
+}
+
+.downloadButtonInner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.5rem;
+  border-left: 1px solid #111;
+  border-radius: 0.5em;
+  background-color: #222;
+  color: white;
+  cursor: pointer;
+  z-index: 0;
+  transition: all 300ms ease;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.downloadButtonLabel {
+  font-size: 1rem;
+  font-weight: bold;
+  margin-left: 0.5rem;
+  color: #eee;
+}
+
+.downloadButtonIcon {
+  font-size: 1.5rem;
+  cursor: default;
+  color: #eee;
+}
+
+.downloadButtonDropdown {
+  position: absolute;
+  visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  top: 0;
+  left: 100%;
+  height: 100%;
+  border-radius: 0.5em;
+  background-color: #333;
+  border: 3px solid #eee;
+  color: white;
+  cursor: pointer;
+  z-index: 0;
+  transition: all 300ms ease;
+  transform: translateY(-3px);
+  overflow: hidden;
+}
+
+.downloadButtonDropdown.open {
+  visibility: visible;
+  transition: all 300ms ease;
+}
+
+
+.downloadButtonDropdownItem {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 0.5rem;
+  margin: 0.5rem;
+  border-radius: 0.5em;
+  background-color: #111;
+  cursor: pointer;
+  z-index: 0;
+  /* box-shadow: 3px 3px 3px #ff2b06, -3px -3px 3px #00caf8; */
+  transition: all 300ms ease;
+  overflow: hidden;
+}
+
+.message {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  margin: 1rem;
+  max-width: 500px;
+  border-radius: 0.5em;
+  background-color: #333;
+  color: white;
+  z-index: 0;
+  transition: all 300ms ease;
+  overflow-wrap: anywhere;
+  overflow: hidden;
+}
+
+.signature {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  margin: 1rem;
+  max-width: 500px;
+  border-radius: 0.5em;
+  background-color: #333;
+  color: white;
+  z-index: 0;
+  transition: all 300ms ease;
+  overflow-wrap: anywhere;
+  overflow: hidden;
 }
 
 #walletButton {
