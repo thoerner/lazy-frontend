@@ -257,7 +257,7 @@ const MyButts = ({ setActivePage, authenticated, setAuthenticated }) => {
     useEffect(() => {
         if (!token) return
         setMessage(
-            `You must sign this message to prove ownership of your wallet address.\nBy signing this message, you agree to [Your App's Name]'s Terms of Service and acknowledge that we use cookies to keep you logged in.\n${token}`
+            `You must sign this message to prove ownership of your wallet address.\nBy signing this message, you agree to Lazy Butt's Terms of Service and acknowledge that we use cookies to keep you logged in.\n${token}`
         )
         setShouldSignMessage(true)
     }, [token])
