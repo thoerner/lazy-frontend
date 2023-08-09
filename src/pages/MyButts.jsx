@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react"
 import { useAccount, useSignMessage } from "../utils/w3m.js"
+import { Link } from "react-router-dom"
 import WalletConnectButton from "../components/WalletConnectButton.jsx"
 import Cookies from 'js-cookie'
 
@@ -145,13 +146,7 @@ const MyButts = ({ setActivePage, authenticated, setAuthenticated }) => {
     const [myLions, setMyLions] = useState([
         // { id: 1 },
     ])
-    const [myButts, setMyButts] = useState([
-        { id: 1 },
-        { id: 2 },
-        { id: 3 },
-        { id: 4 },
-        { id: 5 },
-    ])
+    const [myButts, setMyButts] = useState([])
     const [selectedLions, setSelectedLions] = useState([])
     const [price, setPrice] = useState(0.02)
     const [totalPrice, setTotalPrice] = useState(0)
@@ -187,7 +182,7 @@ const MyButts = ({ setActivePage, authenticated, setAuthenticated }) => {
                     path: '/',
                     secure: true,
                     sameSite: 'strict'
-                  });
+                });
             } else {
                 setAuthenticated(false)
             }
@@ -233,7 +228,7 @@ const MyButts = ({ setActivePage, authenticated, setAuthenticated }) => {
     }, [data, isError, isLoading, isSuccess])
 
     useEffect(() => {
-        if (authenticated) return
+        if (authenticated || myButts.length === 0) return
         if (shouldSignMessage) {
             signMessage();
             setShouldSignMessage(false);
@@ -277,7 +272,7 @@ const MyButts = ({ setActivePage, authenticated, setAuthenticated }) => {
                 }
                 if (data) {
                     setMyLions(lions)
-                    // setMyButts(lions) // TODO: fix this
+                    setMyButts(lions) // TODO: fix this
                 }
             }
             getLions()
@@ -296,13 +291,24 @@ const MyButts = ({ setActivePage, authenticated, setAuthenticated }) => {
                     <p>
                         To view your Lazy Butts, please connect your wallet.
                     </p>
-                    <br/>
+                    <br />
                     <WalletConnectButton />
                 </div>
             )}
-            {isConnected && authenticated ? (
+            {isConnected && myButts.length === 0 ? (
+                <div className="connectMessage">
+                    <p>
+                        You don't have any Lazy Butts yet.
+                    </p>
+                    <br />
+                    <Link to="/claim">
+                        <button className="button">Claim a Lazy Butt</button>
+                    </Link>
+                </div>
+            ) : null}
+            {isConnected && authenticated && myButts.length > 0 ? (
                 <ButtGrid butts={myButts} />
-            ) : isConnected ? (
+            ) : isConnected && myButts.length > 0 ? (
                 <div className="signMessage">
                     <p>
                         To view your Lazy Butts, please sign a message with your wallet.

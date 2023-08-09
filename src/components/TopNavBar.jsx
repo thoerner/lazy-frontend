@@ -38,7 +38,7 @@ const TopNavBar = ({ isMobile, activePage, setActivePage }) => {
     const pageDict = {
         'home': '/',
         'claim': '/claim',
-        'mybutts': '/butts'
+        'butts': '/butts'
     }
 
     const onLinkClick = (e) => {
@@ -67,7 +67,7 @@ const TopNavBar = ({ isMobile, activePage, setActivePage }) => {
         <>
             <MenuLink link='home' text='Home' />
             <MenuLink link='claim' text='Claim my Butts' />
-            <MenuLink link='mybutts' text='My Assets' />
+            <MenuLink link='butts' text='My Assets' />
             <span className="dropdown">
                 <span className="dropbtn" onClick={toggleDropdown}>OpenSea</span>
                 <span className="dropdown-content">
