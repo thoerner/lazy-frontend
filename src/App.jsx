@@ -1,4 +1,5 @@
 import { createBrowserRouter, Link, Route, RouterProvider, Routes } from 'react-router-dom'
+import { Toaster } from 'react-hot-toast'
 import Home from './pages/Home.jsx'
 import Claim from './pages/Claim.jsx'
 import MyButts from './pages/MyButts.jsx'
@@ -26,6 +27,7 @@ function Root() {
   return (
     <div className="app">
       <WagmiConfig config={wagmiConfig} >
+        <Toaster />
         <TopNavBar isMobile={isMobile} setActivePage={setActivePage} activePage={activePage} />
         <Routes>
           <Route path="/" element={<Home isMobile={isMobile} />} />

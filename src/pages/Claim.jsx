@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react'
+import { useNavigate, Link } from 'react-router-dom'
 import SparkleOverlay from '../components/SparkleOverlay'
 import Logo from '../assets/lazybutts.png'
 import EmptyLion from '../assets/lion-silhouette.png'
 import { useAccount } from '../utils/w3m.js'
 import RandomQuote from '../components/RandomQuote'
+import toast from 'react-hot-toast'
 
 const MyLions = ({ lions, handleLionClick, selectedLions }) => {
     const lionList = lions.map(lion => {
@@ -64,7 +66,7 @@ const Claim = ({ isMobile, setActivePage }) => {
                 let lions = []
                 const data = await res.json()
                 for (let i = 0; i < data.length; i++) {
-                    lions.push({id: data[i]})
+                    lions.push({ id: data[i] })
                 }
                 if (data) {
                     setMyLions(lions)
@@ -93,7 +95,37 @@ const Claim = ({ isMobile, setActivePage }) => {
         }
     }
 
-    
+    const handleClaimButtClick = async () => {
+        if (selectedLions.length < 1) {
+            toast.error('Please select at least one Lazy Lion.')
+            return
+        }
+        const body = {
+            address,
+            lions: selectedLions.map(l => l.id)
+        }
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/api/claim`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(body)
+        })
+        const data = await res.json()
+        if (data.error) {
+            toast.error(data.error)
+            return
+        }
+        toast.success(<div>Butts claimed!<br /><br />
+            <Link to="/butts">
+                <button
+                    onClick={() => {
+                        toast.dismiss()
+                    }}
+                >Check Out My Butts</button></Link></div>)
+        setSelectedLions([])
+    }
+
 
     return (
         <div className="claim">
@@ -125,19 +157,19 @@ const Claim = ({ isMobile, setActivePage }) => {
                                         <div className="my-lions-empty">
                                             <p>You don't own any Lazy Lions yet.</p>
                                             <p>Head over to the <a href="https://opensea.io/collection/lazy-lions" target='_blank' rel="noreferrer">Lazy Lions OpenSea</a> page to find some.</p>
-                                            <img src={EmptyLion} alt="Empty Lion" style={{maxWidth: '250px'}}/>
+                                            <img src={EmptyLion} alt="Empty Lion" style={{ maxWidth: '250px' }} />
                                         </div>
                                         :
                                         isConnected ?
-                                        <MyLions
-                                            lions={myLions}
-                                            handleLionClick={handleLionClick}
-                                            selectedLions={selectedLions}
-                                        />
-                                        :
-                                        <div className="my-lions-empty">
-                                            <p>Connect your wallet to view your Lazy Lions.</p>
-                                        </div>
+                                            <MyLions
+                                                lions={myLions}
+                                                handleLionClick={handleLionClick}
+                                                selectedLions={selectedLions}
+                                            />
+                                            :
+                                            <div className="my-lions-empty">
+                                                <p>Connect your wallet to view your Lazy Lions.</p>
+                                            </div>
                                     }
                                 </div>
                             </div>
@@ -213,11 +245,11 @@ const Claim = ({ isMobile, setActivePage }) => {
                             </div>
                             <div className="claim-area-right-info">
                                 <p>{totalPrice} ETH</p>
-                                <button>{selectedLions.length > 1 ? 'Claim Butts' : selectedLions.length > 0 ? 'Claim Butt' : 'Claim Butt'}</button>
-                                <p style={{fontSize: '0.8rem'}}>
+                                <button onClick={handleClaimButtClick}>{selectedLions.length > 1 ? 'Claim Butts' : selectedLions.length > 0 ? 'Claim Butt' : 'Claim Butt'}</button>
+                                <p style={{ fontSize: '0.8rem' }}>
                                     Lazy Butts are priced at {price} ETH each. You can claim up to 5 Butts per transaction.
                                 </p>
-                                <p style={{fontSize: '0.8rem'}}>
+                                <p style={{ fontSize: '0.8rem' }}>
                                     Note that you must own the corresponding Lazy Lions NFTs in order to claim Lazy Butts.
                                 </p>
                                 <RandomQuote />
