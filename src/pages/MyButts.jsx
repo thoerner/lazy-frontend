@@ -146,7 +146,9 @@ const MyButts = ({ setActivePage, authenticated, setAuthenticated }) => {
     const [myLions, setMyLions] = useState([
         // { id: 1 },
     ])
-    const [myButts, setMyButts] = useState([])
+    const [myButts, setMyButts] = useState([
+        // { id: 1 },
+    ])
     const [selectedLions, setSelectedLions] = useState([])
     const [price, setPrice] = useState(0.02)
     const [totalPrice, setTotalPrice] = useState(0)

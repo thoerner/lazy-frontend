@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import SparkleOverlay from '../components/SparkleOverlay'
 import Logo from '../assets/lazybutts.png'
+import EmptyLion from '../assets/lion-silhouette.png'
 import { useAccount } from '../utils/w3m.js'
 import RandomQuote from '../components/RandomQuote'
 
@@ -47,6 +48,10 @@ const Claim = ({ isMobile, setActivePage }) => {
     const [selectedLions, setSelectedLions] = useState([])
     const [price, setPrice] = useState(0.02)
     const [totalPrice, setTotalPrice] = useState(0)
+
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [])
 
     useEffect(() => {
         setActivePage('claim')
@@ -120,6 +125,7 @@ const Claim = ({ isMobile, setActivePage }) => {
                                         <div className="my-lions-empty">
                                             <p>You don't own any Lazy Lions yet.</p>
                                             <p>Head over to the <a href="https://opensea.io/collection/lazy-lions" target='_blank' rel="noreferrer">Lazy Lions OpenSea</a> page to find some.</p>
+                                            <img src={EmptyLion} alt="Empty Lion" style={{maxWidth: '250px'}}/>
                                         </div>
                                         :
                                         isConnected ?
@@ -208,10 +214,10 @@ const Claim = ({ isMobile, setActivePage }) => {
                             <div className="claim-area-right-info">
                                 <p>{totalPrice} ETH</p>
                                 <button>{selectedLions.length > 1 ? 'Claim Butts' : selectedLions.length > 0 ? 'Claim Butt' : 'Claim Butt'}</button>
-                                <p>
+                                <p style={{fontSize: '0.8rem'}}>
                                     Lazy Butts are priced at {price} ETH each. You can claim up to 5 Butts per transaction.
                                 </p>
-                                <p>
+                                <p style={{fontSize: '0.8rem'}}>
                                     Note that you must own the corresponding Lazy Lions NFTs in order to claim Lazy Butts.
                                 </p>
                                 <RandomQuote />

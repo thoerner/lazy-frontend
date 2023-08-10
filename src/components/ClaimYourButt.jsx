@@ -1,8 +1,11 @@
+import { Link } from 'react-router-dom'
+
 const ClaimYourButt = () => {
     return (
         <div className="card marker">
             👇 Claim your Lazy Butt! 👇<br /><br />
-            <button>Add Sass to My Lion's...!</button>
+            <Link to="/claim">
+            <button>Add Sass to My Lion's...!</button></Link>
         </div>
     )
 }

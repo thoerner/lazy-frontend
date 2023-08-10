@@ -271,6 +271,16 @@
   color: #555;
 }
 
+.team-info a {
+  color: #555;
+  text-decoration: none;
+  transition: all 300ms;
+}
+
+.team-info a:hover {
+  color: white;
+}
+
 .team-members {
   display: flex; 
   flex-direction: row; 
@@ -307,7 +317,6 @@
   font-size: 1.5rem;
   font-weight: bold;
   margin-top: 0.5rem;
-  cursor: default;
 }
 
 /* Team member role styles */
@@ -382,8 +391,8 @@ p {
   min-width: 300px;
   width: 33%;
   background-color: #000;
-  min-height: 310px;
-  max-height: calc(75vh - 2rem);
+  min-height: calc(600px);
+  max-height: calc(600px);
   /* box-shadow: 5px 5px 5px #ff2b06, -5px -5px 5px #00caf8; */
   transition: all 300ms ease;
   overflow: hidden;
@@ -476,8 +485,8 @@ p {
   min-width: 300px;
   width: 33%;
   background-color: #000;
-  min-height: calc(75vh - 4rem);
-  max-height: calc(75vh - 4rem);
+  min-height: calc(600px - 2rem);
+  max-height: calc(600px - 2rem);
   /* box-shadow: 5px 5px 5px #ff2b06, -5px -5px 5px #00caf8; */
   transition: all 300ms ease;
   overflow: hidden;
@@ -565,11 +574,11 @@ p {
   box-shadow: 0px 0px 5px #333;
   /* max-width: 200px; */
   /* min-width: 300px; */
-  width: 20%;
-  min-width: 300px;
+  width: 17%;
+  /* min-width: 300px; */
   background-color: #000;
-  min-height: calc(75vh - 4rem);
-  max-height: 100%;
+  min-height: calc(600px - 2rem);
+  max-height: calc(600px - 2rem);
   /* box-shadow: 5px 5px 5px #ff2b06, -5px -5px 5px #00caf8; */
   transition: all 300ms ease;
   overflow: hidden;
@@ -591,6 +600,9 @@ p {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+.claim-area-right-info p {
+  margin: 0.8rem;
 }
 
 .buttCard {
