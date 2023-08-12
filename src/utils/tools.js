@@ -15,3 +15,7 @@ export const useIsMobile = () => {
 export const shortAddress = (address) => {
   return address.slice(0, 6) + '...' + address.slice(-4)
 }
+
+export const getButtImageUrl = (buttId) => {
+  return `https://lazybutts.s3.amazonaws.com/public/images/silhouettes/${buttId}.png`
+}

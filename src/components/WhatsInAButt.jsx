@@ -1,4 +1,4 @@
-import HowToBuildAButt from '../assets/how-to-build-a-butt.jpeg'
+import HowToBuildAButt from '../assets/traits-explained.png'
 
 const WhatsInAButt = ({ isMobile }) => {
     return (

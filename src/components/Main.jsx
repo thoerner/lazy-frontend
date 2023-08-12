@@ -11,7 +11,7 @@ const Main = ({ isMobile }) => {
     return (
         <div className="main">
             <ButtLogo isMobile={isMobile} />
-            <ButtGif />
+            <ButtGif isMobile={isMobile} />
             <BehindTheTail />
             <WhatsInAButt isMobile={isMobile} />
             <ClaimYourButt />

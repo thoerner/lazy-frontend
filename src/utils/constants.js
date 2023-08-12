@@ -1,0 +1,1 @@
+export const MESSAGE_PREFIX = `You must sign this message to prove ownership of your wallet address.\nBy signing this message, you agree to Lazy Butt's Terms of Service and acknowledge that we use cookies to keep you logged in.\n`

@@ -1,190 +1,52 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useCallback } from "react"
 import { useAccount, useSignMessage } from "../utils/w3m.js"
-import { Link } from "react-router-dom"
-import WalletConnectButton from "../components/WalletConnectButton.jsx"
-import Cookies from 'js-cookie'
-
-const SESSION_EXPIRY_TIME = 3600; // 1 hour in seconds
-
-const DownloadButton = ({ butt }) => {
-    const [fullResButtUrl, setFullResButtUrl] = useState('')
-    const [fullBodyUrl, setFullBodyUrl] = useState('')
-    const [twitterFriendlyUrl, setTwitterFriendlyUrl] = useState('')
-    const [dropdownOpen, setDropdownOpen] = useState(false)
-
-    const handleDropdownClick = () => {
-        setDropdownOpen(!dropdownOpen)
-    }
-
-    const handleDownloadClick = () => {
-        setDropdownOpen(false)
-    }
-
-    // download button with dropdown menu
-    return (
-        <div className="downloadButton">
-            <div className="downloadButtonInnerFirst"
-                onClick={handleDownloadClick}
-            ><a href="#">Download</a></div>
-            <div className="downloadButtonInner"
-                onClick={handleDropdownClick}
-            >
-                <div className="downloadButtonIcon">
-                    <i className="fas fa-download"></i>
-                </div>
-                <div className="downloadButtonLabel">
-                    {dropdownOpen ? '<' : '>'}
-                </div>
-            </div>
-            <div className={`downloadButtonDropdown ${dropdownOpen ? 'open' : null}`}>
-                <div className="downloadButtonDropdownItem">
-                    <a href={fullResButtUrl} download>
-                        Full Resolution Butt
-                    </a>
-                </div>
-                <div className="downloadButtonDropdownItem">
-                    <a href={fullBodyUrl} download>
-                        Full Body
-                    </a>
-                </div>
-                <div className="downloadButtonDropdownItem">
-                    <a href={twitterFriendlyUrl} download>
-                        Twitter Friendly
-                    </a>
-                </div>
-            </div>
-        </div>
-    )
-}
-
-const ButtModal = ({ butt, setModalOpen }) => {
-
-    useEffect(() => {
-        const handleEscape = (e) => {
-            if (e.key === 'Escape') {
-                setModalOpen(false)
-            }
-        }
-        window.addEventListener('keydown', handleEscape)
-        return () => {
-            window.removeEventListener('keydown', handleEscape)
-        }
-    }, [setModalOpen])
-
-    const handleModalClose = () => {
-        setModalOpen(false)
-    }
-
-    return (
-        <>
-            <div className="buttModalOverlay"></div>
-            <div className="buttModal">
-                <div className="buttModalContent">
-                    <div className="buttModalClose"
-                        onClick={handleModalClose}
-                    >
-                        <div className="buttModalCloseInner">
-                            x
-                        </div>
-                    </div>
-                    <h3>Butt #{butt.id}</h3>
-                    <img src={`https://lazybutts.s3.amazonaws.com/public/images/silhouettes/${butt.id}.png`} alt="Lazy Butts" />
-                    <DownloadButton butt={butt} />
-                </div>
-            </div>
-        </>
-    )
-}
-
-const ButtCard = ({ butt }) => {
-    const [modalOpen, setModalOpen] = useState(false)
-
-    const handleButtClick = () => {
-        setModalOpen(true)
-    }
-
-
-    return (
-        <>
-            {modalOpen && <ButtModal butt={butt} setModalOpen={setModalOpen} />}
-            <div className="buttCard">
-                <i
-                    className="fas fa-butt"
-                    style={{ fontSize: "100px", color: "white" }}
-                ></i>
-                <h3>Butt #{butt.id}</h3>
-                <img src={`https://lazybutts.s3.amazonaws.com/public/images/silhouettes/${butt.id}.png`} alt="Lazy Butts"
-                    onClick={handleButtClick}
-                />
-            </div>
-        </>
-    )
-}
-
-const ButtGrid = ({ butts }) => {
-
-    const buttCards = butts.map((butt) => {
-        return (
-            <ButtCard butt={butt} key={butt.id} />
-        )
-    })
-
-    return (
-        <div className="buttGrid">
-            {buttCards}
-        </div>
-    )
-}
+import { getButts, verifySignature, getToken, checkSignature } from "../utils/api.js"
+import { getSessionToken, createSessionToken } from "../utils/session.js"
+import { MESSAGE_PREFIX } from "../utils/constants.js"
+import { SignMessage, ClaimMessage, ConnectMessage } from "../components/ButtMessages.jsx"
+import ButtGrid from "../components/ButtGrid.jsx"
 
 const MyButts = ({ setActivePage, authenticated, setAuthenticated }) => {
     const [token, setToken] = useState('')
     const [message, setMessage] = useState('')
-    const [shouldSignMessage, setShouldSignMessage] = useState(false)
+    const [signingMessage, setSigningMessage] = useState(false)
+    const [retrySign, setRetrySign] = useState(false)
     const [signature, setSignature] = useState('')
     const { address, isConnected } = useAccount()
     const [sessionToken, setSessionToken] = useState()
-    const [myLions, setMyLions] = useState([
-        // { id: 1 },
-    ])
-    const [myButts, setMyButts] = useState([
-        // { id: 1 },
-    ])
-    const [selectedLions, setSelectedLions] = useState([])
-    const [price, setPrice] = useState(0.02)
-    const [totalPrice, setTotalPrice] = useState(0)
-
+    const [myButts, setMyButts] = useState([])
     const { data, isError, isLoading, isSuccess, signMessage } = useSignMessage({ message })
 
+    // Determine whether to request a message signature.
+    const shouldRequestSignMessage = () => {
+        return !authenticated && myButts.length > 0 && token && !signingMessage
+    }
+
+    // Handle the sign message button click.
+    const handleSignClick = useCallback(() => {
+        setSigningMessage(false);
+        setRetrySign(prev => !prev);
+    }, []);
+
+    // Initialize session token from local storage on component mount.
     useEffect(() => {
-        const sessionToken = Cookies.get('sessionToken')
+        const sessionToken = getSessionToken()
         if (sessionToken) {
             setSessionToken(sessionToken)
         }
     }, [])
 
+    // After a session token is set or the address changes, verify its validity.
     useEffect(() => {
-        // check if sessionToken is valid using api
         const checkSessionToken = async () => {
             const params = {
                 address,
                 sessionToken
             }
-            const res = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/check`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(params)
-            })
-            const data = await res.json()
+            const data = await checkSignature(params)
             if (data.success) {
                 setAuthenticated(true)
-                Cookies.set('sessionToken', sessionToken, {
-                    expires: SESSION_EXPIRY_TIME / (24 * 60 * 60),  // Convert to days for js-cookie
-                    path: '/',
-                    secure: true,
-                    sameSite: 'strict'
-                });
+                createSessionToken(sessionToken)
             } else {
                 setAuthenticated(false)
             }
@@ -194,143 +56,87 @@ const MyButts = ({ setActivePage, authenticated, setAuthenticated }) => {
         }
     }, [sessionToken, address])
 
+    // Once a signature is provided, verify it to authenticate the user.
     useEffect(() => {
         if (authenticated) return
-        if (signature) {
-            // send signature to api
-            const verifySignature = async () => {
-                const params = {
-                    token,
-                    signature,
-                    address
-                }
-                const res = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/verify`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(params)
-                })
-                const data = await res.json()
-                if (data.success) {
-                    setAuthenticated(true)
-                    setSessionToken(data.sessionToken)
-                } else {
-                    setAuthenticated(false)
-                }
+        const verify = async (token, signature, address) => {
+            const data = await verifySignature(token, signature, address)
+            if (data.success) {
+                setAuthenticated(true)
+                setSessionToken(data.sessionToken)
+            } else {
+                setAuthenticated(false)
             }
-            verifySignature()
+        }
+        if (signature) {
+            verify(token, signature, address)
         }
     }, [signature])
 
+    // Update the signature state once the signing process succeeds.
     useEffect(() => {
         if (isSuccess) {
             setSignature(data)
         }
     }, [data, isError, isLoading, isSuccess])
 
+    // Request message signing based on certain conditions.
     useEffect(() => {
-        if (authenticated || myButts.length === 0) return
-        if (shouldSignMessage) {
-            signMessage();
-            setShouldSignMessage(false);
+        if (shouldRequestSignMessage()) {
+            setSigningMessage(true)
+            signMessage()
+            setSigningMessage(false)
         }
-    }, [shouldSignMessage])
+    }, [token, myButts, authenticated, signingMessage, retrySign])
 
+    // When the user connects their account, fetch their associated tokens and butts.
     useEffect(() => {
-        if (isConnected) {
-            // fetch token from api
-            const getToken = async () => {
-                const res = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/token?address=${address}`)
-                const data = await res.json()
-                if (data) {
-                    setToken(data.token)
-                }
+        const fetchToken = async (address) => {
+            const data = await getToken(address)
+            if (data) {
+                setToken(data)
             }
-            getToken()
+        }
+        const fetchButts = async (address) => {
+            const butts = []
+            const data = await getButts(address)
+            for (let i = 0; i < data.length; i++) {
+                butts.push({ id: data[i] })
+            }
+            if (data) {
+                setMyButts(butts)
+            }
+        }
+        if (isConnected) {
+            fetchButts(address)
+            fetchToken(address)
         }
     }, [isConnected, address])
 
+    // Formulate the message for signing based on the token.
     useEffect(() => {
         if (!token) return
-        setMessage(
-            `You must sign this message to prove ownership of your wallet address.\nBy signing this message, you agree to Lazy Butt's Terms of Service and acknowledge that we use cookies to keep you logged in.\n${token}`
-        )
-        setShouldSignMessage(true)
+        setMessage(`${MESSAGE_PREFIX}${token}`)
     }, [token])
 
+    // Set the active page to 'butts' when the component is rendered.
     useEffect(() => {
         setActivePage('butts')
     }, [setActivePage])
 
-    useEffect(() => {
-        if (isConnected) {
-            const getLions = async () => {
-                const res = await fetch(`${import.meta.env.VITE_API_URL}/api/lions/${address}`)
-                let lions = []
-                const data = await res.json()
-                for (let i = 0; i < data.length; i++) {
-                    lions.push({ id: data[i] })
-                }
-                if (data) {
-                    setMyLions(lions)
-                    setMyButts(lions) // TODO: fix this
-                }
-            }
-            getLions()
-        }
-    }, [address, isConnected])
+    // Render the appropriate content based on the user's state.
+    const renderContent = () => {
+        if (!isConnected) return <ConnectMessage />
+        if (isConnected && myButts.length === 0) return <ClaimMessage />
+        if (isConnected && !authenticated && myButts.length > 0) return <SignMessage handleSignClick={handleSignClick} />
 
-    const handleSignClick = () => {
-        setShouldSignMessage(true)
+        return <ButtGrid butts={myButts} />
     }
 
     return (
         <div>
             <h1>My Lazy Butts</h1>
-            {!isConnected && (
-                <div className="connectMessage">
-                    <p>
-                        To view your Lazy Butts, please connect your wallet.
-                    </p>
-                    <br />
-                    <WalletConnectButton />
-                </div>
-            )}
-            {isConnected && myButts.length === 0 ? (
-                <div className="connectMessage">
-                    <p>
-                        You don't have any Lazy Butts yet.
-                    </p>
-                    <br />
-                    <Link to="/claim">
-                        <button className="button">Claim a Lazy Butt</button>
-                    </Link>
-                </div>
-            ) : null}
-            {isConnected && authenticated && myButts.length > 0 ? (
-                <ButtGrid butts={myButts} />
-            ) : isConnected && myButts.length > 0 ? (
-                <div className="signMessage">
-                    <p>
-                        To view your Lazy Butts, please sign a message with your wallet.
-                    </p>
-                    <p>
-                        <button
-                            className="button"
-                            onClick={handleSignClick}
-                        >Sign Message</button>
-                    </p>
-                    {/* <div className="message">
-                        <p>Message:</p>
-                        {message}
-                    </div>
-                    <div className="signature">
-                        <p>Signature:</p>
-                        {signature}
-                    </div> */}
-                </div>
-            ) : null}
+            {renderContent()}
         </div>
     )
 }

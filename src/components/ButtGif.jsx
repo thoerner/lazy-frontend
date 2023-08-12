@@ -1,7 +1,9 @@
-const ButtGif = () => {
+import LBHeader from '../assets/LB-header.jpg'
+
+const ButtGif = ({isMobile}) => {
     return (
-        <div className="card" style={{ width: '300px', height: '300px', display: 'flex', alignItems: 'center' }}>
-            <span className="marker" style={{ margin: '0 auto' }}>Lazy Butts GIF</span>
+        <div className="card">
+            <img src={LBHeader} className="header-image" alt="Header image" />
         </div>
     )
 }

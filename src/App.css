@@ -165,6 +165,13 @@
   max-width: 100%;
 }
 
+.header-image {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  max-width: 100%;
+}
+
 .howto {
   height: 100vw;
 }
@@ -174,6 +181,12 @@
     position: relative;
     left: auto;
     max-width: 100%;
+    border-radius: 0.5em;
+  }
+  .header-image {
+    position: relative;
+    left: auto;
+    max-width: 50vw;
     border-radius: 0.5em;
   }
 }
@@ -441,6 +454,7 @@ p {
 }
 
 .my-lion {
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -457,19 +471,66 @@ p {
 }
 
 .my-lion.selected {
-  /* background-color: #333; */
-  /* color: white; */
-  /* box-shadow: 5px 5px 5px #ff2b06, -5px -5px 5px #00caf8; */
   transition: all 300ms ease;
-  border: 3px solid #d6b33a;
+  border: 3px solid #00caf8;
 }
 
+.my-lion.claimed {
+  transition: all 300ms ease;
+  /* border: 3px solid #ff2b06; */
+}
+
+.my-lion.claimed:active {
+  box-shadow: 0 0 10px #ff2b06aa;
+}
+
+
+.overlay-container {
+  display: inline-block; /* or block, depending on your need */
+  width: 100%; /* adjust as needed */
+  max-width: 200px; /* adjust as needed */
+}
+
+.hover-image {
+  width: 100%; /* make sure the image stretches to fill its container */
+  height: auto;
+  display: block;
+}
+
+.overlay-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.5); /* semi-transparent black */
+  color: white;
+  padding: 10px; /* adjust as needed */
+  text-align: center;
+  border-radius: 3px; /* optional rounded corners */
+}
+
+
+.hover-image {
+  display: none;
+}
+
+.my-lion.claimed:hover .default-image {
+  display: none;
+}
+
+.my-lion.claimed:hover .hover-image {
+  display: block;
+}
+
+
 .my-lion img {
-  /* margin-right: 1rem; */
-  /* margin-left: 1rem; */
+  /* position:absolute;
+  top:0;
+  left:0; */
   max-width: 190px;
   border-radius: 0.5em;
   box-shadow: 0px 0px 5px #333;
+  transition: 0.3s; /* Optional: for a smooth transition */
 }
 
 .claim-area-middle {
@@ -673,6 +734,32 @@ p {
   line-height: 1rem;
 }
 
+.traits {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0.5rem;
+  padding: 0.5rem;
+  background-color: #222;
+  border-radius: 0.5em;  
+}
+
+.horizontalContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  /* border: 1px solid red; */
+}
+
+.horizontalContainer img {
+  padding: 0.5rem;
+  margin: 0.5rem;
+  height: 250px;
+  width: 250px;
+}
+
 .downloadButton {
   display: flex;
   justify-content: flex-end;
@@ -705,7 +792,7 @@ p {
   z-index: 0;
   transition: all 300ms ease;
   overflow: hidden;
-  cursor: pointer;
+  /* cursor: pointer; */
 }
 
 .downloadButtonLabel {
@@ -735,7 +822,7 @@ p {
   background-color: #333;
   border: 3px solid #eee;
   color: white;
-  cursor: pointer;
+  /* cursor: pointer; */
   z-index: 0;
   transition: all 300ms ease;
   transform: translateY(-3px);
@@ -808,7 +895,7 @@ p {
   border-radius: 0.5em;
   box-shadow: 0 0 3px #d6b33a;
   font-family: 'Permanent Marker', cursive;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   color: #d6b33a;
 }
 
