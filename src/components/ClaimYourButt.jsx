@@ -5,7 +5,7 @@ const ClaimYourButt = () => {
         <div className="card marker">
             👇 Claim your Lazy Butt! 👇<br /><br />
             <Link to="/claim">
-            <button>Add Sass to My Lion's...!</button></Link>
+            <button className="zoomy">Claim My Butts!</button></Link>
         </div>
     )
 }

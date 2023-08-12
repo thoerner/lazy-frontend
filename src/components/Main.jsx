@@ -6,11 +6,14 @@ import ClaimYourButt from './ClaimYourButt.jsx'
 import MintFundsInfo from './MintFundsInfo.jsx'
 import AboutTheProject from './AboutTheProject.jsx'
 import TeamSection from './TeamSection.jsx'
+import Disclaimer from './Disclaimer.jsx'
+import TeamStatements from './TeamStatements.jsx'
 
 const Main = ({ isMobile }) => {
     return (
         <div className="main">
             <ButtLogo isMobile={isMobile} />
+            <Disclaimer />
             <ButtGif isMobile={isMobile} />
             <BehindTheTail />
             <WhatsInAButt isMobile={isMobile} />
@@ -18,6 +21,7 @@ const Main = ({ isMobile }) => {
             <MintFundsInfo />
             <AboutTheProject />
             <TeamSection isMobile={isMobile} />
+            <TeamStatements />
         </div>
     )
 }

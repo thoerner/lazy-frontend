@@ -1,7 +1,11 @@
+function getCurrentYear() {
+    return new Date().getFullYear()
+}
+
 const Footer = props => {
     return (
-        <div className="footer marker">
-            Lazy Butts is not affiliated with Lazy Lions. Read the docs <a href="https://docs.the3dkings.io/" target="_blank" rel="noreferrer">here</a>.
+        <div className="footer">
+            &copy; {getCurrentYear()} 3D Kings NFT Trait Group. All rights reserved.
         </div>
     )
 }

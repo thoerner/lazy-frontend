@@ -66,6 +66,7 @@ const TopNavBar = ({ isMobile, activePage, setActivePage }) => {
     const links =
         <>
             <MenuLink link='home' text='Home' />
+            <a href="https://docs.the3dkings.io" target="_blank" rel="noreferrer">Read the Docs</a>
             <MenuLink link='claim' text='Claim my Butts' />
             <MenuLink link='butts' text='My Assets' />
             <span className="dropdown">
@@ -85,6 +86,7 @@ const TopNavBar = ({ isMobile, activePage, setActivePage }) => {
         <>
             {/* <Logo type="mobile"/> */}
             <MenuLink link='home' text='Home' />
+            <a href="https://docs.the3dkings.io" target="_blank" rel="noreferrer">Read the Docs</a>
             <MenuLink link='claim' text='Claim my Butts' />
             <MenuLink link='mybutts' text='My Assets' />
             <a href="https://x.com/3DKingsNFT" target="_blank" rel="noreferrer">X (@3DKingsNFT)</a>

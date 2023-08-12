@@ -1,4 +1,4 @@
-import LBHeader from '../assets/LB-header.jpg'
+import LBHeader from '../assets/LB-header2.jpg'
 
 const ButtGif = ({isMobile}) => {
     return (
