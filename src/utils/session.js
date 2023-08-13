@@ -1,6 +1,6 @@
 import Cookies from 'js-cookie'
 
-const SESSION_EXPIRY_TIME = 3600 // 1 hour in seconds
+const SESSION_EXPIRY_TIME = 86400 // 24 hours
 
 export const getSessionToken = () => Cookies.get('sessionToken')
 

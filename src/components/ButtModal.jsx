@@ -4,7 +4,7 @@ import { getButtImageUrl } from '../utils/tools.js';
 import DownloadButton from './DownloadButton';
 
 // modal for displaying butt details and download button
-const ButtModal = ({ butt }) => {
+const ButtModal = ({ butt, buttImage }) => {
     const { closeModal } = useModal()
 
     useEffect(() => {
@@ -44,7 +44,7 @@ const ButtModal = ({ butt }) => {
                             <span className="buttModalBold">Accessories:</span> <br />
                             <span className="buttModalBold">Tail Tuft:</span> <br />
                         </p>
-                        <img src={getButtImageUrl(butt.id)} alt="Lazy Butts" />
+                        <img src={buttImage} alt="Lazy Butts" />
                     </div>
                     <DownloadButton butt={butt} />
                 </div>

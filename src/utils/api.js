@@ -17,6 +17,45 @@ export const getButts = async (address) => {
     return butts
 }
 
+export const getFullResButtImage = async (buttId, address, sessionToken) => {
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/images/butt/${buttId}.png`, {
+        method: 'GET',  // Specify the method
+        headers: {
+            'Content-Type': 'application/json',  // Specify the content type of the request body
+            'Authorization': `${sessionToken}`,  // Specify the token
+            'Address': `${address}` // Specify the address
+        },
+    });
+    
+    if (res.headers.get('Content-Type').includes('application/json')) {
+        const jsonData = await res.json();
+        console.log(jsonData);
+        throw new Error('Expected an image but got JSON response.');
+    }
+    const image = await res.blob();
+    return image;
+}
+
+export const getSmallButtImage = async (buttId, address, sessionToken) => {
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/images/small/${buttId}.png`, {
+        method: 'GET',  // Specify the method
+        headers: {
+            'Content-Type': 'application/json',  // Specify the content type of the request body
+            'Authorization': `${sessionToken}`,  // Specify the token
+            'Address': `${address}` // Specify the address
+        },
+    });
+
+    if (res.headers.get('Content-Type').includes('application/json')) {
+        const jsonData = await res.json();
+        console.log(jsonData);
+        throw new Error('Expected an image but got JSON response.');
+    }
+    const image = await res.blob();
+    return image;
+}
+
+
 export const getToken = async (address) => {
     const res = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/token?address=${address}`)
     const token = await res.json()
@@ -40,7 +79,8 @@ export const verifySignature = async (token, signature, address) => {
     return data
 }
 
-export const checkSignature = async (params) => {
+export const checkSession = async (params) => {
+    console.log(JSON.stringify(params))
 
     const res = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/check`, {
         method: 'POST',
@@ -50,6 +90,7 @@ export const checkSignature = async (params) => {
         body: JSON.stringify(params)
     })
     const data = await res.json()
+    console.log(JSON.stringify(data))
 
     return data
 }

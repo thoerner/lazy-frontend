@@ -22,7 +22,6 @@ function Root() {
   const isMobile = useIsMobile()
   const [activePage, setActivePage] = useState('home')
   const [authenticated, setAuthenticated] = useState(false)
-  console.log(wagmiConfig)
 
   return (
     <div className="app">

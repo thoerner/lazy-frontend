@@ -9,13 +9,45 @@ import RandomQuote from '../components/RandomQuote'
 import MintButton from '../components/MintButton'
 import toast from 'react-hot-toast'
 import Disclaimer from '../components/Disclaimer'
+import { getSmallButtImage } from '../utils/api.js'
+import { getSessionToken } from "../utils/session.js"
 
-const MyLions = ({ lions, butts, handleLionClick, selectedLions }) => {
+const MyLions = ({ lions, butts, handleLionClick, selectedLions, address }) => {
+    const [buttImages, setButtImages] = useState([
+        { id: 1, image: EmptyLion },
+    ])
+
+    useEffect(() => {
+        const fetchButtImages = async () => {
+            const buttImagesPromises = butts.map(async butt => {
+                const imageBlob = await getSmallButtImage(butt.id, address, getSessionToken());
+                const imageUrl = URL.createObjectURL(imageBlob);
+                return {
+                    id: butt.id,
+                    image: imageUrl
+                };
+            });
+        
+            const buttImages = await Promise.all(buttImagesPromises);
+            setButtImages(buttImages);
+        };        
+    
+        fetchButtImages();
+    }, [butts]);
+    
+
     const lionList = lions.map(lion => {
         const isClaimed = butts.some(butt => butt.id === lion.id);
         console.log(selectedLions)
         const isSelected = selectedLions.some(selectedLion => selectedLion.id === lion.id);
         const clickHandler = isClaimed ? undefined : () => handleLionClick(lion);
+
+        const sessionToken = getSessionToken()
+        console.log(`sessionToken: ${sessionToken}`)
+
+        const buttImage = buttImages.find(buttImage => buttImage.id === lion.id)?.image ?? EmptyLion;
+
+        console.log(buttImage.size, buttImage.type)
 
         return (
             <div
@@ -30,11 +62,7 @@ const MyLions = ({ lions, butts, handleLionClick, selectedLions }) => {
                 />
                 {isClaimed &&
                     <div className="overlay-container">
-                        <img
-                            src={`https://lazybutts.s3.amazonaws.com/public/images/silhouettes/${lion.id}.png`}
-                            alt="lion"
-                            className="hover-image"
-                        />
+                        <img src={buttImage} alt="lion" className="hover-image" />
                         <div className="overlay-text">CLAIMED</div>
                     </div>
                 }
@@ -174,6 +202,7 @@ const Claim = ({ isMobile, setActivePage }) => {
                                                 butts={myButts}
                                                 handleLionClick={handleLionClick}
                                                 selectedLions={selectedLions}
+                                                address={address}
                                             />
                                             :
                                             <div className="my-lions-empty">

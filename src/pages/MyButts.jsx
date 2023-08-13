@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react"
 import { useAccount, useSignMessage } from "../utils/w3m.js"
-import { getButts, verifySignature, getToken, checkSignature } from "../utils/api.js"
+import { getButts, verifySignature, getToken, checkSession, getSmallButtImage } from "../utils/api.js"
 import { getSessionToken, createSessionToken } from "../utils/session.js"
 import { MESSAGE_PREFIX } from "../utils/constants.js"
 import { SignMessage, ClaimMessage, ConnectMessage } from "../components/ButtMessages.jsx"
@@ -15,6 +15,7 @@ const MyButts = ({ setActivePage, authenticated, setAuthenticated }) => {
     const { address, isConnected } = useAccount()
     const [sessionToken, setSessionToken] = useState()
     const [myButts, setMyButts] = useState([])
+    const [buttImages, setButtImages] = useState([])
     const { data, isError, isLoading, isSuccess, signMessage } = useSignMessage({ message })
 
     // Determine whether to request a message signature.
@@ -43,7 +44,7 @@ const MyButts = ({ setActivePage, authenticated, setAuthenticated }) => {
                 address,
                 sessionToken
             }
-            const data = await checkSignature(params)
+            const data = await checkSession(params)
             if (data.success) {
                 setAuthenticated(true)
                 createSessionToken(sessionToken)
@@ -113,6 +114,25 @@ const MyButts = ({ setActivePage, authenticated, setAuthenticated }) => {
         }
     }, [isConnected, address])
 
+    // Fetch the small butt images for the user's butts.
+    useEffect(() => {
+        const fetchButtImages = async () => {
+            const buttImagesPromises = myButts.map(async butt => {
+                const imageBlob = await getSmallButtImage(butt.id, address, getSessionToken());
+                const imageUrl = URL.createObjectURL(imageBlob);
+                return {
+                    id: butt.id,
+                    image: imageUrl
+                };
+            });
+        
+            const buttImages = await Promise.all(buttImagesPromises);
+            setButtImages(buttImages);
+        };        
+    
+        fetchButtImages();
+    }, [myButts]);
+
     // Formulate the message for signing based on the token.
     useEffect(() => {
         if (!token) return
@@ -130,7 +150,7 @@ const MyButts = ({ setActivePage, authenticated, setAuthenticated }) => {
         if (isConnected && myButts.length === 0) return <ClaimMessage />
         if (isConnected && !authenticated && myButts.length > 0) return <SignMessage handleSignClick={handleSignClick} />
 
-        return <ButtGrid butts={myButts} />
+        return <ButtGrid butts={myButts} buttImages={buttImages} />
     }
 
     return (
