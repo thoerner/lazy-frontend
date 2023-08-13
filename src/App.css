@@ -763,6 +763,15 @@ p {
   margin: 0.8rem;
 }
 
+.myButts {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  min-height: calc(100vh - 3rem);
+  margin: 1rem;
+}
+
 .buttCard {
   display: flex;
   flex-direction: column;
@@ -771,12 +780,10 @@ p {
   padding: 1rem;
   margin: 1rem;
   border-radius: 0.5em;
-  /* box-shadow: 0px 0px 5px #333; */
-  max-width: 200px;
-  /* background-color: #eee; */
   min-height: 310px;
   transition: all 300ms ease;
   cursor: pointer;
+  background-color: #000;
 }
 
 .buttCard:hover {
@@ -788,6 +795,12 @@ p {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-gap: 1rem;
+  background-color: #111;
+  padding: 1rem;
+  border-radius: 0.5em;
+  box-shadow: 0px 0px 5px #333;
+  margin: 1rem;
+  width: 100%;
 }
 
 .buttModalOverlay {

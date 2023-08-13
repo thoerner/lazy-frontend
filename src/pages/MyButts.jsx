@@ -5,6 +5,7 @@ import { getSessionToken, createSessionToken } from "../utils/session.js"
 import { MESSAGE_PREFIX } from "../utils/constants.js"
 import { SignMessage, ClaimMessage, ConnectMessage } from "../components/ButtMessages.jsx"
 import ButtGrid from "../components/ButtGrid.jsx"
+import Disclaimer from "../components/Disclaimer.jsx"
 
 const MyButts = ({ setActivePage, authenticated, setAuthenticated }) => {
     const [token, setToken] = useState('')
@@ -154,8 +155,9 @@ const MyButts = ({ setActivePage, authenticated, setAuthenticated }) => {
     }
 
     return (
-        <div>
+        <div className="myButts">
             <h1>My Lazy Butts</h1>
+            <Disclaimer />
             {renderContent()}
         </div>
     )
