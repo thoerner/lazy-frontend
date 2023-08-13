@@ -5,7 +5,7 @@ function getCurrentYear() {
 const Footer = props => {
     return (
         <div className="footer">
-            &copy; {getCurrentYear()} 3D Kings NFT Trait Group. All rights reserved.
+            <p>&copy; {getCurrentYear()} 3D Kings NFT Trait Group. All rights reserved.</p>
         </div>
     )
 }

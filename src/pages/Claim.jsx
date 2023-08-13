@@ -11,6 +11,7 @@ import toast from 'react-hot-toast'
 import Disclaimer from '../components/Disclaimer'
 import { getSmallButtImage } from '../utils/api.js'
 import { getSessionToken } from "../utils/session.js"
+import Footer from '../components/Footer'
 
 const MyLions = ({ lions, butts, handleLionClick, selectedLions, address }) => {
     const [buttImages, setButtImages] = useState([
@@ -299,6 +300,7 @@ const Claim = ({ isMobile, setActivePage }) => {
                     </div>
                 </div>
             </div>
+            <Footer />
         </div>
     )
 }

@@ -21,7 +21,7 @@ const ButtCard = ({ butt, buttImage }) => {
                     className="fas fa-butt"
                     style={{ fontSize: "100px", color: "white" }}
                 ></i>
-                <h3>Butt #{butt.id}</h3>
+                <div className="buttCardTitle">Lazy Butt #{butt.id}</div>
                 <img src={buttImage} alt="Lazy Butts"
                     onClick={handleButtClick}
                 />

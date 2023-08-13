@@ -10,6 +10,10 @@
   font-family: 'REM', sans-serif;
 }
 
+p {
+  cursor: default;
+}
+
 /* Scroll Bar styles for chrome */
 ::-webkit-scrollbar {
   width: 0.3em;
@@ -156,7 +160,7 @@ a:active {
 .footer {
   color: #888;
   font-size: 0.8rem;
-  padding: 1rem;
+  /* padding: 1rem; */
 }
 
 /* Active styles */
@@ -370,6 +374,7 @@ h2,
 h3 {
   font-family: 'Permanent Marker', cursive;
   color: #d6b33a;
+  cursor: default;
 }
 
 /* Paragraph styles */
@@ -791,15 +796,31 @@ p {
   transition: all 300ms ease;
 }
 
+.buttCardTitle {
+  font-family: 'Permanent Marker', cursive;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #d6b33a;
+  margin: 0.5rem;
+  cursor: default;
+  background-color: #111111;
+  padding: 0 1rem;
+  border-radius: 0.5em;
+  border: 1px solid #d6b33a;
+}
+
 .buttGrid {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-gap: 1rem;
+}
+
+.myButtsContent {
   background-color: #111;
-  padding: 1rem;
+  padding: 2rem;
   border-radius: 0.5em;
   box-shadow: 0px 0px 5px #333;
-  margin: 1rem;
+  margin: 2rem;
   width: 100%;
 }
 

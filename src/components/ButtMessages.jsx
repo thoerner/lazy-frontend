@@ -1,12 +1,29 @@
 import { Link } from "react-router-dom"
 import WalletConnectButton from "./WalletConnectButton.jsx"
 
+const styles = {
+    message: {
+        fontSize: "1.5rem",
+        fontWeight: "bold",
+        textAlign: "center",
+        color: "#eee",
+        cursor: "default",
+    },
+    messageContainer: {
+        backgroundColor: "#222",
+        borderRadius: "10px",
+        padding: "20px",
+    },
+}
+
 const SignMessage = ({ handleSignClick }) => {
     return (
         <div className="signMessage">
-            <p>
-                To view your Lazy Butts, please sign a message with your wallet.
-            </p>
+            <div style={styles.messageContainer}>
+                <p style={styles.message}>
+                    To view your Lazy Butts, please sign a message with your wallet.
+                </p>
+            </div>
             <p>
                 <button className="button" onClick={handleSignClick}>
                     Sign Message
@@ -19,12 +36,14 @@ const SignMessage = ({ handleSignClick }) => {
 const ClaimMessage = () => {
     return (
         <div className="claimMessage">
-            <p>
-                You don't have any Lazy Butts yet.
-            </p>
+            <div style={styles.messageContainer}>
+                <p style={styles.message}>
+                    You don't have any Lazy Butts yet.
+                </p>
+            </div>
             <br />
             <Link to="/claim">
-                <button className="button">Claim a Lazy Butt</button>
+                <button className="button">Claim a Lazy Butt!</button>
             </Link>
         </div>
     )
@@ -33,9 +52,11 @@ const ClaimMessage = () => {
 const ConnectMessage = () => {
     return (
         <div className="connectMessage">
-            <p>
-                To view your Lazy Butts, please connect your wallet.
-            </p>
+            <div style={styles.messageContainer}>
+                <p style={styles.message}>
+                    To view your Lazy Butts, please connect your wallet.
+                </p>
+            </div>
             <br />
             <WalletConnectButton />
         </div>

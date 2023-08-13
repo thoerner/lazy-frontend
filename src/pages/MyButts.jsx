@@ -6,6 +6,7 @@ import { MESSAGE_PREFIX } from "../utils/constants.js"
 import { SignMessage, ClaimMessage, ConnectMessage } from "../components/ButtMessages.jsx"
 import ButtGrid from "../components/ButtGrid.jsx"
 import Disclaimer from "../components/Disclaimer.jsx"
+import Footer from "../components/Footer.jsx"
 
 const MyButts = ({ setActivePage, authenticated, setAuthenticated }) => {
     const [token, setToken] = useState('')
@@ -158,7 +159,10 @@ const MyButts = ({ setActivePage, authenticated, setAuthenticated }) => {
         <div className="myButts">
             <h1>My Lazy Butts</h1>
             <Disclaimer />
-            {renderContent()}
+            <div className="myButtsContent">
+                {renderContent()}
+            </div>
+            <Footer />
         </div>
     )
 }
