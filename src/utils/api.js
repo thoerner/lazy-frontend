@@ -1,4 +1,3 @@
-
 export const getLions = async (address) => {
     const res = await fetch(`${import.meta.env.VITE_API_URL}/api/lions/${address}`)
     const lions = await res.json()
@@ -36,13 +35,30 @@ export const getFullResButtImage = async (buttId, address, sessionToken) => {
     return image;
 }
 
-export const getSmallButtImage = async (buttId, address, sessionToken) => {
-    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/images/small/${buttId}.png`, {
+export const getFullBodyImage = async (buttId, address, sessionToken) => {
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/images/full/${buttId}.png`, {
         method: 'GET',  // Specify the method
         headers: {
             'Content-Type': 'application/json',  // Specify the content type of the request body
             'Authorization': `${sessionToken}`,  // Specify the token
             'Address': `${address}` // Specify the address
+        },
+    });
+    
+    if (res.headers.get('Content-Type').includes('application/json')) {
+        const jsonData = await res.json();
+        console.log(jsonData);
+        throw new Error('Expected an image but got JSON response.');
+    }
+    const image = await res.blob();
+    return image;
+}
+
+export const getSmallButtImage = async (buttId, address, sessionToken) => {
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/images/small/${buttId}.png`, {
+        method: 'GET',  // Specify the method
+        headers: {
+            'Content-Type': 'application/json',  // Specify the content type of the request body
         },
     });
 
@@ -55,6 +71,28 @@ export const getSmallButtImage = async (buttId, address, sessionToken) => {
     return image;
 }
 
+export const getMediumButtImage = async (buttId) => {
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/images/medium/${buttId}.png`, {
+        method: 'GET',  // Specify the method
+        headers: {
+            'Content-Type': 'application/json',  // Specify the content type of the request body
+        },
+    });
+
+    if (res.headers.get('Content-Type').includes('application/json')) {
+        const jsonData = await res.json();
+        console.log(jsonData);
+        throw new Error('Expected an image but got JSON response.');
+    }
+    const image = await res.blob();
+    return image;
+}
+
+export const getMetadata = async (buttId) => {
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/metadata/${buttId}.json`)
+    const metadata = await res.json()
+    return metadata
+}
 
 export const getToken = async (address) => {
     const res = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/token?address=${address}`)
@@ -95,11 +133,7 @@ export const checkSession = async (params) => {
     return data
 }
 
-export const getFullResButt = async (buttId) => {
-}
 
-export const getFullBody = async (buttId) => {
-}
 
 export const getTwitterFriendlyFullBody = async (buttId) => {
 }

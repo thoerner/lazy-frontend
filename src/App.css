@@ -24,6 +24,22 @@
   border-radius: 0.5em;
 }
 
+a {
+  font-family: 'Permanent Marker', cursive;
+  font-weight: 500;
+  color: white;
+  text-decoration: inherit;
+  transition: all 0.3s ease 0s;
+}
+a:hover {
+  text-shadow: 3px 0px 0px #ff2b06, -3px 0px 0px #00caf8;
+  transition: all 0.3s ease 0s;
+}
+a:active {
+  color: white;
+  text-shadow: 1.5px 0px 0px #ff2b06, -1.5px 0px 0px #00caf8;
+}
+
 /* Top padding for the app */
 .app {
   padding-top: 3rem;
@@ -183,6 +199,7 @@
     max-width: 100%;
     border-radius: 0.5em;
   }
+
   .header-image {
     position: relative;
     left: auto;
@@ -295,8 +312,8 @@
 }
 
 .team-members {
-  display: flex; 
-  flex-direction: row; 
+  display: flex;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
@@ -348,7 +365,9 @@
 }
 
 /* Heading styles */
-h1, h2, h3 {
+h1,
+h2,
+h3 {
   font-family: 'Permanent Marker', cursive;
   color: #d6b33a;
 }
@@ -364,12 +383,17 @@ p {
 
 /* Animation keyframes */
 @keyframes wobble {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: rotate(0deg);
   }
-  25%, 75% {
+
+  25%,
+  75% {
     transform: rotate(2deg);
   }
+
   50% {
     transform: rotate(-5deg);
   }
@@ -433,7 +457,7 @@ p {
   background-color: #000;
   min-height: 310px;
   color: black;
-  
+
 }
 
 .my-lions-container {
@@ -453,38 +477,95 @@ p {
   flex-wrap: wrap;
 }
 
+.my-lion img {
+  transition: 0.3s;
+  /* Optional: for a smooth transition */
+}
+
+.my-lion-image img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.my-lion,
+.my-lion-image {
+  padding: 0;
+  border: none;
+  box-sizing: border-box;
+}
+
 .my-lion {
   position: relative;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  /* padding: 1rem; */
   margin: 1rem;
   border: 3px solid transparent;
   border-radius: 0.5em;
   max-width: 200px;
+  height: 240px;
   background-color: #eee;
   background-color: black;
   color: white;
   cursor: pointer;
+  overflow: hidden;
 }
 
-.my-lion.selected {
-  transition: all 300ms ease;
-  border: 3px solid #00caf8;
+.my-lion-image {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border: none;
+  outline: none;
 }
 
 .my-lion.claimed {
   transition: all 300ms ease;
-  /* border: 3px solid #ff2b06; */
 }
 
 .my-lion.claimed:active {
   box-shadow: 0 0 10px #ff2b06aa;
 }
 
+/* Slide out animation for the default image */
+.my-lion.claimed:hover .default-image {
+  transform: translateY(-100%);
+  /* Slide it up */
+}
 
+/* Slide in animation for the hover image */
+.my-lion.claimed:hover .hover-image {
+  transform: translateY(-100%);
+  /* Slide it to its natural position */
+}
+
+/* By default, keep the hover image at the bottom, ready to slide up */
+.hover-image {
+  transform: translateY(0);
+  display: block;
+  z-index: 2;
+}
+
+.default-image,
+.hover-image {
+  width: 100%;
+  height: auto;
+}
+
+.my-lion.claimed:hover .my-lion-image .default-image, 
+.my-lion.claimed:hover .my-lion-image .hover-image {
+    transition: transform 700ms cubic-bezier(0.5, 1.5, 0.3, 1);
+}
+
+.my-lion.selected {
+  transition: all 300ms ease;
+  border: 3px solid #00caf8;
+}
 
 .card.infographic {
   width: 100%;
@@ -496,15 +577,12 @@ p {
 
 
 .overlay-container {
-  display: inline-block; /* or block, depending on your need */
-  width: 100%; /* adjust as needed */
-  max-width: 200px; /* adjust as needed */
-}
-
-.hover-image {
-  width: 100%; /* make sure the image stretches to fill its container */
-  height: auto;
-  display: block;
+  display: inline-block;
+  /* or block, depending on your need */
+  width: 100%;
+  /* adjust as needed */
+  max-width: 200px;
+  /* adjust as needed */
 }
 
 .overlay-text {
@@ -512,35 +590,25 @@ p {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: rgba(0, 0, 0, 0.5); /* semi-transparent black */
+  background-color: rgba(0, 0, 0, 0.5);
+  /* semi-transparent black */
   color: white;
-  padding: 10px; /* adjust as needed */
+  padding: 10px;
+  /* adjust as needed */
   text-align: center;
-  border-radius: 3px; /* optional rounded corners */
+  border-radius: 3px;
+  /* optional rounded corners */
 }
 
 
-.hover-image {
-  display: none;
-}
+@keyframes imageSlideInFromBottom {
+  0% {
+    transform: translateY(100%);
+  }
 
-.my-lion.claimed:hover .default-image {
-  display: none;
-}
-
-.my-lion.claimed:hover .hover-image {
-  display: block;
-}
-
-
-.my-lion img {
-  /* position:absolute;
-  top:0;
-  left:0; */
-  max-width: 190px;
-  border-radius: 0.5em;
-  box-shadow: 0px 0px 5px #333;
-  transition: 0.3s; /* Optional: for a smooth transition */
+  100% {
+    transform: translateY(0);
+  }
 }
 
 .claim-info {
@@ -690,6 +758,7 @@ p {
   justify-content: center;
   align-items: center;
 }
+
 .claim-area-right-info p {
   margin: 0.8rem;
 }
@@ -750,19 +819,47 @@ p {
   align-items: center;
   top: 0.5rem;
   right: 0.5rem;
-  padding: 0 0.2rem;
+  padding: 0.5rem 1rem;
   border-radius: 0.2em;
+  /* border: 1px solid white; */
   cursor: pointer;
-  background-color: red;
+  /* background-color: red; */
+  opacity: 0.5;
+}
+
+.buttModalBold {
+  font-weight: bold;
+  font-size: 1.2rem;
+  font-family: 'Permanent Marker', cursive;
+  margin: 0.5rem;
+  color: #d6b33a;
+}
+
+.traits a:hover {
+  /* color: #d6b33a; */
+  text-shadow: none;
+  transition: none;
+}
+
+.traits a {
+  font-family: 'REM', sans-serif;
+}
+
+.buttModalTitle {
+  font-size: 2rem;
+  font-weight: bold;
+  margin: 0.5rem;
+  color: #d6b33a;
+  font-family: 'Permanent Marker', cursive;
 }
 
 .buttModalCloseInner {
   color: white;
   font-weight: bold;
-  line-height: 1rem;
+  font-size: 1.5rem;
 }
 
-.traits {
+.traits-values {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -770,7 +867,7 @@ p {
   margin: 0.5rem;
   padding: 0.5rem;
   background-color: #222;
-  border-radius: 0.5em;  
+  border-radius: 0.5em;
 }
 
 .horizontalContainer {
@@ -781,11 +878,44 @@ p {
   /* border: 1px solid red; */
 }
 
-.horizontalContainer img {
+.buttModalImage {
   padding: 0.5rem;
   margin: 0.5rem;
-  height: 250px;
-  width: 250px;
+  height: 50vh;
+  max-height: 50vw;
+  width: 50vh;
+  max-width: 50vw;
+  cursor: pointer;
+}
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.5rem;
+  margin: 0.5rem;
+  height: 50vh;
+  max-height: 50vw;
+  width: 50vh;
+  max-width: 50vw;
+}
+
+@keyframes loading {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(359deg);
+  }
+}
+
+.loading {
+  animation: loading 1s infinite linear;
+  border: 5px solid #eee;
+  border-top: 5px solid #333;
+  border-radius: 50%;
+  height: 50px;
+  width: 50px;
 }
 
 .downloadButton {
@@ -799,12 +929,16 @@ p {
   z-index: 0;
   transition: all 300ms ease;
   overflow: hidden;
+  cursor: pointer;
 }
 
 .downloadButtonInnerFirst {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100%;
-  cursor: pointer;
-  font-family: 'Permanent Marker', cursive;
+  font-weight: bold;
+  /* font-family: 'Permanent Marker', cursive; */
 }
 
 .downloadButtonInner {
@@ -865,6 +999,7 @@ p {
 
 .downloadButtonDropdownItem {
   display: flex;
+  flex-direction: column;
   justify-content: flex-start;
   align-items: center;
   padding: 0.5rem;
@@ -971,6 +1106,7 @@ p {
     opacity: 0;
     transform: translateY(-10px);
   }
+
   100% {
     opacity: 1;
     transform: translateY(0px);
@@ -1014,9 +1150,11 @@ p {
   0% {
     transform: scale(1);
   }
+
   50% {
     transform: scale(1.1);
   }
+
   100% {
     transform: scale(1);
   }

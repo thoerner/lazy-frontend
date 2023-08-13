@@ -6,7 +6,7 @@ const ButtGrid = ({ butts, buttImages }) => {
     const buttCards = butts.map((butt) => {
         const buttImage = buttImages.find(buttImage => buttImage.id === butt.id)
         return (
-            <ButtCard butt={butt} key={butt.id} buttImage={buttImage.image} />
+            <ButtCard butt={butt} key={butt.id} buttImage={buttImage ? buttImage.image : null} />
         )
     })
 

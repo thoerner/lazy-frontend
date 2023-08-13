@@ -27,14 +27,14 @@ const MyLions = ({ lions, butts, handleLionClick, selectedLions, address }) => {
                     image: imageUrl
                 };
             });
-        
+
             const buttImages = await Promise.all(buttImagesPromises);
             setButtImages(buttImages);
-        };        
-    
+        };
+
         fetchButtImages();
     }, [butts]);
-    
+
 
     const lionList = lions.map(lion => {
         const isClaimed = butts.some(butt => butt.id === lion.id);
@@ -55,21 +55,24 @@ const MyLions = ({ lions, butts, handleLionClick, selectedLions, address }) => {
                 key={lion.id}
                 onClick={clickHandler}
             >
-                <img
-                    src={`https://lazybutts.s3.amazonaws.com/public/images/small-lazy-lions/${lion.id}.png`}
-                    alt="lion"
-                    className="default-image"
-                />
-                {isClaimed &&
-                    <div className="overlay-container">
-                        <img src={buttImage} alt="lion" className="hover-image" />
-                        <div className="overlay-text">CLAIMED</div>
-                    </div>
-                }
+                <div className="my-lion-image">
+                    <img
+                        src={`https://lazybutts.s3.amazonaws.com/public/images/small-lazy-lions/${lion.id}.png`}
+                        alt="lion"
+                        className="default-image"
+                    />
+                    {isClaimed &&
+                        <div className="overlay-container">
+                            <img src={buttImage} alt="lion" className="hover-image" />
+                            <div className="overlay-text">CLAIMED</div>
+                        </div>
+                    }
+                </div>
 
                 <div className="my-lion-info">
                     <p className="my-lion-id">Lazy Lions #{lion.id}</p>
                 </div>
+
             </div>
         );
     })
