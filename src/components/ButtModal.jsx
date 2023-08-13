@@ -6,20 +6,20 @@ import { getSessionToken } from '../utils/session';
 import { useAccount } from 'wagmi';
 import Traits from './Traits';
 
-const ModalImage = ({ butt, buttMetadata, buttImage, isLoading }) => {
-    const handleImageClick = () => {
-        if (buttMetadata) {
-            window.open(`https://api.the3dkings.io/api/images/medium/${butt.id}.png`, '_blank')
-        }
-    }
+const ModalImage = ({ butt, buttMetadata, buttImage, isLoading, selectedType }) => {
+    const { address } = useAccount()
+    const sessionToken = getSessionToken()
+
     return (
         <div className="horizontalContainer">
             <Traits buttMetadata={buttMetadata} />
             {isLoading ? <div className="loading-container">
                 <div className="loading"></div>
             </div> :
-                <img className="buttModalImage" src={buttImage} alt={`Lazy Butt #${butt.id}`}
-                    onClick={handleImageClick}
+                <img
+                    className={selectedType === 'full-body' ? 'buttModalImage fullBody' : 'buttModalImage'}
+                    src={buttImage}
+                    alt={`Lazy Butt #${butt.id}`}
                 />
             }
         </div>
@@ -33,6 +33,7 @@ const ButtModal = ({ butt }) => {
     const [isLoading, setIsLoading] = useState(true)
     const [buttImage, setButtImage] = useState(null)
     const [buttMetadata, setButtMetadata] = useState(null)
+    const [selectedType, setSelectedType] = useState('medium')
     const sessionToken = getSessionToken()
 
     useEffect(() => {
@@ -70,6 +71,14 @@ const ButtModal = ({ butt }) => {
         <>
             <div className="buttModalOverlay"></div>
             <div className="buttModal">
+                <DownloadButton
+                    butt={butt}
+                    setButtImage={setButtImage}
+                    setIsLoading={setIsLoading}
+                    isLoading={isLoading}
+                    selectedType={selectedType}
+                    setSelectedType={setSelectedType}
+                />
                 <div className="buttModalContent">
                     <div className="buttModalClose"
                         onClick={handleModalClose}
@@ -84,8 +93,8 @@ const ButtModal = ({ butt }) => {
                         buttMetadata={buttMetadata}
                         buttImage={buttImage}
                         isLoading={isLoading}
+                        selectedType={selectedType}
                     />
-                    <DownloadButton butt={butt} />
                 </div>
             </div>
         </>
