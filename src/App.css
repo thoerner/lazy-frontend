@@ -8,6 +8,7 @@
   text-align: center;
   color: #eee;
   font-family: 'REM', sans-serif;
+  user-select: none;
 }
 
 p {
@@ -1112,4 +1113,23 @@ p {
 
 .zoomy {
   animation: zoom-in-and-out 1s infinite;
+}
+
+.threeDeeDiv {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  margin: 2rem;
+  max-width: 500px;
+  border-radius: 0.5em;
+  background-color: white;
+  color: black;
+  z-index: 0;
+  transition: all 300ms ease;
+  overflow-wrap: anywhere;
+  overflow: hidden;
+  box-shadow: 5px 5px 3px #ff2b06, -5px -5px 3px #00caf8;
 }

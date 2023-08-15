@@ -100,6 +100,12 @@ export const getToken = async (address) => {
     return token.token
 }
 
+export const getProof = async (address) => {
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/proof?address=${address}`)
+    const proof = await res.json()
+    return proof
+}
+
 export const verifySignature = async (token, signature, address) => {
     const params = {
         token,

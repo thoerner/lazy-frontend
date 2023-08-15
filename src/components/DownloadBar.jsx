@@ -6,8 +6,8 @@ import toast from 'react-hot-toast'
 import '../styles/DownloadButton.css'
 
 // button for downloading butt images
-const DownloadButton = ({ butt, setButtImage, setIsLoading, selectedType, setSelectedType }) => {
-    const [blobs, setBlobs] = useState({})
+const DownloadBar = ({ butt, setButtImage, setIsLoading, selectedType, setSelectedType }) => {
+    const [blobs, setBlobs] = useState({}) // TODO: change to preview blobs and then when download is clicked, download the full res
     const { address } = useAccount()
     const sessionToken = getSessionToken()
 
@@ -119,7 +119,7 @@ const DownloadButton = ({ butt, setButtImage, setIsLoading, selectedType, setSel
         <div className="downloadBar">
             <div className={`downloadButtonDropdownItem ${selectedType === 'medium' ? 'selected' : null}`}
             onClick={() => handleMediumButtonClick(butt.id)} >
-                Original (4k × 4k)
+                Original (2k × 2k)
             </div>
             <div className={`downloadButtonDropdownItem ${selectedType === 'full-res' ? 'selected' : null}`}
                 onClick={() => handleFullResButtonClick()}
@@ -140,4 +140,4 @@ const DownloadButton = ({ butt, setButtImage, setIsLoading, selectedType, setSel
     )
 }
 
-export default DownloadButton;
+export default DownloadBar;

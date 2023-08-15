@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import useModal from "../utils/useModal";
 import { getMediumButtImage, getMetadata } from '../utils/api';
-import DownloadButton from './DownloadButton';
+import DownloadBar from './DownloadBar';
 import { getSessionToken } from '../utils/session';
 import { useAccount } from 'wagmi';
 import Traits from './Traits';
@@ -71,7 +71,7 @@ const ButtModal = ({ butt }) => {
         <>
             <div className="buttModalOverlay"></div>
             <div className="buttModal">
-                <DownloadButton
+                <DownloadBar
                     butt={butt}
                     setButtImage={setButtImage}
                     setIsLoading={setIsLoading}
