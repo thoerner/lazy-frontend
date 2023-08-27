@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import { useAccount } from '../utils/w3m'
 import { getLions, getAllButts, isAllowListActive, getProof } from '../utils/api'
 import Footer from '../components/Footer'
@@ -8,13 +9,31 @@ import ClaimInfo from '../components/ClaimInfo'
 import ClaimAreaRight from '../components/ClaimAreaRight'
 import ClaimAreaMiddle from '../components/ClaimAreaMiddle'
 
-const ClaimModal = ({ isMobile, setIsClaiming }) => {
+const ClaimModal = ({ isMobile, setIsClaiming, isClaimed, setIsClaimed }) => {
+    const handleClose = () => {
+        setIsClaiming(false)
+        setIsClaimed(false)
+    }
     return (
         <div className="claim-modal">
-            <h1>Claiming your <br/>Lazy Butt!</h1>
+            {isClaimed ?
+            <h1>Claimed!</h1> :
+            <h1>Claiming your <br />Lazy Butt!</h1>}
             <div className="claim-loading-container">
-                <div className="loading">
-                </div>
+                {!isClaimed ?
+                    <div className="loading">
+                    </div> :
+                    <div>
+                        <p>Check your{" "}
+                            <Link to={'/butts'} onClick={() => handleClose()}>
+                                My Assets
+                            </Link>
+                            {" "}page to access your new Lazy Butt(s)!</p>
+                            <p><a href="https://twitter.com/intent/tweet?text=I%20just%20claimed%20my%20Lazy%20Butt%20by%20@3DKingsNFT%20for%20my%20Lazy%20Lion!&url=https://the3dkings.io/" target="_blank" rel="referrer">Share on X!</a></p>
+                    </div>}
+            </div>
+            <div className="claim-modal-close">
+                <button onClick={() => handleClose()}>Close</button>
             </div>
         </div>
     )
@@ -31,6 +50,7 @@ const Claim = ({ isMobile, setActivePage }) => {
     const [proof, setProof] = useState(null)
     const [isAllowListed, setIsAllowListed] = useState(false)
     const [isClaiming, setIsClaiming] = useState(false)
+    const [isClaimed, setIsClaimed] = useState(false)
     const [refreshButts, setRefreshButts] = useState(false)
 
     useEffect(() => {
@@ -120,7 +140,7 @@ const Claim = ({ isMobile, setActivePage }) => {
     return (
         <div className="claim">
             <div className="main">
-                {isClaiming ? <ClaimModal isMobile={isMobile} setIsClaiming={setIsClaiming} /> : null}
+                {isClaiming || isClaimed ? <ClaimModal isMobile={isMobile} isClaimed={isClaimed} setIsClaiming={setIsClaiming} setIsClaimed={setIsClaimed}/> : null}
                 <ClaimHeader />
                 <ClaimInfo
                     address={address}
@@ -156,6 +176,7 @@ const Claim = ({ isMobile, setActivePage }) => {
                             isClaiming={isClaiming}
                             setRefreshButts={setRefreshButts}
                             setSelectedLions={setSelectedLions}
+                            setIsClaimed={setIsClaimed}
                         />
                     </div>
                 </div>

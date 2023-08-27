@@ -14,6 +14,7 @@ const ClaimAreaRight = ({
     setIsClaiming,
     setRefreshButts,
     setSelectedLions,
+    setIsClaimed,
 }) => {
     return (
         <div className="claim-area-right">
@@ -38,6 +39,7 @@ const ClaimAreaRight = ({
                     isConnected={isConnected}
                     setRefreshButts={setRefreshButts}
                     setSelectedLions={setSelectedLions}
+                    setIsClaimed={setIsClaimed}
                 />
                 <p style={{ fontSize: '0.8rem' }}>
                     Lazy Butts are priced at {price} ETH each. You can claim up to 5 Butts per transaction.

@@ -15,9 +15,13 @@ const MintButton = ({
     setIsClaiming,
     setRefreshButts,
     setSelectedLions,
+    setIsClaimed,
 }) => {
     const { address } = useAccount()
-    const { data, isError, isLoading } = useBalance({address})
+    const { data, isError, isLoading } = useBalance({
+        address,
+        watch: true,
+    })
 
     const value = BigInt(totalPrice * 10 ** 18)
     
@@ -83,8 +87,8 @@ const MintButton = ({
             const to = log[0].args.to
             if (to.toLowerCase() === address.toLowerCase()) {
                 setTimeout(() => {
-                    setIsClaiming(false)
                     toast.success('Lazy Butts claimed!')
+                    setIsClaimed(true)
                     setRefreshButts(true)
                     setSelectedLions([])
                 }, 5000)
