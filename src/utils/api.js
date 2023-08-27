@@ -7,6 +7,15 @@ export const getLions = async (address) => {
     return lions
 }
 
+export const getAllButts = async () => {
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/butts`)
+    const butts = await res.json()
+    if (!butts.message) {
+        butts
+    }
+    return butts
+}
+
 export const getButts = async (address) => {
     const res = await fetch(`${import.meta.env.VITE_API_URL}/api/butts/${address}`)
     const butts = await res.json()
@@ -105,6 +114,16 @@ export const getProof = async (address) => {
     const proof = await res.json()
     return proof
 }
+
+export const isAllowListActive = async () => {
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/allowlist`)
+    const allowlist = await res.json()
+    if (allowlist.success) {
+        return allowlist.isActive
+    }
+    return false
+}
+
 
 export const verifySignature = async (token, signature, address) => {
     const params = {

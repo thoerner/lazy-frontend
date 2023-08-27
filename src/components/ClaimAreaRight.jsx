@@ -1,7 +1,20 @@
 import MintButton from '../components/MintButton'
 import RandomQuote from '../components/RandomQuote'
 
-const ClaimAreaRight = ({ selectedLions, myLions, totalPrice, price, isConnected }) => {
+const ClaimAreaRight = ({
+    selectedLions,
+    myLions,
+    totalPrice,
+    price,
+    isConnected,
+    allowListActive,
+    isAllowListed,
+    proof,
+    isClaiming,
+    setIsClaiming,
+    setRefreshButts,
+    setSelectedLions,
+}) => {
     return (
         <div className="claim-area-right">
             <div className="claim-area-right-title">
@@ -14,7 +27,18 @@ const ClaimAreaRight = ({ selectedLions, myLions, totalPrice, price, isConnected
             </div>
             <div className="claim-area-right-info">
                 <p>{totalPrice} ETH</p>
-                <MintButton selectedLions={selectedLions} />
+                <MintButton
+                    selectedLions={selectedLions}
+                    allowListActive={allowListActive}
+                    isAllowListed={isAllowListed}
+                    totalPrice={totalPrice}
+                    proof={proof}
+                    isClaiming={isClaiming}
+                    setIsClaiming={setIsClaiming}
+                    isConnected={isConnected}
+                    setRefreshButts={setRefreshButts}
+                    setSelectedLions={setSelectedLions}
+                />
                 <p style={{ fontSize: '0.8rem' }}>
                     Lazy Butts are priced at {price} ETH each. You can claim up to 5 Butts per transaction.
                 </p>

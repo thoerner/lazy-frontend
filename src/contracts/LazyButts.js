@@ -1,5 +1,16 @@
 const lazyButtsAbi = [
 	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "operator",
+				"type": "address"
+			}
+		],
+		"name": "OperatorNotAllowed",
+		"type": "error"
+	},
+	{
 		"anonymous": false,
 		"inputs": [
 			{
@@ -198,7 +209,7 @@ const lazyButtsAbi = [
 		"inputs": [
 			{
 				"internalType": "address",
-				"name": "to",
+				"name": "operator",
 				"type": "address"
 			},
 			{
@@ -221,6 +232,24 @@ const lazyButtsAbi = [
 			}
 		],
 		"name": "buttDrop",
+		"outputs": [],
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "bytes32[]",
+				"name": "proof_",
+				"type": "bytes32[]"
+			},
+			{
+				"internalType": "uint256[]",
+				"name": "lionIds",
+				"type": "uint256[]"
+			}
+		],
+		"name": "mintAllowList",
 		"outputs": [],
 		"stateMutability": "payable",
 		"type": "function"
@@ -343,6 +372,19 @@ const lazyButtsAbi = [
 	{
 		"inputs": [
 			{
+				"internalType": "bool",
+				"name": "isAllowListActive_",
+				"type": "bool"
+			}
+		],
+		"name": "setAllowListActive",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
 				"internalType": "address",
 				"name": "operator",
 				"type": "address"
@@ -385,6 +427,19 @@ const lazyButtsAbi = [
 			}
 		],
 		"name": "setLazyLions",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "bytes32",
+				"name": "merkleRoot_",
+				"type": "bytes32"
+			}
+		],
+		"name": "setMerkleRoot",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
@@ -452,9 +507,8 @@ const lazyButtsAbi = [
 		"type": "function"
 	},
 	{
-		"inputs": [],
-		"stateMutability": "nonpayable",
-		"type": "constructor"
+		"stateMutability": "payable",
+		"type": "receive"
 	},
 	{
 		"inputs": [
@@ -470,8 +524,28 @@ const lazyButtsAbi = [
 		"type": "function"
 	},
 	{
-		"stateMutability": "payable",
-		"type": "receive"
+		"inputs": [],
+		"stateMutability": "nonpayable",
+		"type": "constructor"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"name": "allowListMinted",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
 	},
 	{
 		"inputs": [
@@ -506,6 +580,43 @@ const lazyButtsAbi = [
 				"internalType": "address",
 				"name": "",
 				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "isAllowListActive",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "address_",
+				"type": "address"
+			},
+			{
+				"internalType": "bytes32[]",
+				"name": "proof_",
+				"type": "bytes32[]"
+			}
+		],
+		"name": "isAllowListed",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
 			}
 		],
 		"stateMutability": "view",
@@ -556,12 +667,38 @@ const lazyButtsAbi = [
 	},
 	{
 		"inputs": [],
+		"name": "merkleRoot",
+		"outputs": [
+			{
+				"internalType": "bytes32",
+				"name": "",
+				"type": "bytes32"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
 		"name": "name",
 		"outputs": [
 			{
 				"internalType": "string",
 				"name": "",
 				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "OPERATOR_FILTER_REGISTRY",
+		"outputs": [
+			{
+				"internalType": "contract IOperatorFilterRegistry",
+				"name": "",
+				"type": "address"
 			}
 		],
 		"stateMutability": "view",

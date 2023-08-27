@@ -735,30 +735,22 @@ p {
   margin: 1rem;
   border-radius: 0.5em;
   box-shadow: 0px 0px 5px #333;
-  /* max-width: 200px; */
-  /* min-width: 300px; */
   width: 17%;
-  /* min-width: 300px; */
   background-color: #000;
   min-height: calc(600px - 2rem);
   max-height: calc(600px - 2rem);
-  /* box-shadow: 5px 5px 5px #ff2b06, -5px -5px 5px #00caf8; */
   transition: all 300ms ease;
   overflow: hidden;
-  /* border: 1px solid green; */
 }
 
 .claim-area-right-title {
   font-size: 1.5rem;
   font-weight: bold;
-  /* margin-top: 0.5rem; */
   cursor: default;
   color: #333;
-  /* border: 1px solid blue; */
 }
 
 .claim-area-right-info {
-  /* border: 1px solid red; */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -944,6 +936,14 @@ p {
   max-height: 50vw;
   width: 50vh;
   max-width: 50vw;
+}
+
+.claim-loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.5rem;
+  margin: 0.5rem;
 }
 
 @keyframes loading {
@@ -1132,4 +1132,32 @@ p {
   overflow-wrap: anywhere;
   overflow: hidden;
   box-shadow: 5px 5px 3px #ff2b06, -5px -5px 3px #00caf8;
+}
+
+.threeDeeDiv::before {
+  content: ' ';
+  display: block;
+  position: absolute;
+  left:0;
+  top:0;
+  width: 100%;
+  height: 100%;
+  background-image: url('./assets/FX13_3d.svg');
+  opacity: 0.35;
+  background-size: 80%;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.claim-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #111;
+  border: 3px solid #eee;
+  padding: 2rem;
+  border-radius: 1rem;
+  z-index: 100;
+  padding-bottom: 5rem;
 }

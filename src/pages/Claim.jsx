@@ -1,12 +1,24 @@
 import { useState, useEffect } from 'react'
-import { useAccount } from '../utils/w3m.js'
-import { getLions, getButts } from '../utils/api.js'
+import { useAccount } from '../utils/w3m'
+import { getLions, getAllButts, isAllowListActive, getProof } from '../utils/api'
 import Footer from '../components/Footer'
 import MyLionsSection from '../components/MyLionsSection'
 import ClaimHeader from '../components/ClaimHeader'
 import ClaimInfo from '../components/ClaimInfo'
 import ClaimAreaRight from '../components/ClaimAreaRight'
 import ClaimAreaMiddle from '../components/ClaimAreaMiddle'
+
+const ClaimModal = ({ isMobile, setIsClaiming }) => {
+    return (
+        <div className="claim-modal">
+            <h1>Claiming your <br/>Lazy Butt!</h1>
+            <div className="claim-loading-container">
+                <div className="loading">
+                </div>
+            </div>
+        </div>
+    )
+}
 
 const Claim = ({ isMobile, setActivePage }) => {
     const { address, isConnected } = useAccount()
@@ -15,9 +27,36 @@ const Claim = ({ isMobile, setActivePage }) => {
     const [selectedLions, setSelectedLions] = useState([])
     const [price, setPrice] = useState(0.02)
     const [totalPrice, setTotalPrice] = useState(0)
+    const [allowListActive, setAllowListActive] = useState(false)
+    const [proof, setProof] = useState(null)
+    const [isAllowListed, setIsAllowListed] = useState(false)
+    const [isClaiming, setIsClaiming] = useState(false)
+    const [refreshButts, setRefreshButts] = useState(false)
+
+    useEffect(() => {
+        const fetchProof = async () => {
+            const proof = await getProof(address)
+            setProof(proof)
+        }
+        fetchProof()
+    }, [address])
+
+    useEffect(() => {
+        if (!proof) return
+        if (proof.success) {
+            setIsAllowListed(true)
+        } else if (proof.message) {
+            setIsAllowListed(false)
+        }
+    }, [proof])
 
     useEffect(() => {
         window.scrollTo(0, 0)
+        const fetchAllowListActive = async () => {
+            const data = await isAllowListActive()
+            setAllowListActive(data)
+        }
+        fetchAllowListActive()
     }, [])
 
     useEffect(() => {
@@ -25,16 +64,6 @@ const Claim = ({ isMobile, setActivePage }) => {
     }, [setActivePage])
 
     useEffect(() => {
-        const fetchButts = async (address) => {
-            const butts = []
-            const data = await getButts(address)
-            for (let i = 0; i < data.length; i++) {
-                butts.push({ id: data[i] })
-            }
-            if (data) {
-                setMyButts(butts)
-            }
-        }
         const fetchLions = async (address) => {
             const lions = []
             const data = await getLions(address)
@@ -46,16 +75,34 @@ const Claim = ({ isMobile, setActivePage }) => {
             }
         }
         if (isConnected) {
-            fetchButts(address)
             fetchLions(address)
         }
     }, [address, isConnected])
 
     useEffect(() => {
+        const fetchButts = async () => {
+            const butts = []
+            const data = await getAllButts()
+            for (let i = 0; i < data.length; i++) {
+                butts.push({ id: data[i] })
+            }
+            if (data) {
+                setMyButts(butts)
+            }
+        }
+        if (isConnected) {
+            fetchButts()
+            setRefreshButts(false)
+        }
+    }, [myLions, refreshButts])
+
+    useEffect(() => {
         let total = 0
         total = Math.round(((price * selectedLions.length) + Number.EPSILON) * 100) / 100
+        total = allowListActive && isAllowListed && myButts.length < 1 ? total - (price / 2) < 0 ? 0 : total - (price / 2) : total
+        total = total.toFixed(2)
         setTotalPrice(total)
-    }, [selectedLions, setTotalPrice])
+    }, [selectedLions, setTotalPrice, isAllowListActive, myButts])
 
     const handleLionClick = (lion) => {
         const lionIndex = selectedLions.findIndex(l => l.id === lion.id)
@@ -73,18 +120,43 @@ const Claim = ({ isMobile, setActivePage }) => {
     return (
         <div className="claim">
             <div className="main">
+                {isClaiming ? <ClaimModal isMobile={isMobile} setIsClaiming={setIsClaiming} /> : null}
                 <ClaimHeader />
-                <ClaimInfo 
+                <ClaimInfo
                     address={address}
+                    allowListActive={allowListActive}
+                    isAllowListed={isAllowListed}
                 />
                 <div className="claim-area">
                     <div className="claim-area-title">
                         <h2>Pick Your Butt</h2>
                     </div>
                     <div className="claim-area-main">
-                        <MyLionsSection isConnected={isConnected} myLions={myLions} handleLionClick={handleLionClick} selectedLions={selectedLions} address={address} myButts={myButts} />
-                        <ClaimAreaMiddle selectedLions={selectedLions} />
-                        <ClaimAreaRight selectedLions={selectedLions} myLions={myLions} totalPrice={totalPrice} price={price} isConnected={isConnected} />
+                        <MyLionsSection
+                            isConnected={isConnected}
+                            myLions={myLions}
+                            handleLionClick={handleLionClick}
+                            selectedLions={selectedLions}
+                            address={address}
+                            myButts={myButts}
+                        />
+                        <ClaimAreaMiddle
+                            selectedLions={selectedLions}
+                        />
+                        <ClaimAreaRight
+                            selectedLions={selectedLions}
+                            myLions={myLions}
+                            totalPrice={totalPrice}
+                            price={price}
+                            isConnected={isConnected}
+                            allowListActive={allowListActive}
+                            isAllowListed={isAllowListed}
+                            proof={proof}
+                            setIsClaiming={setIsClaiming}
+                            isClaiming={isClaiming}
+                            setRefreshButts={setRefreshButts}
+                            setSelectedLions={setSelectedLions}
+                        />
                     </div>
                 </div>
             </div>

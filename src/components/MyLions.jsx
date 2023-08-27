@@ -4,9 +4,7 @@ import { getSmallButtImage } from '../utils/api.js'
 import EmptyLion from '../assets/lion-silhouette.png'
 
 const MyLions = ({ lions, butts, handleLionClick, selectedLions, address }) => {
-    const [buttImages, setButtImages] = useState([
-        { id: 1, image: EmptyLion },
-    ])
+    const [buttImages, setButtImages] = useState([])
 
     useEffect(() => {
         const fetchButtImages = async () => {
@@ -26,19 +24,11 @@ const MyLions = ({ lions, butts, handleLionClick, selectedLions, address }) => {
         fetchButtImages();
     }, [butts]);
 
-
     const lionList = lions.map(lion => {
         const isClaimed = butts.some(butt => butt.id === lion.id);
-        console.log(selectedLions)
         const isSelected = selectedLions.some(selectedLion => selectedLion.id === lion.id);
         const clickHandler = isClaimed ? undefined : () => handleLionClick(lion);
-
-        const sessionToken = getSessionToken()
-        console.log(`sessionToken: ${sessionToken}`)
-
         const buttImage = buttImages.find(buttImage => buttImage.id === lion.id)?.image ?? EmptyLion;
-
-        console.log(buttImage.size, buttImage.type)
 
         return (
             <div
