@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react'
-import { getFullResButtImage, getFullBodyImage, getFullBodyThumbImage, getMediumButtImage, getSmallButtImage } from '../utils/api.js'
+import { getFullResButtImage, getFullBodyImage, getFullBodyThumbImage, getMediumButtImage } from '../utils/api.js'
 import { getSessionToken } from '../utils/session.js'
+import { useIsMobile } from '../utils/tools.js'
 import { useAccount } from 'wagmi'
 import toast from 'react-hot-toast'
 import '../styles/DownloadButton.css'
 
 // button for downloading butt images
 const DownloadBar = ({ butt, setButtImage, setIsLoading, selectedType, setSelectedType, myLions }) => {
+    const isMobile = useIsMobile()
     const [blobs, setBlobs] = useState({}) // TODO: change to preview blobs and then when download is clicked, download the full res
     const { address } = useAccount()
     const sessionToken = getSessionToken()
@@ -116,17 +118,17 @@ const DownloadBar = ({ butt, setButtImage, setIsLoading, selectedType, setSelect
         <div className="downloadBar">
             <div className={`downloadButtonDropdownItem ${selectedType === 'medium' ? 'selected' : null}`}
                 onClick={() => handleMediumButtonClick(butt.id)} >
-                Original (2k × 2k)
+                Original {!isMobile ? `(2k × 2k)` : null}
             </div>
             <div className={`downloadButtonDropdownItem ${selectedType === 'full-res' ? 'selected' : null}`}
                 onClick={() => handleFullResButtonClick()}
             >
-                Full Res (8k × 8k)
+                Full Res {!isMobile ? `(8k × 8k)` : null}
             </div>
             <div className={`downloadButtonDropdownItem ${selectedType === 'full-body' ? 'selected' : null}`}
                 onClick={() => handleFullBodyButtonClick()}
             >
-                Full Body (8k × 16k)
+                Full Body {!isMobile ? `(8k × 16k)` : null}
             </div>
             <div className="downloadButtonDropdownItem download"
                 onClick={() => handleDownloadClick()}

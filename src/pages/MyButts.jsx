@@ -176,8 +176,8 @@ const MyButts = ({ setActivePage, authenticated, setAuthenticated, myLions, setM
 
     // Render the appropriate content based on the user's state.
     const renderContent = () => {
-        if (isLoadingPage) return <LoadingMessage />
         if (!isConnected) return <ConnectMessage />
+        if (isLoadingPage) return <LoadingMessage />
         if (isConnected && myButts.length === 0) return <ClaimMessage />
         if (isConnected && !authenticated && myButts.length > 0) return <SignMessage handleSignClick={handleSignClick} />
 

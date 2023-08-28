@@ -2,15 +2,14 @@ import { useState, useEffect } from 'react';
 import useModal from "../utils/useModal";
 import { getMediumButtImage, getMetadata } from '../utils/api';
 import DownloadBar from './DownloadBar';
-import { getSessionToken } from '../utils/session';
-import { useAccount } from 'wagmi';
 import Traits from './Traits';
+import { useIsMobile } from '../utils/tools';
+import toast from 'react-hot-toast';
 
-const ModalImage = ({ butt, buttMetadata, buttImage, isLoading, selectedType }) => {
-    const { address } = useAccount()
-    const sessionToken = getSessionToken()
+const ModalContent = ({ butt, buttMetadata, buttImage, isLoading, selectedType }) => {
+    const isMobile = useIsMobile()
 
-    return (
+    const desktopLayout = (
         <div className="horizontalContainer">
             <Traits buttMetadata={buttMetadata} />
             {isLoading ? <div className="loading-container">
@@ -24,17 +23,33 @@ const ModalImage = ({ butt, buttMetadata, buttImage, isLoading, selectedType }) 
             }
         </div>
     )
+
+    const mobileLayout = (
+        <div className="verticalContainer">
+            {isLoading ? <div className="loading-container">
+                <div className="loading"></div>
+            </div> :
+                <img
+                    className={`${selectedType === 'full-body' ? 'buttModalImage fullBody' : selectedType === 'full-res' ? 'buttModalImage fullRes' : 'buttModalImage'} mobile`}
+                    src={buttImage}
+                    alt={`Lazy Butt #${butt.id}`}
+                />
+            }
+            <Traits buttMetadata={buttMetadata} />
+        </div>
+    )
+
+    return isMobile ? mobileLayout : desktopLayout
 }
 
 // modal for displaying butt details and download button
 const ButtModal = ({ butt, myLions }) => {
+    const isMobile = useIsMobile()
     const { closeModal } = useModal()
-    const { address } = useAccount()
     const [isLoading, setIsLoading] = useState(true)
     const [buttImage, setButtImage] = useState(null)
     const [buttMetadata, setButtMetadata] = useState(null)
     const [selectedType, setSelectedType] = useState('medium')
-    const sessionToken = getSessionToken()
 
     useEffect(() => {
         const handleEscape = (e) => {
@@ -46,6 +61,23 @@ const ButtModal = ({ butt, myLions }) => {
         return () => {
             window.removeEventListener('keydown', handleEscape)
         }
+    }, [])
+
+    useEffect(() => {
+        const targetElement = document.querySelector('.myButts');
+
+        if (isMobile) {
+          targetElement.classList.add('no-scroll');
+        } else if (targetElement) {
+          targetElement.classList.remove('no-scroll');
+        }
+    
+        // Cleanup function: if the modal component is destroyed, ensure we remove the class
+        return () => {
+          if (targetElement) {
+            targetElement.classList.remove('no-scroll');
+          }
+        };
     }, [])
 
     useEffect(() => {
@@ -88,8 +120,8 @@ const ButtModal = ({ butt, myLions }) => {
                             x
                         </div>
                     </div>
-                    <div className="buttModalTitle">Lazy Butt #{butt.id}</div>
-                    <ModalImage
+                    <div className={`buttModalTitle ${isMobile ? 'mobile' : null}`}>Lazy Butt #{butt.id}</div>
+                    <ModalContent
                         butt={butt}
                         buttMetadata={buttMetadata}
                         buttImage={buttImage}

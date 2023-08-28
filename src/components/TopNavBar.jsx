@@ -88,7 +88,7 @@ const TopNavBar = ({ isMobile, activePage, setActivePage }) => {
             <MenuLink link='home' text='Home' />
             <a href="https://docs.the3dkings.io" target="_blank" rel="noreferrer">Read the Docs</a>
             <MenuLink link='claim' text='Claim my Butts' />
-            <MenuLink link='mybutts' text='My Assets' />
+            <MenuLink link='butts' text='My Assets' />
             <a href="https://x.com/3DKingsNFT" target="_blank" rel="noreferrer">X (@3DKingsNFT)</a>
             <a href="https://opensea.io/collection/lazy-lions" target="_blank" rel="noreferrer">LL OpenSea</a>
             <a href="https://opensea.io/collection/lazy-butts" target="_blank" rel="noreferrer">LB OpenSea</a>
