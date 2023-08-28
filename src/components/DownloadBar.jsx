@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { getFullResButtImage, getFullBodyImage, getMediumButtImage } from '../utils/api.js'
+import { getFullResButtImage, getFullBodyImage, getFullBodyThumbImage, getMediumButtImage, getSmallButtImage } from '../utils/api.js'
 import { getSessionToken } from '../utils/session.js'
 import { useAccount } from 'wagmi'
 import toast from 'react-hot-toast'
@@ -19,30 +19,12 @@ const DownloadBar = ({ butt, setButtImage, setIsLoading, selectedType, setSelect
         fetchButtImage()
     }, [butt, address, sessionToken])
 
-    const handleDownloadClick = () => {
-        const downloadToast = toast.promise(
-            downloadBlob(selectedType),
-            {
-                loading: 'Downloading...',
-                success: 'Downloaded!',
-                error: 'Error downloading :('
-            })
-
-        downloadToast.then(() => {
-            console.log('Downloaded!')
-        })
+    const handleDownloadClick = async () => {
+        await downloadBlob(selectedType)
     }
 
     const downloadBlob = async (type) => {
-        const imageBlob = blobs[type]
-        const url = window.URL.createObjectURL(imageBlob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `lazy-butt_${type}_${butt.id}.png`;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        window.URL.revokeObjectURL(url);  // Free up memory
+        downloadImage(butt.id, type, `lazy-butt_${type}_${butt.id}.png`, address, sessionToken)
     }
 
     const setImage = (imageBlob) => {
@@ -69,7 +51,7 @@ const DownloadBar = ({ butt, setButtImage, setIsLoading, selectedType, setSelect
         if (blobs['full-res']) {
             setImage(blobs['full-res'])
         } else {
-            const fullResBlob = await getFullResButtImage(butt.id, address, sessionToken)
+            const fullResBlob = await getMediumButtImage(butt.id)
             setBlobs({ ...blobs, 'full-res': fullResBlob })
             setImage(fullResBlob)
         }
@@ -82,7 +64,7 @@ const DownloadBar = ({ butt, setButtImage, setIsLoading, selectedType, setSelect
         if (blobs['full-body']) {
             setImage(blobs['full-body'])
         } else {
-            const fullBodyBlob = await getFullBodyImage(butt.id, address, sessionToken)
+            const fullBodyBlob = await getFullBodyThumbImage(butt.id, address, sessionToken)
             setBlobs({ ...blobs, 'full-body': fullBodyBlob })
             setImage(fullBodyBlob)
         }
@@ -118,7 +100,7 @@ const DownloadBar = ({ butt, setButtImage, setIsLoading, selectedType, setSelect
     return (
         <div className="downloadBar">
             <div className={`downloadButtonDropdownItem ${selectedType === 'medium' ? 'selected' : null}`}
-            onClick={() => handleMediumButtonClick(butt.id)} >
+                onClick={() => handleMediumButtonClick(butt.id)} >
                 Original (2k × 2k)
             </div>
             <div className={`downloadButtonDropdownItem ${selectedType === 'full-res' ? 'selected' : null}`}

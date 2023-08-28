@@ -803,9 +803,11 @@ p {
 }
 
 .buttGrid {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-gap: 1rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
 .myButtsContent {
@@ -814,7 +816,7 @@ p {
   border-radius: 0.5em;
   box-shadow: 0px 0px 5px #333;
   margin: 2rem;
-  width: 100%;
+  width: 75vw;
 }
 
 .buttModalOverlay {

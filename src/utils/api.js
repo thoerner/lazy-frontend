@@ -34,10 +34,9 @@ export const getFullResButtImage = async (buttId, address, sessionToken) => {
             'Address': `${address}` // Specify the address
         },
     });
-    
+
     if (res.headers.get('Content-Type').includes('application/json')) {
         const jsonData = await res.json();
-        console.log(jsonData);
         throw new Error('Expected an image but got JSON response.');
     }
     const image = await res.blob();
@@ -53,10 +52,27 @@ export const getFullBodyImage = async (buttId, address, sessionToken) => {
             'Address': `${address}` // Specify the address
         },
     });
-    
+
     if (res.headers.get('Content-Type').includes('application/json')) {
         const jsonData = await res.json();
-        console.log(jsonData);
+        throw new Error('Expected an image but got JSON response.');
+    }
+    const image = await res.blob();
+    return image;
+}
+
+export const getFullBodyThumbImage = async (buttId, address, sessionToken) => {
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/images/full-thumb/${buttId}.png`, {
+        method: 'GET',  // Specify the method
+        headers: {
+            'Content-Type': 'application/json',  // Specify the content type of the request body
+            'Authorization': `${sessionToken}`,  // Specify the token
+            'Address': `${address}` // Specify the address
+        },
+    });
+
+    if (res.headers.get('Content-Type').includes('application/json')) {
+        const jsonData = await res.json();
         throw new Error('Expected an image but got JSON response.');
     }
     const image = await res.blob();
@@ -73,7 +89,6 @@ export const getSmallButtImage = async (buttId, address, sessionToken) => {
 
     if (res.headers.get('Content-Type').includes('application/json')) {
         const jsonData = await res.json();
-        console.log(jsonData);
         throw new Error('Expected an image but got JSON response.');
     }
     const image = await res.blob();
@@ -90,7 +105,6 @@ export const getMediumButtImage = async (buttId) => {
 
     if (res.headers.get('Content-Type').includes('application/json')) {
         const jsonData = await res.json();
-        console.log(jsonData);
         throw new Error('Expected an image but got JSON response.');
     }
     const image = await res.blob();
@@ -143,8 +157,6 @@ export const verifySignature = async (token, signature, address) => {
 }
 
 export const checkSession = async (params) => {
-    console.log(JSON.stringify(params))
-
     const res = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/check`, {
         method: 'POST',
         headers: {
@@ -153,8 +165,6 @@ export const checkSession = async (params) => {
         body: JSON.stringify(params)
     })
     const data = await res.json()
-    console.log(JSON.stringify(data))
-
     return data
 }
 

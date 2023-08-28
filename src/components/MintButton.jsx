@@ -18,7 +18,7 @@ const MintButton = ({
     setIsClaimed,
 }) => {
     const { address } = useAccount()
-    const { data, isError, isLoading } = useBalance({
+    const { data: balance } = useBalance({
         address,
         watch: true,
     })
@@ -58,7 +58,6 @@ const MintButton = ({
         value: value,
         onSettled(data, error) {
             if (error) {
-                console.log('error', error)
                 if (error.message.includes("User rejected the request")) {
                     toast.error('Transaction rejected')
                 } else if (error.message.includes("Insufficient funds")) {
@@ -67,8 +66,6 @@ const MintButton = ({
                     toast.error('Transaction failed')
                 }
                 setIsClaiming(false)
-            } else {
-                console.log('data', data)
             }
         },
         onSuccess(data) {
@@ -97,7 +94,7 @@ const MintButton = ({
         }
     })
     
-    if (data?.value < value) {
+    if (balance?.value < value) {
         return (
             <button disabled>
                 Insufficient Balance

@@ -22,7 +22,7 @@ const MyButts = ({ setActivePage, authenticated, setAuthenticated }) => {
 
     // Determine whether to request a message signature.
     const shouldRequestSignMessage = () => {
-        return !authenticated && myButts.length > 0 && token && !signingMessage
+        return !authenticated && myButts.length > 0 && token !== '' && !signingMessage
     }
 
     // Handle the sign message button click.
@@ -90,7 +90,7 @@ const MyButts = ({ setActivePage, authenticated, setAuthenticated }) => {
             signMessage()
             setSigningMessage(false)
         }
-    }, [token, myButts, authenticated, signingMessage, retrySign])
+    }, [token, authenticated, signingMessage, retrySign])
 
     // When the user connects their account, fetch their associated tokens and butts.
     useEffect(() => {
