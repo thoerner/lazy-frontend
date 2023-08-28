@@ -17,8 +17,8 @@ const ClaimModal = ({ isMobile, setIsClaiming, isClaimed, setIsClaimed }) => {
     return (
         <div className="claim-modal">
             {isClaimed ?
-            <h1>Claimed!</h1> :
-            <h1>Claiming your <br />Lazy Butt!</h1>}
+                <h1>Claimed!</h1> :
+                <h1>Claiming your <br />Lazy Butt!</h1>}
             <div className="claim-loading-container">
                 {!isClaimed ?
                     <div className="loading">
@@ -29,7 +29,7 @@ const ClaimModal = ({ isMobile, setIsClaiming, isClaimed, setIsClaimed }) => {
                                 My Assets
                             </Link>
                             {" "}page to access your new Lazy Butt(s)!</p>
-                            <p><a href="https://twitter.com/intent/tweet?text=I%20just%20claimed%20my%20Lazy%20Butt%20by%20@3DKingsNFT%20for%20my%20Lazy%20Lion!&url=https://the3dkings.io/" target="_blank" rel="referrer">Share on X!</a></p>
+                        <p><a href="https://twitter.com/intent/tweet?text=I%20just%20claimed%20my%20Lazy%20Butt%20by%20@3DKingsNFT%20for%20my%20Lazy%20Lion!&url=https://the3dkings.io/" target="_blank" rel="referrer">Share on X!</a></p>
                     </div>}
             </div>
             <div className="claim-modal-close">
@@ -39,9 +39,8 @@ const ClaimModal = ({ isMobile, setIsClaiming, isClaimed, setIsClaimed }) => {
     )
 }
 
-const Claim = ({ isMobile, setActivePage }) => {
+const Claim = ({ isMobile, setActivePage, myLions, setMyLions }) => {
     const { address, isConnected } = useAccount()
-    const [myLions, setMyLions] = useState([])
     const [myButts, setMyButts] = useState([])
     const [selectedLions, setSelectedLions] = useState([])
     const [price, setPrice] = useState(0.02)
@@ -73,8 +72,13 @@ const Claim = ({ isMobile, setActivePage }) => {
     useEffect(() => {
         window.scrollTo(0, 0)
         const fetchAllowListActive = async () => {
-            const data = await isAllowListActive()
-            setAllowListActive(data)
+            try {
+                const data = await isAllowListActive()
+                console.log(`Allow list active: ${data}`)
+                setAllowListActive(data)
+            } catch (err) {
+                console.log(err)
+            }
         }
         fetchAllowListActive()
     }, [])
@@ -139,46 +143,44 @@ const Claim = ({ isMobile, setActivePage }) => {
 
     return (
         <div className="claim">
-            <div className="main">
-                {isClaiming || isClaimed ? <ClaimModal isMobile={isMobile} isClaimed={isClaimed} setIsClaiming={setIsClaiming} setIsClaimed={setIsClaimed}/> : null}
-                <ClaimHeader />
-                <ClaimInfo
-                    address={address}
-                    allowListActive={allowListActive}
-                    isAllowListed={isAllowListed}
-                />
-                <div className="claim-area">
-                    <div className="claim-area-title">
-                        <h2>Pick Your Butt</h2>
-                    </div>
-                    <div className="claim-area-main">
-                        <MyLionsSection
-                            isConnected={isConnected}
-                            myLions={myLions}
-                            handleLionClick={handleLionClick}
-                            selectedLions={selectedLions}
-                            address={address}
-                            myButts={myButts}
-                        />
-                        <ClaimAreaMiddle
-                            selectedLions={selectedLions}
-                        />
-                        <ClaimAreaRight
-                            selectedLions={selectedLions}
-                            myLions={myLions}
-                            totalPrice={totalPrice}
-                            price={price}
-                            isConnected={isConnected}
-                            allowListActive={allowListActive}
-                            isAllowListed={isAllowListed}
-                            proof={proof}
-                            setIsClaiming={setIsClaiming}
-                            isClaiming={isClaiming}
-                            setRefreshButts={setRefreshButts}
-                            setSelectedLions={setSelectedLions}
-                            setIsClaimed={setIsClaimed}
-                        />
-                    </div>
+            {isClaiming || isClaimed ? <ClaimModal isMobile={isMobile} isClaimed={isClaimed} setIsClaiming={setIsClaiming} setIsClaimed={setIsClaimed} /> : null}
+            <ClaimHeader />
+            <ClaimInfo
+                address={address}
+                allowListActive={allowListActive}
+                isAllowListed={isAllowListed}
+            />
+            <div className="claim-area">
+                <div className="claim-area-title">
+                    <h2>Pick Your Butt</h2>
+                </div>
+                <div className="claim-area-main">
+                    <MyLionsSection
+                        isConnected={isConnected}
+                        myLions={myLions}
+                        handleLionClick={handleLionClick}
+                        selectedLions={selectedLions}
+                        address={address}
+                        myButts={myButts}
+                    />
+                    <ClaimAreaMiddle
+                        selectedLions={selectedLions}
+                    />
+                    <ClaimAreaRight
+                        selectedLions={selectedLions}
+                        myLions={myLions}
+                        totalPrice={totalPrice}
+                        price={price}
+                        isConnected={isConnected}
+                        allowListActive={allowListActive}
+                        isAllowListed={isAllowListed}
+                        proof={proof}
+                        setIsClaiming={setIsClaiming}
+                        isClaiming={isClaiming}
+                        setRefreshButts={setRefreshButts}
+                        setSelectedLions={setSelectedLions}
+                        setIsClaimed={setIsClaimed}
+                    />
                 </div>
             </div>
             <Footer />

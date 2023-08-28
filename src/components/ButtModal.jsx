@@ -27,7 +27,7 @@ const ModalImage = ({ butt, buttMetadata, buttImage, isLoading, selectedType }) 
 }
 
 // modal for displaying butt details and download button
-const ButtModal = ({ butt }) => {
+const ButtModal = ({ butt, myLions }) => {
     const { closeModal } = useModal()
     const { address } = useAccount()
     const [isLoading, setIsLoading] = useState(true)
@@ -78,6 +78,7 @@ const ButtModal = ({ butt }) => {
                     isLoading={isLoading}
                     selectedType={selectedType}
                     setSelectedType={setSelectedType}
+                    myLions={myLions}
                 />
                 <div className="buttModalContent">
                     <div className="buttModalClose"

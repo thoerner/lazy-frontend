@@ -36,10 +36,12 @@ a {
   text-decoration: inherit;
   transition: all 0.3s ease 0s;
 }
+
 a:hover {
   text-shadow: 3px 0px 0px #ff2b06, -3px 0px 0px #00caf8;
   transition: all 0.3s ease 0s;
 }
+
 a:active {
   color: white;
   text-shadow: 1.5px 0px 0px #ff2b06, -1.5px 0px 0px #00caf8;
@@ -70,6 +72,17 @@ a:active {
   padding: 1.5em;
   will-change: filter, transform;
   transition: filter 300ms, transform 300ms;
+}
+
+@media screen and (max-width: 800px) {
+  .my-lions-empty {
+    border-radius: 0.5rem;
+    overflow: hidden;
+  }
+
+  .my-lions-empty p {
+    font-size: 1.2rem;
+  }
 }
 
 /* Hamburger menu styles */
@@ -135,6 +148,14 @@ a:active {
 
 /* Styles for the main content area */
 .main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+}
+
+.claim {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -269,7 +290,7 @@ a:active {
   overflow: hidden;
   background-color: #111;
   padding: 0.8rem;
-  z-index: 1;
+  z-index: 20;
   border-bottom: 1px solid #888;
 }
 
@@ -283,7 +304,7 @@ a:active {
   overflow: hidden;
   background-color: #111;
   padding: 0.8rem 0;
-  z-index: 1;
+  z-index: 20;
   border-bottom: 1px solid #888;
 }
 
@@ -422,6 +443,14 @@ p {
   transition: all 300ms ease;
 }
 
+@media screen and (max-width: 800px) {
+  .claim-area-main {
+    min-width: 90%;
+    width: 90%;
+    padding: 0;
+  }
+}
+
 .claim-area-left {
   display: flex;
   flex-direction: column;
@@ -439,6 +468,14 @@ p {
   /* box-shadow: 5px 5px 5px #ff2b06, -5px -5px 5px #00caf8; */
   transition: all 300ms ease;
   overflow: hidden;
+}
+
+@media screen and (max-width: 800px) {
+  .claim-area-left {
+    min-width: 90%;
+    width: 90%;
+    padding: 0;
+  }
 }
 
 .claim-area-left-title {
@@ -472,6 +509,15 @@ p {
   margin: 1rem 0;
   overflow-y: scroll;
   overflow-x: hidden;
+}
+
+@media screen and (max-width: 800px) {
+  .my-lions-container {
+    margin: 1rem;
+  }
+  .empty {
+    overflow: hidden;
+  }
 }
 
 .my-lions {
@@ -563,9 +609,9 @@ p {
   height: auto;
 }
 
-.my-lion.claimed:hover .my-lion-image .default-image, 
+.my-lion.claimed:hover .my-lion-image .default-image,
 .my-lion.claimed:hover .my-lion-image .hover-image {
-    transition: transform 700ms cubic-bezier(0.5, 1.5, 0.3, 1);
+  transition: transform 700ms cubic-bezier(0.5, 1.5, 0.3, 1);
 }
 
 .my-lion.selected {
@@ -636,6 +682,7 @@ p {
 }
 
 .claim-area-middle {
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -655,6 +702,14 @@ p {
   overflow: hidden;
 }
 
+@media screen and (max-width: 800px) {
+  .claim-area-middle {
+    min-width: 90%;
+    width: 90%;
+    padding: 0;
+  }
+}
+
 .claim-area-middle-title {
   font-size: 1.5rem;
   font-weight: bold;
@@ -670,8 +725,6 @@ p {
   align-items: center;
   height: 500px;
   width: 250px;
-  /* padding: 1rem; */
-  /* margin: 1rem; */
   border-radius: 0.5em;
   background-color: #333;
   color: white;
@@ -726,6 +779,34 @@ p {
   width: 100%;
 }
 
+@media screen and (max-width: 800px) {
+  .silhouette-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    height: 299px;
+    width: 150px;
+    margin: 0;
+    padding: 0;
+  }
+  .silhouette-card-image-top img {
+    margin: 0;
+    height: 150px;
+    width: 150px;
+  }
+  .silhouette-card-image-bottom img {
+    margin: 0;
+    height: 150px;
+    width: 150px;
+  }
+  canvas {
+    margin-top: -7px;
+  }
+}
+
+
+
 .claim-area-right {
   display: flex;
   flex-direction: column;
@@ -741,6 +822,14 @@ p {
   max-height: calc(600px - 2rem);
   transition: all 300ms ease;
   overflow: hidden;
+}
+
+@media screen and (max-width: 800px) {
+  .claim-area-right {
+    min-width: 90%;
+    width: 90%;
+    padding: 0;
+  }
 }
 
 .claim-area-right-title {
@@ -948,10 +1037,19 @@ p {
   margin: 0.5rem;
 }
 
+.loading-message {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.5rem;
+  margin: 0.5rem;
+}
+
 @keyframes loading {
   0% {
     transform: rotate(0deg);
   }
+
   100% {
     transform: rotate(359deg);
   }
@@ -1140,8 +1238,8 @@ p {
   content: ' ';
   display: block;
   position: absolute;
-  left:0;
-  top:0;
+  left: 0;
+  top: 0;
   width: 100%;
   height: 100%;
   background-image: url('./assets/FX13_3d.svg');

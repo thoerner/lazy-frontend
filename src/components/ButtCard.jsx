@@ -4,7 +4,7 @@ import ModalContext from "../contexts/ModalContext";
 import ButtModal from './ButtModal.jsx';
 
 // card for displaying butt image and butt number
-const ButtCard = ({ butt, buttImage }) => {
+const ButtCard = ({ butt, buttImage, myLions }) => {
     const [isModalOpen, setModalOpen] = useState(false);
     const openModal = () => setModalOpen(true);
     const closeModal = () => setModalOpen(false);
@@ -15,7 +15,7 @@ const ButtCard = ({ butt, buttImage }) => {
 
     return (
         <ModalContext.Provider value={{ isModalOpen, openModal, closeModal }}>
-            {isModalOpen && <ButtModal butt={butt} buttImage={buttImage} />}
+            {isModalOpen && <ButtModal butt={butt} buttImage={buttImage} myLions={myLions} />}
             <div className="buttCard">
                 <i
                     className="fas fa-butt"

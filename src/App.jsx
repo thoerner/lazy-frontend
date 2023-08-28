@@ -22,6 +22,7 @@ function Root() {
   const isMobile = useIsMobile()
   const [activePage, setActivePage] = useState('home')
   const [authenticated, setAuthenticated] = useState(false)
+  const [myLions, setMyLions] = useState([])
 
   return (
     <div className="app">
@@ -30,8 +31,8 @@ function Root() {
         <TopNavBar isMobile={isMobile} setActivePage={setActivePage} activePage={activePage} />
         <Routes>
           <Route path="/" element={<Home isMobile={isMobile} />} />
-          <Route path="/claim" element={<Claim isMobile={isMobile} setActivePage={setActivePage} />} />
-          <Route path="/butts" element={<MyButts isMobile={isMobile} setActivePage={setActivePage} authenticated={authenticated} setAuthenticated={setAuthenticated} />} />
+          <Route path="/claim" element={<Claim isMobile={isMobile} setActivePage={setActivePage} myLions={myLions} setMyLions={setMyLions} />} />
+          <Route path="/butts" element={<MyButts isMobile={isMobile} setActivePage={setActivePage} authenticated={authenticated} setAuthenticated={setAuthenticated} myLions={myLions} setMyLions={setMyLions}/>} />
         </Routes>
       </WagmiConfig>
       <Web3Modal

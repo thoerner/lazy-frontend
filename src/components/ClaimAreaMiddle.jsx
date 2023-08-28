@@ -8,11 +8,12 @@ const ClaimAreaMiddle = ({ selectedLions }) => {
             <img src={Logo} alt="Lazy Butts"
                 style={{
                     width: '100%',
-                    maxWidth: '25%',
+                    maxWidth: '75%',
                     position: 'absolute',
                     opacity: selectedLions.length === 0 ? 1 : 0.15,
                 }}
             />
+            
             {selectedLions.length > 4 ?
                 <div className="silhouette-card stacked-four">
                     <Silhouette

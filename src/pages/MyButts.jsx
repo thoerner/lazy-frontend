@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react"
 import { useAccount, useSignMessage } from "../utils/w3m.js"
-import { getButts, verifySignature, getToken, checkSession, getSmallButtImage } from "../utils/api.js"
+import { getLions, getButts, verifySignature, getToken, checkSession, getSmallButtImage } from "../utils/api.js"
 import { getSessionToken, createSessionToken } from "../utils/session.js"
 import { MESSAGE_PREFIX } from "../utils/constants.js"
 import { SignMessage, ClaimMessage, ConnectMessage } from "../components/ButtMessages.jsx"
@@ -8,7 +8,15 @@ import ButtGrid from "../components/ButtGrid.jsx"
 import Disclaimer from "../components/Disclaimer.jsx"
 import Footer from "../components/Footer.jsx"
 
-const MyButts = ({ setActivePage, authenticated, setAuthenticated }) => {
+const LoadingMessage = () => {
+    return (
+        <div className="loading-message">
+            <div className="loading"></div>
+        </div>
+    )
+}
+
+const MyButts = ({ setActivePage, authenticated, setAuthenticated, myLions, setMyLions }) => {
     const [token, setToken] = useState('')
     const [message, setMessage] = useState('')
     const [signingMessage, setSigningMessage] = useState(false)
@@ -18,7 +26,9 @@ const MyButts = ({ setActivePage, authenticated, setAuthenticated }) => {
     const [sessionToken, setSessionToken] = useState()
     const [myButts, setMyButts] = useState([])
     const [buttImages, setButtImages] = useState([])
+    const [isLoadingPage, setIsLoadingPage] = useState(true)
     const { data, isError, isLoading, isSuccess, signMessage } = useSignMessage({ message })
+
 
     // Determine whether to request a message signature.
     const shouldRequestSignMessage = () => {
@@ -110,11 +120,29 @@ const MyButts = ({ setActivePage, authenticated, setAuthenticated }) => {
                 setMyButts(butts)
             }
         }
+        const fetchLions = async (address) => {
+            console.log(`Fetching lions for ${address}`)
+            const lions = []
+            const data = await getLions(address)
+            for (let i = 0; i < data.length; i++) {
+                lions.push({ id: data[i] })
+            }
+            if (data) {
+                setMyLions(lions)
+            }
+        }
         if (isConnected) {
             fetchButts(address)
+            fetchLions(address)
             fetchToken(address)
         }
     }, [isConnected, address])
+
+    useEffect(() => {
+        if (myButts.length > 0 && buttImages.length === myButts.length) {
+            setIsLoadingPage(false)
+        }
+    }, [myButts, buttImages])
 
     // Fetch the small butt images for the user's butts.
     useEffect(() => {
@@ -148,11 +176,12 @@ const MyButts = ({ setActivePage, authenticated, setAuthenticated }) => {
 
     // Render the appropriate content based on the user's state.
     const renderContent = () => {
+        if (isLoadingPage) return <LoadingMessage />
         if (!isConnected) return <ConnectMessage />
         if (isConnected && myButts.length === 0) return <ClaimMessage />
         if (isConnected && !authenticated && myButts.length > 0) return <SignMessage handleSignClick={handleSignClick} />
 
-        return <ButtGrid butts={myButts} buttImages={buttImages} />
+        return <ButtGrid butts={myButts} buttImages={buttImages} myLions={myLions} />
     }
 
     return (

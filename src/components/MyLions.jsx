@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { getSessionToken } from "../utils/session.js"
 import { getSmallButtImage } from '../utils/api.js'
 import EmptyLion from '../assets/lion-silhouette.png'
+import uniques from '../utils/uniques.js'
 
 const MyLions = ({ lions, butts, handleLionClick, selectedLions, address }) => {
     const [buttImages, setButtImages] = useState([])
@@ -25,6 +26,7 @@ const MyLions = ({ lions, butts, handleLionClick, selectedLions, address }) => {
     }, [butts]);
 
     const lionList = lions.map(lion => {
+        if (uniques.includes(lion.id)) return null;
         const isClaimed = butts.some(butt => butt.id === lion.id);
         const isSelected = selectedLions.some(selectedLion => selectedLion.id === lion.id);
         const clickHandler = isClaimed ? undefined : () => handleLionClick(lion);

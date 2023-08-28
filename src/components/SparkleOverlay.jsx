@@ -1,14 +1,16 @@
 // SparkleOverlay.js
+import { useIsMobile } from '../utils/tools'
 import React, { useRef, useEffect, useContext } from 'react';
 
 const SparkleOverlay = ({ baseImageUrl, isTwinkling }) => {
+    const isMobile = useIsMobile()
     const canvasRef = useRef(null);
     const sparklesRef = useRef([]); // To store our sparkles
 
     useEffect(() => {
         const ctx = canvasRef.current.getContext('2d');
-        const canvasWidth = 250;
-        const canvasHeight = 250;
+        const canvasWidth = isMobile ? 150 : 250;
+        const canvasHeight = isMobile ? 150 : 250;
 
         // Define a sparkle object
         const createSparkle = (x, y, size) => {
