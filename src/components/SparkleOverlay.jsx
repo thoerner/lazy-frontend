@@ -6,11 +6,11 @@ const SparkleOverlay = ({ baseImageUrl, isTwinkling }) => {
     const isMobile = useIsMobile()
     const canvasRef = useRef(null);
     const sparklesRef = useRef([]); // To store our sparkles
+    const canvasWidth = isMobile ? 150 : 250;
+    const canvasHeight = isMobile ? 150 : 250;
 
     useEffect(() => {
         const ctx = canvasRef.current.getContext('2d');
-        const canvasWidth = isMobile ? 150 : 250;
-        const canvasHeight = isMobile ? 150 : 250;
 
         // Define a sparkle object
         const createSparkle = (x, y, size) => {
@@ -94,7 +94,7 @@ const SparkleOverlay = ({ baseImageUrl, isTwinkling }) => {
         };
     }, [baseImageUrl]);
 
-    return <canvas ref={canvasRef} width="250" height="250"></canvas>;
+    return <canvas ref={canvasRef} width={canvasWidth} height={canvasHeight}></canvas>;
 };
 
 export default SparkleOverlay;

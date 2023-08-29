@@ -3,6 +3,7 @@ import { useAccount, useSignMessage } from "../utils/w3m.js"
 import { getLions, getButts, verifySignature, getToken, checkSession, getSmallButtImage } from "../utils/api.js"
 import { getSessionToken, createSessionToken } from "../utils/session.js"
 import { MESSAGE_PREFIX } from "../utils/constants.js"
+import { useIsMobile } from "../utils/tools.js"
 import { SignMessage, ClaimMessage, ConnectMessage } from "../components/ButtMessages.jsx"
 import ButtGrid from "../components/ButtGrid.jsx"
 import Disclaimer from "../components/Disclaimer.jsx"
@@ -17,6 +18,7 @@ const LoadingMessage = () => {
 }
 
 const MyButts = ({ setActivePage, authenticated, setAuthenticated, myLions, setMyLions }) => {
+    const isMobile = useIsMobile()
     const [token, setToken] = useState('')
     const [message, setMessage] = useState('')
     const [signingMessage, setSigningMessage] = useState(false)
@@ -155,11 +157,11 @@ const MyButts = ({ setActivePage, authenticated, setAuthenticated, myLions, setM
                     image: imageUrl
                 };
             });
-        
+
             const buttImages = await Promise.all(buttImagesPromises);
             setButtImages(buttImages);
-        };        
-    
+        };
+
         fetchButtImages();
     }, [myButts]);
 
@@ -187,8 +189,14 @@ const MyButts = ({ setActivePage, authenticated, setAuthenticated, myLions, setM
     return (
         <div className="myButts">
             <h1>My Lazy Butts</h1>
-            <p>Welcome to your personal collection of Lazy Butts. Here, you can view, manage, and interact with all the Lazy Butts you've claimed or acquired. Each unique asset is a testament to our vibrant and growing community. Dive in, explore your collection, and amplify the roar of the Pride.</p>
-            <p>It's important to note: While Lazy Butts owners enjoy exclusive access to the high-resolution Lazy Butt image and other potential assets, the Full Body artwork is a special privilege. To unlock the complete Full Body artwork, you must own BOTH the Lazy Butt AND the corresponding Lazy Lion. This pairing ensures a comprehensive and unique representation of your chosen character in the Pride.</p>
+            {!isMobile ?
+                <>
+                    <p>Welcome to your personal collection of Lazy Butts. Here, you can view, manage, and interact with all the Lazy Butts you've claimed or acquired. Each unique asset is a testament to our vibrant and growing community. Dive in, explore your collection, and amplify the roar of the Pride.</p>
+                    <p>It's important to note: While Lazy Butts owners enjoy exclusive access to the high-resolution Lazy Butt image and other potential assets, the Full Body artwork is a special privilege. To unlock the complete Full Body artwork, you must own BOTH the Lazy Butt AND the corresponding Lazy Lion. This pairing ensures a comprehensive and unique representation of your chosen character in the Pride.</p>
+                </> : <>
+                    <p>Welcome to your Lazy Butts collection! Browse and manage your unique assets, and join our thriving community. Dive into your collection and feel the Pride's roar.</p>
+                    <p>Remember, only by owning both a Lazy Butt and its matching Lazy Lion can you access the full artwork. This combo fully showcases your Pride character.</p>
+                </>}
             <Disclaimer />
             <div className="myButtsContent">
                 {renderContent()}

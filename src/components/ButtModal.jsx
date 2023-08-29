@@ -16,7 +16,7 @@ const ModalContent = ({ butt, buttMetadata, buttImage, isLoading, selectedType }
                 <div className="loading"></div>
             </div> :
                 <img
-                    className={selectedType === 'full-body' ? 'buttModalImage fullBody' : 'buttModalImage'}
+                    className={selectedType === 'full-body' ? 'buttModalImage fullBody' : selectedType === 'medium' ? 'buttModalImage medium' : 'buttModalImage fullRes'}
                     src={buttImage}
                     alt={`Lazy Butt #${butt.id}`}
                 />
@@ -30,7 +30,7 @@ const ModalContent = ({ butt, buttMetadata, buttImage, isLoading, selectedType }
                 <div className="loading"></div>
             </div> :
                 <img
-                    className={`${selectedType === 'full-body' ? 'buttModalImage fullBody' : selectedType === 'full-res' ? 'buttModalImage fullRes' : 'buttModalImage'} mobile`}
+                    className={`${selectedType === 'full-body' ? 'buttModalImage fullBody' : selectedType === 'medium' ? 'buttModalImage medium' : 'buttModalImage fullRes'} mobile`}
                     src={buttImage}
                     alt={`Lazy Butt #${butt.id}`}
                 />
