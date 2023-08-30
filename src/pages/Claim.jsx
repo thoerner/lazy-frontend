@@ -32,9 +32,10 @@ const ClaimModal = ({ isMobile, setIsClaiming, isClaimed, setIsClaimed }) => {
                         <p><a href="https://twitter.com/intent/tweet?text=I%20just%20claimed%20my%20Lazy%20Butt%20by%20@3DKingsNFT%20for%20my%20Lazy%20Lion!&url=https://the3dkings.io/" target="_blank" rel="referrer">Share on X!</a></p>
                     </div>}
             </div>
+            {isClaimed &&
             <div className="claim-modal-close">
                 <button onClick={() => handleClose()}>Close</button>
-            </div>
+            </div>}
         </div>
     )
 }

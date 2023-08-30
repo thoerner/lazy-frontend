@@ -26,28 +26,29 @@ const MyLionsSection = ({ isConnected, myLions, handleLionClick, selectedLions, 
                     {!isConnected ?
                         <div className="my-lions-empty">
                             <p>Connect your wallet to view your Lazy Lions.</p>
-                        </div> :
-                        isLoadingPage ? 
-                        <div className='loading-container'>
-                            <div className="loading"></div>
-                        </div> 
-                        : isConnected && myLions.length === 0 ?
-                        <div className="my-lions-empty">
-                            <p>You don't own any Lazy Lions yet.</p>
-                            <p>Head over to the <a href="https://opensea.io/collection/lazy-lions" target='_blank' rel="noreferrer">Lazy Lions OpenSea</a> page to find some.</p>
-                            <img src={EmptyLion} alt="Empty Lion" style={{ maxWidth: '250px' }} />
                         </div>
-                        :
-                        isConnected ?
-                            <MyLions
-                                lions={myLions}
-                                butts={myButts}
-                                handleLionClick={handleLionClick}
-                                selectedLions={selectedLions}
-                                address={address}
-                            />
+                        : isConnected && myLions.length === 0 ?
+                            <div className="my-lions-empty">
+                                <p>You don't own any Lazy Lions yet.</p>
+                                <p>Head over to the <a href="https://opensea.io/collection/lazy-lions" target='_blank' rel="noreferrer">Lazy Lions OpenSea</a> page to find some.</p>
+                                <img src={EmptyLion} alt="Empty Lion" style={{ maxWidth: '250px' }} />
+                            </div>
                             :
-                            null
+                            isLoadingPage ?
+                                <div className='loading-container'>
+                                    <div className="loading"></div>
+                                </div>
+                                :
+                                isConnected ?
+                                    <MyLions
+                                        lions={myLions}
+                                        butts={myButts}
+                                        handleLionClick={handleLionClick}
+                                        selectedLions={selectedLions}
+                                        address={address}
+                                    />
+                                    :
+                                    null
                     }
                 </div>
             </div>

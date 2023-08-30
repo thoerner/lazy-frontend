@@ -61,6 +61,24 @@ export const getFullBodyImage = async (buttId, address, sessionToken) => {
     return image;
 }
 
+export const getSocialImage = async (buttId, address, sessionToken) => {
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/images/social/${buttId}.png`, {
+        method: 'GET',  // Specify the method
+        headers: {
+            'Content-Type': 'application/json',  // Specify the content type of the request body
+            'Authorization': `${sessionToken}`,  // Specify the token
+            'Address': `${address}` // Specify the address
+        },
+    });
+
+    if (res.headers.get('Content-Type').includes('application/json')) {
+        const { error } = await res.json();
+        throw new Error(error);
+    }
+    const image = await res.blob();
+    return image;
+}
+
 export const getFullBodyThumbImage = async (buttId, address, sessionToken) => {
     const res = await fetch(`${import.meta.env.VITE_API_URL}/api/images/full-thumb/${buttId}.png`, {
         method: 'GET',  // Specify the method

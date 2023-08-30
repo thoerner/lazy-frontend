@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { getFullResButtImage, getFullBodyImage, getFullBodyThumbImage, getMediumButtImage } from '../utils/api.js'
+import { getFullResButtImage, getFullBodyImage, getFullBodyThumbImage, getMediumButtImage, getSocialImage } from '../utils/api.js'
 import { getSessionToken } from '../utils/session.js'
 import { useIsMobile } from '../utils/tools.js'
 import { useAccount } from 'wagmi'
@@ -64,14 +64,14 @@ const DownloadBar = ({ butt, setButtImage, setIsLoading, selectedType, setSelect
         console.log(myLions)
         if (!myLions.some(lion => lion.id === butt.id)) {
             toast(<div style={{
-                display: "flex", 
+                display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
                 justifyContent: "center",
-                }}>
+            }}>
                 You must own Lazy Lion #{butt.id} to download the Full Body image!<br />
                 <a href={`https://opensea.io/assets/ethereum/0x8943c7bac1914c9a7aba750bf2b6b09fd21037e0/${butt.id}`} target="_blank" rel="noreferrer">
-                    <div style={{backgroundColor: '#00caf8aa', borderRadius: '0.5rem', height: '2rem', lineHeight: '2rem', padding: '0.5rem 1rem', marginTop: '0.5rem', border: '1px solid #00caf8'}}>Buy on OpenSea</div>
+                    <div style={{ backgroundColor: '#00caf8aa', borderRadius: '0.5rem', height: '2rem', lineHeight: '2rem', padding: '0.5rem 1rem', marginTop: '0.5rem', border: '1px solid #00caf8' }}>Buy on OpenSea</div>
                 </a>
             </div>)
             return
@@ -88,8 +88,41 @@ const DownloadBar = ({ butt, setButtImage, setIsLoading, selectedType, setSelect
         setIsLoading(false)
     }
 
+    const handleSocialImageButtonClick = async () => {
+        if (!myLions.some(lion => lion.id === butt.id)) {
+            toast(<div style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+            }}>
+                You must own Lazy Lion #{butt.id} to download the Social image!<br />
+                <a href={`https://opensea.io/assets/ethereum/0x8943c7bac1914c9a7aba750bf2b6b09fd21037e0/${butt.id}`} target="_blank" rel="noreferrer">
+                    <div style={{ backgroundColor: '#00caf8aa', borderRadius: '0.5rem', height: '2rem', lineHeight: '2rem', padding: '0.5rem 1rem', marginTop: '0.5rem', border: '1px solid #00caf8' }}>Buy on OpenSea</div>
+                </a>
+            </div>)
+            return
+        }
+        setIsLoading(true)
+        setSelectedType('social')
+        if (blobs['social']) {
+            setImage(blobs['social'])
+        } else {
+            const socialBlob = await getSocialImage(butt.id, address, sessionToken)
+            setBlobs({ ...blobs, 'social': socialBlob })
+            setImage(socialBlob)
+        }
+        setIsLoading(false)
+    }
+
     const downloadImage = async (buttId, type, fileName, address, sessionToken) => {
-        const getImage = type === 'full-res' ? getFullResButtImage : type === 'full-body' ? getFullBodyImage : getMediumButtImage
+        const getImage = type === 'full-res' ?
+            getFullResButtImage :
+            type === 'full-body' ?
+                getFullBodyImage :
+                type === 'social' ?
+                    getSocialImage :
+                    getMediumButtImage
 
         function createTempAnchor(url, filename) {
             const a = document.createElement('a');
@@ -114,22 +147,66 @@ const DownloadBar = ({ butt, setButtImage, setIsLoading, selectedType, setSelect
         })
     }
 
+    const mobileLayout = () => {
+        return (
+            <div className="downloadBars">
+                <div className="downloadBar">
+                    <div className={`downloadButtonDropdownItem ${selectedType === 'medium' ? 'selected' : null}`}
+                        onClick={() => handleMediumButtonClick(butt.id)} >
+                        Original {!isMobile ? `(2k × 2k)` : null}
+                    </div>
+                    <div className={`downloadButtonDropdownItem ${selectedType === 'full-res' ? 'selected' : null}`}
+                        onClick={() => handleFullResButtonClick()}
+                    >
+                        Full Res {!isMobile ? `(8k × 8k)` : null}
+                    </div>
+                </div>
+                <div className="downloadBar">
+                    <div className={`downloadButtonDropdownItem ${selectedType === 'full-body' ? 'selected' : null}`}
+                        onClick={() => handleFullBodyButtonClick()}
+                    >
+                        Full Body {!isMobile ? `(8k × 16k)` : null}
+                    </div>
+
+                    <div className={`downloadButtonDropdownItem ${selectedType === 'social' ? 'selected' : null}`}
+                        onClick={() => handleSocialImageButtonClick()} >
+                        Social {!isMobile ? `(1k × 1k)` : null}
+                    </div>
+                </div>
+
+            </div>
+        )
+    }
+
+    const desktopLayout = () => {
+        return (
+            <div className="downloadBar">
+                <div className={`downloadButtonDropdownItem ${selectedType === 'medium' ? 'selected' : null}`}
+                    onClick={() => handleMediumButtonClick(butt.id)} >
+                    Original {!isMobile ? <><br />2k×2k</> : null}
+                </div>
+                <div className={`downloadButtonDropdownItem ${selectedType === 'full-res' ? 'selected' : null}`}
+                    onClick={() => handleFullResButtonClick()}
+                >
+                    Full Res {!isMobile ? <><br />8k×8k</> : null}
+                </div>
+                <div className={`downloadButtonDropdownItem ${selectedType === 'full-body' ? 'selected' : null}`}
+                    onClick={() => handleFullBodyButtonClick()}
+                >
+                    Full Body {!isMobile ? <><br />8k×16k</> : null}
+                </div>
+
+                <div className={`downloadButtonDropdownItem ${selectedType === 'social' ? 'selected' : null}`}
+                    onClick={() => handleSocialImageButtonClick()} >
+                    Social {!isMobile ? <><br />1k×1k</> : null}
+                </div>
+            </div>
+        )
+    }
+
     return (
-        <div className="downloadBar">
-            <div className={`downloadButtonDropdownItem ${selectedType === 'medium' ? 'selected' : null}`}
-                onClick={() => handleMediumButtonClick(butt.id)} >
-                Original {!isMobile ? `(2k × 2k)` : null}
-            </div>
-            <div className={`downloadButtonDropdownItem ${selectedType === 'full-res' ? 'selected' : null}`}
-                onClick={() => handleFullResButtonClick()}
-            >
-                Full Res {!isMobile ? `(8k × 8k)` : null}
-            </div>
-            <div className={`downloadButtonDropdownItem ${selectedType === 'full-body' ? 'selected' : null}`}
-                onClick={() => handleFullBodyButtonClick()}
-            >
-                Full Body {!isMobile ? `(8k × 16k)` : null}
-            </div>
+        <div className='downloadBarsContainer'>
+            {isMobile ? mobileLayout() : desktopLayout()}
             <div className="downloadButtonDropdownItem download"
                 onClick={() => handleDownloadClick()}
             >

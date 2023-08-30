@@ -9,6 +9,9 @@
   color: #eee;
   font-family: 'REM', sans-serif;
   user-select: none;
+  --lazy-blue: #00caf8;
+  --lazy-red: #ff2b06;
+  --lazy-gold: #d6b33a;
 }
 
 p {
@@ -1029,6 +1032,7 @@ p {
   padding: 0.5rem;
   background-color: #222;
   border-radius: 0.5em;
+  min-width: 185px;
 }
 
 .buttModal {
@@ -1078,14 +1082,7 @@ p {
     height: 100px;
     overflow: hidden;
   }
-  .downloadButtonDropdownItem {
-    padding: 0.5rem 1rem;
-    font-size: 1rem;
-    line-height: 1rem;
-    height: 2rem;
-    display: flex;
-    justify-content: center;
-  }
+  
   .buttModalContent {
     box-sizing: border-box;
     position: fixed;

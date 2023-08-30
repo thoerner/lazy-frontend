@@ -46,6 +46,15 @@ const quotes = [
     "Seize the moment, enhance your collection.",
     "Where every claim echoes with a lion's roar.",
     "Your claim today is a roar for tomorrow.",
+    "It's about the butt.",
+    "What? What? Lazy Butt.",
+    "The pride is calling. Will you answer?",
+    "Don't just claim it, roar it!",
+    "Get the full picture - claim your Lazy Butt!",
+    "Find your roar, claim some more!",
+    "Hear that roar? It's calling for a claim.",
+    "Your Lazy Lion is waiting for its better half.",
+    "Why just roar when you can echo? Make your claim today!",
 ]
 
 const RandomQuote = () => {

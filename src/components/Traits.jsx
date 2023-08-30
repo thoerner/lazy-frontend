@@ -8,10 +8,11 @@ const Traits = ({ buttMetadata }) => {
     const [traitValues, setTraitValues] = useState(null)
 
     function buttId(name) {
-        return name.split('#')[1]
+        return name?.split('#')[1] ?? ''
     }
 
     function getTraitValues() {
+        if (!buttMetadata.attributes) return
         const traitValues = buttMetadata.attributes.map((trait) => {
             return trait.value
         })
@@ -24,24 +25,24 @@ const Traits = ({ buttMetadata }) => {
         setIsLoading(false)
     }, [buttMetadata])
 
-    return (
+    return ( !buttMetadata ? null :
         <div className="traits">
             <a href={isLoading ? '#' : `https://api.the3dkings.io/api/metadata/${buttId(buttMetadata.name)}.json`} target="_blank" rel="noreferrer">
                 <div className="traits-values">
                     <div className="trait-value">
-                        <span className="buttModalBold">Butt Background:</span> {isLoading ? null : traitValues[0]} <br />
+                        <span className="buttModalBold">Butt Background:</span> {!isLoading && traitValues ? traitValues[0] : null } <br />
                     </div>
                     <div className="trait-value">
-                        <span className="buttModalBold">Butt:</span> {isLoading ? null : traitValues[1]} <br />
+                        <span className="buttModalBold">Butt:</span> {!isLoading && traitValues ? traitValues[1] : null} <br />
                     </div>
                     <div className="trait-value">
-                        <span className="buttModalBold">Bodygear Bottom:</span> {isLoading ? null : traitValues[2]} <br />
+                        <span className="buttModalBold">Bodygear Bottom:</span> {!isLoading && traitValues ?  traitValues[2] : null} <br />
                     </div>
                     <div className="trait-value">
-                        <span className="buttModalBold">Accessories:</span> {isLoading ? null : traitValues[3]} <br />
+                        <span className="buttModalBold">Accessories:</span> {!isLoading && traitValues ? traitValues[3] : null} <br />
                     </div>
                     <div className="trait-value">
-                        <span className="buttModalBold">Tail Tuft:</span> {isLoading ? null : traitValues[4]} <br />
+                        <span className="buttModalBold">Tail Tuft:</span> {!isLoading && traitValues ? traitValues[4] : null} <br />
                     </div>
                 </div>
             </a>
