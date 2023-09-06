@@ -75,7 +75,6 @@ const Claim = ({ isMobile, setActivePage, myLions, setMyLions }) => {
         const fetchAllowListActive = async () => {
             try {
                 const data = await isAllowListActive()
-                console.log(`Allow list active: ${data}`)
                 setAllowListActive(data)
             } catch (err) {
                 console.log(err)
@@ -124,7 +123,7 @@ const Claim = ({ isMobile, setActivePage, myLions, setMyLions }) => {
     useEffect(() => {
         let total = 0
         total = Math.round(((price * selectedLions.length) + Number.EPSILON) * 100) / 100
-        total = allowListActive && isAllowListed && myButts.length < 1 ? total - (price / 2) < 0 ? 0 : total - (price / 2) : total
+        total = allowListActive && isAllowListed && myButts.length > 0 ? total - (price / 2) < 0 ? 0 : total - (price / 2) : total
         total = total.toFixed(2)
         setTotalPrice(total)
     }, [selectedLions, setTotalPrice, isAllowListActive, myButts])
