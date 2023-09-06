@@ -167,7 +167,7 @@ a:active {
 .main {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   padding: 1rem;
 }
@@ -187,6 +187,10 @@ a:active {
   border-radius: 0.5em;
   background-color: black;
   transition: box-shadow 300ms;
+}
+
+.mobile-gif-card {
+  height: 50vw;
 }
 
 @media screen and (min-width: 800px) {
