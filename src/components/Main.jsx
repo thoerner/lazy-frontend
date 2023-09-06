@@ -8,6 +8,7 @@ import AboutTheProject from './AboutTheProject.jsx'
 import TeamSection from './TeamSection.jsx'
 import Disclaimer from './Disclaimer.jsx'
 import TeamStatements from './TeamStatements.jsx'
+import AttentionToDetails from './AttentionToDetails.jsx'
 
 const Main = ({ isMobile }) => {
     return (
@@ -17,6 +18,7 @@ const Main = ({ isMobile }) => {
             <ButtGif isMobile={isMobile} />
             <BehindTheTail />
             <WhatsInAButt isMobile={isMobile} />
+            <AttentionToDetails />
             <ClaimYourButt />
             <MintFundsInfo />
             <AboutTheProject />
