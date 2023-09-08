@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useAccount } from '../utils/w3m'
-import { getLions, getAllButts, isAllowListActive, getProof } from '../utils/api'
+import { getLions, getButts, isAllowListActive, getProof } from '../utils/api'
 import Footer from '../components/Footer'
 import MyLionsSection from '../components/MyLionsSection'
 import ClaimHeader from '../components/ClaimHeader'
@@ -106,7 +106,7 @@ const Claim = ({ isMobile, setActivePage, myLions, setMyLions }) => {
     useEffect(() => {
         const fetchButts = async () => {
             const butts = []
-            const data = await getAllButts()
+            const data = await getButts(address)
             for (let i = 0; i < data.length; i++) {
                 butts.push({ id: data[i] })
             }
@@ -123,7 +123,7 @@ const Claim = ({ isMobile, setActivePage, myLions, setMyLions }) => {
     useEffect(() => {
         let total = 0
         total = Math.round(((price * selectedLions.length) + Number.EPSILON) * 100) / 100
-        total = allowListActive && isAllowListed && myButts.length > 0 ? total - (price / 2) < 0 ? 0 : total - (price / 2) : total
+        total = allowListActive && isAllowListed && myButts.length < 1 ? total - (price / 2) < 0 ? 0 : total - (price / 2) : total
         total = total.toFixed(2)
         setTotalPrice(total)
     }, [selectedLions, setTotalPrice, isAllowListActive, myButts])
