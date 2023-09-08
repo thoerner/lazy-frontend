@@ -88,7 +88,7 @@ const MintButton = ({
                     setIsClaimed(true)
                     setRefreshButts(true)
                     setSelectedLions([])
-                }, 5000)
+                }, 6000)
                 unwatch?.()
             }
         }
