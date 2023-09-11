@@ -47,6 +47,7 @@ const Claim = ({ isMobile, setActivePage, myLions, setMyLions }) => {
     const [price, setPrice] = useState(0.02)
     const [totalPrice, setTotalPrice] = useState(0)
     const [allowListActive, setAllowListActive] = useState(false)
+    const [mintActive, setMintActive] = useState(false)
     const [proof, setProof] = useState(null)
     const [isAllowListed, setIsAllowListed] = useState(false)
     const [isClaiming, setIsClaiming] = useState(false)
@@ -173,6 +174,7 @@ const Claim = ({ isMobile, setActivePage, myLions, setMyLions }) => {
                         price={price}
                         isConnected={isConnected}
                         allowListActive={allowListActive}
+                        mintActive={mintActive}
                         isAllowListed={isAllowListed}
                         proof={proof}
                         setIsClaiming={setIsClaiming}

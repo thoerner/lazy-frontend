@@ -8,6 +8,7 @@ const ClaimAreaRight = ({
     price,
     isConnected,
     allowListActive,
+    mintActive,
     isAllowListed,
     proof,
     isClaiming,
@@ -40,6 +41,7 @@ const ClaimAreaRight = ({
                     setRefreshButts={setRefreshButts}
                     setSelectedLions={setSelectedLions}
                     setIsClaimed={setIsClaimed}
+                    mintActive={mintActive}
                 />
                 <p style={{ fontSize: '0.8rem' }}>
                     Lazy Butts are priced at {price} ETH each. You can claim up to 5 Butts per transaction.

@@ -156,6 +156,14 @@ export const isAllowListActive = async () => {
     return false
 }
 
+export const isMintActive = async () => {
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/mint`)
+    const mint = await res.json()
+    if (mint.success) {
+        return mint.isActive
+    }
+    return false
+}
 
 export const verifySignature = async (token, signature, address) => {
     const params = {

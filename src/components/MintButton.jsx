@@ -16,6 +16,7 @@ const MintButton = ({
     setRefreshButts,
     setSelectedLions,
     setIsClaimed,
+    mintActive,
 }) => {
     const { address } = useAccount()
     const { data: balance } = useBalance({
@@ -88,12 +89,19 @@ const MintButton = ({
                     setIsClaimed(true)
                     setRefreshButts(true)
                     setSelectedLions([])
-                }, 6000)
+                }, 7000)
                 unwatch?.()
             }
         }
     })
     
+    if (!mintActive) {
+        return (
+            <button disabled>
+                Mint not active
+            </button>
+        )
+    }
     if (balance?.value < value) {
         return (
             <button disabled>
