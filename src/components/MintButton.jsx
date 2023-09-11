@@ -59,6 +59,7 @@ const MintButton = ({
         value: value,
         onSettled(data, error) {
             if (error) {
+                console.log(error)
                 if (error.message.includes("User rejected the request")) {
                     toast.error('Transaction rejected')
                 } else if (error.message.includes("Insufficient funds")) {
@@ -95,7 +96,7 @@ const MintButton = ({
         }
     })
     
-    if (!mintActive) {
+    if (!mintActive && !allowListActive) {
         return (
             <button disabled>
                 Mint not active
