@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useAccount } from '../utils/w3m'
-import { getLions, getButts, isAllowListActive, getProof } from '../utils/api'
+import { getLions, getButts, isAllowListActive, getProof, isMintActive } from '../utils/api'
 import Footer from '../components/Footer'
 import MyLionsSection from '../components/MyLionsSection'
 import ClaimHeader from '../components/ClaimHeader'
@@ -81,7 +81,16 @@ const Claim = ({ isMobile, setActivePage, myLions, setMyLions }) => {
                 console.log(err)
             }
         }
+        const fetchMintActive = async () => {
+            try {
+                const data = await isMintActive()
+                setMintActive(data)
+            } catch (err) {
+                console.log(err)
+            }
+        }
         fetchAllowListActive()
+        fetchMintActive()
     }, [])
 
     useEffect(() => {

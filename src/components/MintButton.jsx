@@ -49,6 +49,21 @@ const MintButton = ({
         functionName: 'mintManyButts',
         args: [selectedLions.map(lion => lion.id)],
         value: value,
+        onSettled(data, error) {
+            if (error) {
+                if (error.message.includes("User rejected the request")) {
+                    toast.error('Transaction rejected')
+                } else if (error.message.includes("Insufficient funds")) {
+                    toast.error('Insufficient funds')
+                } else {
+                    toast.error('Transaction failed')
+                }
+                setIsClaiming(false)
+            }
+        },
+        onSuccess(data) {
+            toast.success(`Transaction submitted!`)
+        }
     }
 
     const allowListParams = {
