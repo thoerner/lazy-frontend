@@ -73,7 +73,7 @@ const TopNavBar = ({ isMobile, activePage, setActivePage }) => {
                 <span className="dropbtn" onClick={toggleDropdown}>OpenSea</span>
                 <span className="dropdown-content">
                     <a href="https://opensea.io/collection/lazy-lions" target="_blank" rel="noreferrer">Lazy Lions</a>
-                    <a href="#" target="_blank" rel="noreferrer">Lazy Butts</a>
+                    <a href="https://opensea.io/collection/lazy-butts" target="_blank" rel="noreferrer">Lazy Butts</a>
                     <div className="dropdown-overlay" onClick={toggleDropdown}></div>
                 </span>
             </span>
@@ -91,7 +91,7 @@ const TopNavBar = ({ isMobile, activePage, setActivePage }) => {
             <MenuLink link='butts' text='My Assets' />
             <a href="https://x.com/3DKingsNFT" target="_blank" rel="noreferrer">X (@3DKingsNFT)</a>
             <a href="https://opensea.io/collection/lazy-lions" target="_blank" rel="noreferrer">LL OpenSea</a>
-            <a href="#" target="_blank" rel="noreferrer">LB OpenSea</a>
+            <a href="https://opensea.io/collection/lazy-butts" target="_blank" rel="noreferrer">LB OpenSea</a>
         </>
     return (
         <>
