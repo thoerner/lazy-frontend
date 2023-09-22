@@ -118,13 +118,13 @@ const MintButton = ({
             </button>
         )
     }
-    if (balance?.value < value) {
-        return (
-            <button disabled>
-                Insufficient Balance
-            </button>
-        )
-    }
+    // if (balance?.value < value) {
+    //     return (
+    //         <button disabled>
+    //             Insufficient Balance
+    //         </button>
+    //     )
+    // }
     return (
         <button onClick={() => handleClaimButtClick(selectedLions, address, config)}>
             {selectedLions.length > 1 ? 'Claim Butts' : selectedLions.length > 0 ? 'Claim Butt' : 'Claim Butt'}
