@@ -22,7 +22,7 @@ const ClaimModal = ({ isMobile, isClaiming, setIsClaiming, isClaimed, setIsClaim
         if (isClaiming) {
             timer = setTimeout(() => {
                 setClaimTimedOut(true)
-            }, 30000)
+            }, 120000)
         }
         return () => clearTimeout(timer);
     }, [isClaiming])
@@ -34,7 +34,7 @@ const ClaimModal = ({ isMobile, isClaiming, setIsClaiming, isClaimed, setIsClaim
             {isClaimed ?
                 <h1>Claimed!</h1> :
                 shouldDisplayTimeout ?
-                    <h1>Claim timed out!</h1> :
+                    <h1>Finalizing Your Claim</h1> :
                     <h1>Claiming your <br />Lazy Butt!</h1>}
             <div className="claim-loading-container">
                 {shouldDisplayTimeout ?
