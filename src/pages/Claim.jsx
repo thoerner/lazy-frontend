@@ -9,33 +9,58 @@ import ClaimInfo from '../components/ClaimInfo'
 import ClaimAreaRight from '../components/ClaimAreaRight'
 import ClaimAreaMiddle from '../components/ClaimAreaMiddle'
 
-const ClaimModal = ({ isMobile, setIsClaiming, isClaimed, setIsClaimed }) => {
+const ClaimModal = ({ isMobile, isClaiming, setIsClaiming, isClaimed, setIsClaimed }) => {
+    const [claimTimedOut, setClaimTimedOut] = useState(false)
+
     const handleClose = () => {
         setIsClaiming(false)
         setIsClaimed(false)
     }
+
+    useEffect(() => {
+        let timer;
+        if (isClaiming) {
+            timer = setTimeout(() => {
+                setClaimTimedOut(true)
+            }, 30000)
+        }
+        return () => clearTimeout(timer);
+    }, [isClaiming])
+
+    const shouldDisplayTimeout = claimTimedOut && !isClaimed
+
     return (
         <div className="claim-modal">
             {isClaimed ?
                 <h1>Claimed!</h1> :
-                <h1>Claiming your <br />Lazy Butt!</h1>}
+                shouldDisplayTimeout ?
+                    <h1>Claim timed out!</h1> :
+                    <h1>Claiming your <br />Lazy Butt!</h1>}
             <div className="claim-loading-container">
-                {!isClaimed ?
-                    <div className="loading">
-                    </div> :
+                {shouldDisplayTimeout ?
                     <div>
                         <p>Check your{" "}
                             <Link to={'/butts'} onClick={() => handleClose()}>
                                 My Assets
                             </Link>
-                            {" "}page to access your new Lazy Butt(s)!</p>
-                        <p><a href="https://twitter.com/intent/tweet?text=I%20just%20claimed%20my%20Lazy%20Butt%20by%20@3DKingsNFT%20for%20my%20Lazy%20Lion!&url=https://the3dkings.io/" target="_blank" rel="referrer">Share on X!</a></p>
-                    </div>}
+                            {" "}page to see if your Lazy Butt(s) have been claimed!</p>
+                    </div> :
+                    !isClaimed ?
+                        <div className="loading">
+                        </div> :
+                        <div>
+                            <p>Check your{" "}
+                                <Link to={'/butts'} onClick={() => handleClose()}>
+                                    My Assets
+                                </Link>
+                                {" "}page to access your new Lazy Butt(s)!</p>
+                            <p><a href="https://twitter.com/intent/tweet?text=I%20just%20claimed%20my%20Lazy%20Butt%20by%20@3DKingsNFT%20for%20my%20Lazy%20Lion!&url=https://the3dkings.io/" target="_blank" rel="referrer">Share on X!</a></p>
+                        </div>}
             </div>
             {isClaimed &&
-            <div className="claim-modal-close">
-                <button onClick={() => handleClose()}>Close</button>
-            </div>}
+                <div className="claim-modal-close">
+                    <button onClick={() => handleClose()}>Close</button>
+                </div>}
         </div>
     )
 }
@@ -153,7 +178,7 @@ const Claim = ({ isMobile, setActivePage, myLions, setMyLions }) => {
 
     return (
         <div className="claim">
-            {isClaiming || isClaimed ? <ClaimModal isMobile={isMobile} isClaimed={isClaimed} setIsClaiming={setIsClaiming} setIsClaimed={setIsClaimed} /> : null}
+            {isClaiming || isClaimed ? <ClaimModal isMobile={isMobile} isClaiming={isClaiming} isClaimed={isClaimed} setIsClaiming={setIsClaiming} setIsClaimed={setIsClaimed} /> : null}
             <ClaimHeader />
             <ClaimInfo
                 address={address}
