@@ -1,11 +1,14 @@
+import { Link } from 'react-router-dom'
+
 const MintAnnouncement = () => {
     return (
         <div className="mint-announcement">
             <div className="mint-announcement-text">
-                <h2>Early Access Claim on 9/22! Public Claim on 9/23!</h2>
-                <p>
-                    See the <a href="https://x.com/3DKingsNFT/status/1703145893577310710" target="_blank" rel="noreferrer">X announcement</a> for more details.
-                </p>
+                <h2>Public Claim Live!</h2>
+                👇 Claim your Lazy Butt! 👇<br /><br />
+                <Link to="/claim">
+                    <button className="zoomy">Claim My Butts!</button>
+                </Link>
             </div>
         </div>
     )

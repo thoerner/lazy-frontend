@@ -1448,13 +1448,21 @@ p {
 }
 
 .mint-announcement {
-  width: 80%;
+  width: 50%;
   background-color: #111;
   padding: 0.5rem;
+  padding-bottom: 2rem;
   border-radius: 0.5em;
   box-shadow: 0 0 3px #d6b33a;
   font-family: 'Permanent Marker', cursive;
   font-size: 1.2rem;
   /* color: #d6b33a; */
   margin: 1rem;
+}
+
+@media screen and (max-width: 800px) {
+  .mint-announcement {
+    width: 90%;
+    font-size: 1rem;
+  }
 }

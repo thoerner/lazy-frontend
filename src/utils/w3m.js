@@ -1,7 +1,7 @@
 import { EthereumClient, w3mConnectors } from '@web3modal/ethereum'
 import { configureChains, createConfig, WagmiConfig, useAccount, useSignMessage } from 'wagmi'
 import { alchemyProvider } from '@wagmi/core/providers/alchemy'
-import { sepolia, mainnet } from 'wagmi/chains'
+import { mainnet } from 'wagmi/chains'
 
 const chains = [mainnet]
 const projectId = import.meta.env.VITE_WALLET_CONNECT_PROJECT_ID
