@@ -4,11 +4,12 @@ import Home from './pages/Home.jsx'
 import Claim from './pages/Claim.jsx'
 import MyButts from './pages/MyButts.jsx'
 import Butt from './pages/Butt.jsx'
+import AdminPage from './pages/Admin.jsx'
 import TopNavBar from './components/TopNavBar.jsx'
 import { WagmiConfig, wagmiConfig, ethereumClient, projectId } from './utils/w3m.js'
 import { Web3Modal } from '@web3modal/react'
 import { useIsMobile } from './utils/tools.js'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import './App.css'
 
 const router = createBrowserRouter([
@@ -35,6 +36,7 @@ function Root() {
           <Route path="/claim" element={<Claim isMobile={isMobile} setActivePage={setActivePage} myLions={myLions} setMyLions={setMyLions} />} />
           <Route path="/butts" element={<MyButts isMobile={isMobile} setActivePage={setActivePage} authenticated={authenticated} setAuthenticated={setAuthenticated} myLions={myLions} setMyLions={setMyLions}/>} />
           <Route path="/butt/:id" element={<Butt isMobile={isMobile} setActivePage={setActivePage} />} />
+          <Route path="/admin" element={<AdminPage isMobile={isMobile} setActivePage={setActivePage} />} />
         </Routes>
       </WagmiConfig>
       <Web3Modal
