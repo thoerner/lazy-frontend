@@ -17,10 +17,20 @@ const payees = [
 
 function bigIntToDecimal(bigIntValue, decimalPlaces = 18) {
     let bigIntStr = bigIntValue.toString();
+
+    if (bigIntStr.length <= decimalPlaces) {
+        // Pad the number with leading zeroes
+        bigIntStr = bigIntStr.padStart(decimalPlaces + 1, '0');
+    }
+
     const decimalPointIndex = bigIntStr.length - decimalPlaces;
     const decimalStr = bigIntStr.slice(0, decimalPointIndex) + '.' + bigIntStr.slice(decimalPointIndex, decimalPointIndex + 2);
-    return parseFloat(decimalStr);
+    const result = parseFloat(decimalStr);
+
+    // If the result is NaN, return 0
+    return isNaN(result) ? 0 : result;
 }
+
 
 const AdminPage = ({ setActivePage }) => {
     const [address, setAddress] = useState('')
