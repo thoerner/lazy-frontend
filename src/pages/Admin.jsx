@@ -24,7 +24,7 @@ function bigIntToDecimal(bigIntValue, decimalPlaces = 18) {
     }
 
     const decimalPointIndex = bigIntStr.length - decimalPlaces;
-    const decimalStr = bigIntStr.slice(0, decimalPointIndex) + '.' + bigIntStr.slice(decimalPointIndex, decimalPointIndex + 2);
+    const decimalStr = bigIntStr.slice(0, decimalPointIndex) + '.' + bigIntStr.slice(decimalPointIndex, decimalPointIndex + 3);
     const result = parseFloat(decimalStr);
 
     // If the result is NaN, return 0
@@ -40,6 +40,7 @@ const AdminPage = ({ setActivePage }) => {
     const [balance3, setBalance3] = useState(0)
     const [balance4, setBalance4] = useState(0)
     const [balance5, setBalance5] = useState(0)
+    const [totalReleased, setTotalReleased] = useState(0)
     const { isConnected } = useAccount()
 
     useEffect(() => {
@@ -51,6 +52,23 @@ const AdminPage = ({ setActivePage }) => {
         write?.()
         setAddress('')
     }, [address])
+
+    function getTotalReleasedParams() {
+        return {
+            address: BUTTS_CONTRACT_ADDRESS,
+            abi: LazyButtsAbi,
+            functionName: 'totalReleased',
+            args: [],
+            onSettled(data, error) {
+                if (error) {
+                    console.log(error)
+                } else {
+                    setTotalReleased(data)
+                    console.log(data)
+                }
+            },
+        }
+    }
 
     function getBalanceParams(index) {
         return {
@@ -95,6 +113,15 @@ const AdminPage = ({ setActivePage }) => {
     useContractRead(getBalanceParams(3))
     useContractRead(getBalanceParams(4))
     useContractRead(getBalanceParams(5))
+    useContractRead(getTotalReleasedParams())
+
+    function totalRecieved() {
+        return balance0 + balance1 + balance2 + balance3 + balance4 + balance5 + totalReleased
+    }
+
+    function currentBalance() {
+        return totalRecieved() - totalReleased
+    }
 
     const params = {
         address: BUTTS_CONTRACT_ADDRESS,
@@ -133,6 +160,8 @@ const AdminPage = ({ setActivePage }) => {
     return (
         <div className="adminPage">
             <h1>Admin Page</h1>
+            <h2>Total Received: {bigIntToDecimal(totalRecieved())} ETH</h2>
+            <h3>Current Balance: {bigIntToDecimal(currentBalance())} ETH</h3>
             <div style={
                 {
                     display: 'flex',
@@ -141,11 +170,11 @@ const AdminPage = ({ setActivePage }) => {
                 }
             }>
                 <button onClick={() => handleButtonClick(0)}>Release {bigIntToDecimal(balance0)} ETH to Community Wallet</button>
-                <button onClick={() => handleButtonClick(1)}>Release {bigIntToDecimal(balance1)} ETH  to Operational Wallet</button>
-                <button onClick={() => handleButtonClick(2)}>Release {bigIntToDecimal(balance2)} ETH  to JohnTheCraftsman</button>
-                <button onClick={() => handleButtonClick(3)}>Release {bigIntToDecimal(balance3)} ETH  to Gluten Free</button>
-                <button onClick={() => handleButtonClick(4)}>Release {bigIntToDecimal(balance4)} ETH  to localcryptogod</button>
-                <button onClick={() => handleButtonClick(5)}>Release {bigIntToDecimal(balance5)} ETH  to crypt0potamus</button>
+                <button onClick={() => handleButtonClick(1)}>Release {bigIntToDecimal(balance1)} ETH to Operational Wallet</button>
+                <button onClick={() => handleButtonClick(2)}>Release {bigIntToDecimal(balance2)} ETH to JohnTheCraftsman</button>
+                <button onClick={() => handleButtonClick(3)}>Release {bigIntToDecimal(balance3)} ETH to Gluten Free</button>
+                <button onClick={() => handleButtonClick(4)}>Release {bigIntToDecimal(balance4)} ETH to localcryptogod</button>
+                <button onClick={() => handleButtonClick(5)}>Release {bigIntToDecimal(balance5)} ETH to crypt0potamus</button>
             </div>
         </div>
     )
