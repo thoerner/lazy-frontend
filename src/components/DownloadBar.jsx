@@ -54,19 +54,6 @@ const DownloadBar = ({
     setButtImage(buttImage);
   };
 
-  const handleSeasonalButtonClick = async () => {
-    setIsLoading(true);
-    setSelectedType("seasonal");
-    if (blobs["seasonal"]) {
-      setImage(blobs["seasonal"]);
-    } else {
-      const seasonalBlob = await getSeasonalButtImage(butt.id);
-      setBlobs({ ...blobs, seasonal: seasonalBlob });
-      setImage(seasonalBlob);
-    }
-    setIsLoading(false);
-  };
-
   const handleMediumButtonClick = async () => {
     setIsLoading(true);
     setSelectedType("medium");
@@ -190,6 +177,58 @@ const DownloadBar = ({
       const socialBlob = await getSocialImage(butt.id, address, sessionToken);
       setBlobs({ ...blobs, social: socialBlob });
       setImage(socialBlob);
+    }
+    setIsLoading(false);
+  };
+
+  const handleSeasonalButtonClick = async () => {
+    if (!myLions.some((lion) => lion.id === butt.id)) {
+      toast(
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          You must own Lazy Lion #{butt.id} to download the Social image!
+          <br />
+          <a
+            href={`https://opensea.io/assets/ethereum/0x8943c7bac1914c9a7aba750bf2b6b09fd21037e0/${butt.id}`}
+            target="_blank"
+            rel="noreferrer"
+          >
+            <div
+              style={{
+                backgroundColor: "#00caf8aa",
+                borderRadius: "0.5rem",
+                height: "2rem",
+                lineHeight: "2rem",
+                padding: "0.5rem 1rem",
+                marginTop: "0.5rem",
+                border: "1px solid #00caf8",
+              }}
+            >
+              Buy on OpenSea
+            </div>
+          </a>
+        </div>
+      );
+      return;
+    }
+    setIsLoading(true);
+    setSelectedType("seasonal");
+    if (blobs["seasonal"]) {
+      setImage(blobs["seasonal"]);
+    } else {
+      const seasonalBlob = await getSeasonalButtImage(
+        butt.id,
+        address,
+        sessionToken
+      );
+      setBlobs({ ...blobs, seasonal: seasonalBlob });
+      setImage(seasonalBlob);
     }
     setIsLoading(false);
   };
