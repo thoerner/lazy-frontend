@@ -222,11 +222,7 @@ const DownloadBar = ({
     if (blobs["seasonal"]) {
       setImage(blobs["seasonal"]);
     } else {
-      const seasonalBlob = await getSeasonalButtImage(
-        butt.id,
-        address,
-        sessionToken
-      );
+      const seasonalBlob = await getSeasonalButtImage(butt.id, address, sessionToken);
       setBlobs({ ...blobs, seasonal: seasonalBlob });
       setImage(seasonalBlob);
     }

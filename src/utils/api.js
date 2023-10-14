@@ -71,6 +71,27 @@ export const getFullBodyImage = async (buttId, address, sessionToken) => {
   return image;
 };
 
+export const getSeasonalButtImage = async (buttId, address, sessionToken) => {
+  const res = await fetch(
+    `${import.meta.env.VITE_API_URL}/api/images/seasonal/${buttId}.png`,
+    {
+      method: "GET", // Specify the method
+      headers: {
+        "Content-Type": "application/json", // Specify the content type of the request body
+      },
+      Authorization: `${sessionToken}`, // Specify the token
+      Address: `${address}`, // Specify the address
+    }
+  );
+
+  if (res.headers.get("Content-Type").includes("application/json")) {
+    const jsonData = await res.json();
+    throw new Error("Expected an image but got JSON response.");
+  }
+  const image = await res.blob();
+  return image;
+};
+
 export const getSocialImage = async (buttId, address, sessionToken) => {
   const res = await fetch(
     `${import.meta.env.VITE_API_URL}/api/images/social/${buttId}.png`,
@@ -78,9 +99,9 @@ export const getSocialImage = async (buttId, address, sessionToken) => {
       method: "GET", // Specify the method
       headers: {
         "Content-Type": "application/json", // Specify the content type of the request body
-        Authorization: `${sessionToken}`, // Specify the token
-        Address: `${address}`, // Specify the address
       },
+      Authorization: `${sessionToken}`, // Specify the token
+      Address: `${address}`, // Specify the address
     }
   );
 
@@ -140,27 +161,6 @@ export const getMediumButtImage = async (buttId) => {
       headers: {
         "Content-Type": "application/json", // Specify the content type of the request body
       },
-    }
-  );
-
-  if (res.headers.get("Content-Type").includes("application/json")) {
-    const jsonData = await res.json();
-    throw new Error("Expected an image but got JSON response.");
-  }
-  const image = await res.blob();
-  return image;
-};
-
-export const getSeasonalButtImage = async (buttId, address, sessionToken) => {
-  const res = await fetch(
-    `${import.meta.env.VITE_API_URL}/api/images/seasonal/${buttId}.png`,
-    {
-      method: "GET", // Specify the method
-      headers: {
-        "Content-Type": "application/json", // Specify the content type of the request body
-      },
-      Authorization: `${sessionToken}`, // Specify the token
-      Address: `${address}`, // Specify the address
     }
   );
 
