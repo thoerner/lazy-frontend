@@ -78,9 +78,9 @@ export const getSeasonalButtImage = async (buttId, address, sessionToken) => {
       method: "GET", // Specify the method
       headers: {
         "Content-Type": "application/json", // Specify the content type of the request body
+        Authorization: `${sessionToken}`, // Specify the token
+        Address: `${address}`, // Specify the address
       },
-      Authorization: `${sessionToken}`, // Specify the token
-      Address: `${address}`, // Specify the address
     }
   );
 
@@ -99,9 +99,9 @@ export const getSocialImage = async (buttId, address, sessionToken) => {
       method: "GET", // Specify the method
       headers: {
         "Content-Type": "application/json", // Specify the content type of the request body
+        Authorization: `${sessionToken}`, // Specify the token
+        Address: `${address}`, // Specify the address
       },
-      Authorization: `${sessionToken}`, // Specify the token
-      Address: `${address}`, // Specify the address
     }
   );
 
