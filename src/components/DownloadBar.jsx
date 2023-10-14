@@ -243,6 +243,8 @@ const DownloadBar = ({
         ? getFullBodyImage
         : type === "social"
         ? getSocialImage
+        : type === "seasonal"
+        ? getSeasonalButtImage
         : getMediumButtImage;
 
     function createTempAnchor(url, filename) {
