@@ -129,6 +129,22 @@ export const getMediumButtImage = async (buttId) => {
     return image;
 }
 
+export const getSeasonalButtImage = async (buttId) => {
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/images/seasonal/${buttId}.png`, {
+        method: 'GET',  // Specify the method
+        headers: {
+            'Content-Type': 'application/json',  // Specify the content type of the request body
+        },
+    });
+
+    if (res.headers.get('Content-Type').includes('application/json')) {
+        const jsonData = await res.json();
+        throw new Error('Expected an image but got JSON response.');
+    }
+    const image = await res.blob();
+    return image;
+}
+
 export const getMetadata = async (buttId) => {
     const res = await fetch(`${import.meta.env.VITE_API_URL}/api/metadata/${buttId}.json`)
     const metadata = await res.json()
