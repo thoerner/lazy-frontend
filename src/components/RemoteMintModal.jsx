@@ -59,6 +59,8 @@ const RemoteMintModal = ({
           className="default-image"
           style={{
             width: "100px",
+            height: "100px",
+            visibility: tokenId ? "visible" : "hidden",
           }}
         />
         <div className="remote-mint-modal-buttons">
