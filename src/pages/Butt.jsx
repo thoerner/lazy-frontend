@@ -1,5 +1,5 @@
-import React from 'react'
 import { useState, useEffect } from 'react'
+import PropType from 'prop-types'
 import { useParams, Link } from 'react-router-dom'
 import { useIsMobile } from '../utils/tools.js'
 import { getMediumButtImage, getSmallButtImage, getMetadata } from '../utils/api.js'
@@ -22,6 +22,11 @@ const ButtNav = ({ nextPage, prevPage }) => {
             </Link>
         </div>
     )
+}
+
+ButtNav.propTypes = {
+    nextPage: PropType.number.isRequired,
+    prevPage: PropType.number.isRequired,
 }
 
 const Butt = () => {

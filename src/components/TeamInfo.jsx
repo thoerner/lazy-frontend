@@ -1,3 +1,4 @@
+import PropType from 'prop-types'
 import TeamMember from './TeamMember.jsx'
 import Crypt0potamus from '../assets/team/crypt0potamus.png'
 import Localcryptogod from '../assets/team/localcryptogod.png'
@@ -36,6 +37,10 @@ const TeamInfo = ({isMobile}) => {
             </div>
         </div>
     )
+}
+
+TeamInfo.propTypes = {
+    isMobile: PropType.bool.isRequired,
 }
 
 export default TeamInfo

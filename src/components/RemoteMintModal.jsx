@@ -28,8 +28,8 @@ const RemoteMintModal = ({
           will be minted to the address holding the associated Lazy Lion NFT.
         </p>
         <p>
-          <strong>NOTE:</strong> This will permanently associate your vault
-          with the currently connected wallet.
+          <strong>NOTE:</strong> This will permanently associate your vault with
+          the currently connected wallet.
         </p>
         <b>Connected Wallet:</b>
         <code

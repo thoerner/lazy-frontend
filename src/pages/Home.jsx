@@ -1,6 +1,7 @@
+import PropType from 'prop-types'
 import Main from '../components/Main.jsx'
 import Footer from '../components/Footer.jsx'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 
 const Home = ({ isMobile }) => {
 
@@ -14,6 +15,10 @@ const Home = ({ isMobile }) => {
             <Footer />
         </div>
     )
+}
+
+Home.propTypes = {
+    isMobile: PropType.bool.isRequired,
 }
 
 export default Home

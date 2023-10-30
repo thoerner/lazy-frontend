@@ -1,9 +1,7 @@
+import PropType from 'prop-types'
 import { useState, useEffect } from 'react'
-import { useIsMobile } from '../utils/tools'
 
 const Traits = ({ buttMetadata }) => {
-    const isMobile = useIsMobile()
-
     const [isLoading, setIsLoading] = useState(true)
     const [traitValues, setTraitValues] = useState(null)
 
@@ -48,6 +46,10 @@ const Traits = ({ buttMetadata }) => {
             </a>
         </div>
     )
+}
+
+Traits.propTypes = {
+    buttMetadata: PropType.object.isRequired
 }
 
 export default Traits

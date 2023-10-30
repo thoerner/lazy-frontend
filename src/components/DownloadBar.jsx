@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import PropType from "prop-types";
 import {
   getFullResButtImage,
   getFullBodyImage,
@@ -222,7 +223,11 @@ const DownloadBar = ({
     if (blobs["seasonal"]) {
       setImage(blobs["seasonal"]);
     } else {
-      const seasonalBlob = await getSeasonalButtImage(butt.id, address, sessionToken);
+      const seasonalBlob = await getSeasonalButtImage(
+        butt.id,
+        address,
+        sessionToken
+      );
       setBlobs({ ...blobs, seasonal: seasonalBlob });
       setImage(seasonalBlob);
     }
@@ -256,7 +261,7 @@ const DownloadBar = ({
       document.body.removeChild(a);
     }
 
-    const downloadToast = toast
+    toast
       .promise(
         address && sessionToken
           ? getImage(buttId, address, sessionToken)
@@ -413,6 +418,15 @@ const DownloadBar = ({
       </div>
     </div>
   );
+};
+
+DownloadBar.propTypes = {
+  butt: PropType.object,
+  setButtImage: PropType.func,
+  setIsLoading: PropType.func,
+  selectedType: PropType.string,
+  setSelectedType: PropType.func,
+  myLions: PropType.array,
 };
 
 export default DownloadBar;
