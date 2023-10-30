@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useAccount } from '../utils/w3m'
-import { getLions, getButts, isAllowListActive, getProof, isMintActive } from '../utils/api'
+import { getLions, getButts, isAllowListActive, getProof, isMintActive, getMintPrice } from '../utils/api'
 import Footer from '../components/Footer'
 import MyLionsSection from '../components/MyLionsSection'
 import ClaimHeader from '../components/ClaimHeader'
@@ -78,6 +78,14 @@ const Claim = ({ isMobile, setActivePage, myLions, setMyLions }) => {
     const [isClaiming, setIsClaiming] = useState(false)
     const [isClaimed, setIsClaimed] = useState(false)
     const [refreshButts, setRefreshButts] = useState(false)
+
+    useEffect(() => {
+        const fetchPrice = async () => {
+            const price = await getMintPrice()
+            setPrice(price)
+        }
+        fetchPrice()
+    }, [])
 
     useEffect(() => {
         const fetchProof = async () => {
@@ -197,6 +205,10 @@ const Claim = ({ isMobile, setActivePage, myLions, setMyLions }) => {
                         selectedLions={selectedLions}
                         address={address}
                         myButts={myButts}
+                        setIsClaiming={setIsClaiming}
+                        setRefreshButts={setRefreshButts}
+                        setIsClaimed={setIsClaimed}
+                        mintActive={mintActive}
                     />
                     <ClaimAreaMiddle
                         selectedLions={selectedLions}
@@ -212,7 +224,6 @@ const Claim = ({ isMobile, setActivePage, myLions, setMyLions }) => {
                         isAllowListed={isAllowListed}
                         proof={proof}
                         setIsClaiming={setIsClaiming}
-                        isClaiming={isClaiming}
                         setRefreshButts={setRefreshButts}
                         setSelectedLions={setSelectedLions}
                         setIsClaimed={setIsClaimed}

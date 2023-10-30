@@ -1,4 +1,13 @@
+const { VITE_ENV } = import.meta.env;
+
 export const getLions = async (address) => {
+  if (VITE_ENV === "dev") {
+    let fakeLions = [];
+    for (let i = 0; i < 10; i++) {
+      fakeLions.push(i);
+    }
+    return fakeLions;
+  }
   const res = await fetch(
     `${import.meta.env.VITE_API_URL}/api/lions/${address}`
   );
@@ -19,6 +28,13 @@ export const getAllButts = async () => {
 };
 
 export const getButts = async (address) => {
+  if (VITE_ENV === "dev") {
+    let fakeButts = [];
+    for (let i = 0; i < 10; i++) {
+      fakeButts.push(i);
+    }
+    return fakeButts;
+  }
   const res = await fetch(
     `${import.meta.env.VITE_API_URL}/api/butts/${address}`
   );
@@ -205,7 +221,18 @@ export const isAllowListActive = async () => {
   return false;
 };
 
+export const getMintPrice = async () => {
+  if (VITE_ENV === "dev") {
+    return 0;
+  } else {
+    return 0.02;
+  }
+};
+
 export const isMintActive = async () => {
+  if (VITE_ENV === "dev") {
+    return true;
+  }
   const res = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/mint`);
   const mint = await res.json();
   if (mint.success) {

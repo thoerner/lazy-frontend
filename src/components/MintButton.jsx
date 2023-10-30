@@ -1,8 +1,8 @@
+import PropTypes from 'prop-types'
 import toast from 'react-hot-toast'
 import { useContractEvent, useContractWrite, useBalance, useAccount } from 'wagmi'
 import LazyButtsAbi from '../contracts/LazyButts.js'
-
-const BUTTS_CONTRACT_ADDRESS = import.meta.env.VITE_ENV === 'dev' ? import.meta.env.VITE_BUTTS_CONTRACT_ADDRESS_TEST : import.meta.env.VITE_BUTTS_CONTRACT_ADDRESS
+import { BUTTS_CONTRACT_ADDRESS } from '../utils/constants.js'
 
 const MintButton = ({
     selectedLions,
@@ -10,15 +10,13 @@ const MintButton = ({
     isAllowListed,
     totalPrice,
     proof,
-    isConnected,
-    isClaiming,
     setIsClaiming,
     setRefreshButts,
     setSelectedLions,
     setIsClaimed,
     mintActive,
 }) => {
-    const { address } = useAccount()
+    const { address, isConnected } = useAccount()
     const { data: balance } = useBalance({
         address,
         watch: true,
@@ -118,18 +116,31 @@ const MintButton = ({
             </button>
         )
     }
-    // if (balance?.value < value) {
-    //     return (
-    //         <button disabled>
-    //             Insufficient Balance
-    //         </button>
-    //     )
-    // }
+    if (balance?.value < value) {
+        return (
+            <button disabled>
+                Insufficient Balance
+            </button>
+        )
+    }
     return (
         <button onClick={() => handleClaimButtClick(selectedLions, address, config)}>
             {selectedLions.length > 1 ? 'Claim Butts' : selectedLions.length > 0 ? 'Claim Butt' : 'Claim Butt'}
         </button>
     )
+}
+
+MintButton.propTypes = {
+    selectedLions: PropTypes.array,
+    allowListActive: PropTypes.bool,
+    isAllowListed: PropTypes.bool,
+    totalPrice: PropTypes.number,
+    proof: PropTypes.object,
+    setIsClaiming: PropTypes.func,
+    setRefreshButts: PropTypes.func,
+    setSelectedLions: PropTypes.func,
+    setIsClaimed: PropTypes.func,
+    mintActive: PropTypes.bool,
 }
 
 export default MintButton

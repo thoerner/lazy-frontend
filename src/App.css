@@ -640,15 +640,18 @@ p {
     margin: 1rem;
     overflow: hidden;
   }
+
   .empty {
     overflow: hidden;
   }
+
   .my-lions {
     flex-wrap: nowrap;
     justify-content: flex-start;
     overflow-x: scroll;
     width: 200px;
   }
+
   .my-lion {
     width: 200px;
     min-width: 200px;
@@ -832,16 +835,19 @@ p {
     margin: 0;
     padding: 0;
   }
+
   .silhouette-card-image-top img {
     margin: 0;
     height: 150px;
     width: 150px;
   }
+
   .silhouette-card-image-bottom img {
     margin: 0;
     height: 150px;
     width: 150px;
   }
+
   canvas {
     margin-top: -7px;
   }
@@ -1071,6 +1077,7 @@ p {
     z-index: 100;
     overflow: hidden;
   }
+
   .traits {
     position: fixed;
     width: 95vw;
@@ -1078,15 +1085,17 @@ p {
     bottom: 85px;
     overflow: hidden;
   }
+
   .buttModalBold {
     font-size: 0.8rem;
   }
+
   .traits-values {
     font-size: 0.7rem;
     height: 100px;
     overflow: hidden;
   }
-  
+
   .buttModalContent {
     box-sizing: border-box;
     position: fixed;
@@ -1098,6 +1107,7 @@ p {
     flex-wrap: wrap;
     height: calc(100vh - 230px);
   }
+
   .buttModalTitle {
     position: fixed;
     top: 0;
@@ -1464,5 +1474,55 @@ p {
   .mint-announcement {
     width: 90%;
     font-size: 1rem;
+  }
+}
+
+.remote-mint-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  /* background-color: #111; */
+  border: 3px solid #eee;
+  padding: 2rem;
+  border-radius: 1rem;
+  z-index: 100;
+  background-color: #111;
+  color: white;
+}
+
+.remote-mint-modal-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.remote-mint-modal-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2rem;
+  width: 100%;
+}
+
+.remote-mint-modal-buttons button {
+  margin: 0.5rem;
+  padding: 0.5rem;
+  border-radius: 0.5em;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  transition: all 300ms ease;
+}
+
+@media screen and (max-width: 800px) {
+  .remote-mint-modal {
+    width: 100vw;
+    height: 100vh;
+  }
+  .remote-mint-modal-content {
+    padding: 1rem;
   }
 }

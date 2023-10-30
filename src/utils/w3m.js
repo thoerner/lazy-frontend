@@ -1,13 +1,14 @@
 import { EthereumClient, w3mConnectors } from '@web3modal/ethereum'
 import { configureChains, createConfig, WagmiConfig, useAccount, useSignMessage } from 'wagmi'
 import { alchemyProvider } from '@wagmi/core/providers/alchemy'
-import { mainnet } from 'wagmi/chains'
+import { mainnet, sepolia } from 'wagmi/chains'
+import { ALCHEMY_API_KEY } from './constants'
 
-const chains = [mainnet]
+const { VITE_ENV } = import.meta.env
+const chains = VITE_ENV === 'dev' ? [sepolia] : [mainnet]
 const projectId = import.meta.env.VITE_WALLET_CONNECT_PROJECT_ID
-const alchemyKey = import.meta.env.VITE_ALCHEMY_API_KEY
 
-const { publicClient } = configureChains(chains, [alchemyProvider({ apiKey: alchemyKey })])
+const { publicClient } = configureChains(chains, [alchemyProvider({ apiKey: ALCHEMY_API_KEY })])
 const wagmiConfig = createConfig({
   autoConnect: true,
   connectors: w3mConnectors({ projectId, version: 2, chains }),

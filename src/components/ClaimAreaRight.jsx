@@ -1,3 +1,4 @@
+import PropType from 'prop-types'
 import MintButton from '../components/MintButton'
 import RandomQuote from '../components/RandomQuote'
 
@@ -11,7 +12,6 @@ const ClaimAreaRight = ({
     mintActive,
     isAllowListed,
     proof,
-    isClaiming,
     setIsClaiming,
     setRefreshButts,
     setSelectedLions,
@@ -35,9 +35,7 @@ const ClaimAreaRight = ({
                     isAllowListed={isAllowListed}
                     totalPrice={totalPrice}
                     proof={proof}
-                    isClaiming={isClaiming}
                     setIsClaiming={setIsClaiming}
-                    isConnected={isConnected}
                     setRefreshButts={setRefreshButts}
                     setSelectedLions={setSelectedLions}
                     setIsClaimed={setIsClaimed}
@@ -53,6 +51,22 @@ const ClaimAreaRight = ({
             </div>
         </div>
     )
+}
+
+ClaimAreaRight.propTypes = {
+    selectedLions: PropType.array,
+    myLions: PropType.array,
+    totalPrice: PropType.number,
+    price: PropType.number,
+    isConnected: PropType.bool,
+    allowListActive: PropType.bool,
+    mintActive: PropType.bool,
+    isAllowListed: PropType.bool,
+    proof: PropType.object,
+    setIsClaiming: PropType.func,
+    setRefreshButts: PropType.func,
+    setSelectedLions: PropType.func,
+    setIsClaimed: PropType.func,
 }
 
 export default ClaimAreaRight

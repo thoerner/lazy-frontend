@@ -9,6 +9,8 @@ import ButtGrid from "../components/ButtGrid.jsx"
 import Disclaimer from "../components/Disclaimer.jsx"
 import Footer from "../components/Footer.jsx"
 
+const { VITE_ENV } = import.meta.env
+
 const LoadingMessage = () => {
     return (
         <div className="loading-message">
