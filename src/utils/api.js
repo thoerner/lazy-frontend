@@ -59,7 +59,7 @@ export const getFullResButtImage = async (buttId, address, sessionToken) => {
   );
 
   if (res.headers.get("Content-Type").includes("application/json")) {
-    const jsonData = await res.json();
+    await res.json();
     throw new Error("Expected an image but got JSON response.");
   }
   const image = await res.blob();
@@ -80,7 +80,7 @@ export const getFullBodyImage = async (buttId, address, sessionToken) => {
   );
 
   if (res.headers.get("Content-Type").includes("application/json")) {
-    const jsonData = await res.json();
+    await res.json();
     throw new Error("Expected an image but got JSON response.");
   }
   const image = await res.blob();
@@ -101,7 +101,7 @@ export const getSeasonalButtImage = async (buttId, address, sessionToken) => {
   );
 
   if (res.headers.get("Content-Type").includes("application/json")) {
-    const jsonData = await res.json();
+    await res.json();
     throw new Error("Expected an image but got JSON response.");
   }
   const image = await res.blob();
@@ -143,14 +143,14 @@ export const getFullBodyThumbImage = async (buttId, address, sessionToken) => {
   );
 
   if (res.headers.get("Content-Type").includes("application/json")) {
-    const jsonData = await res.json();
+    await res.json();
     throw new Error("Expected an image but got JSON response.");
   }
   const image = await res.blob();
   return image;
 };
 
-export const getSmallButtImage = async (buttId, address, sessionToken) => {
+export const getSmallButtImage = async (buttId) => {
   const res = await fetch(
     `${import.meta.env.VITE_API_URL}/api/images/small/${buttId}.png`,
     {
@@ -162,7 +162,7 @@ export const getSmallButtImage = async (buttId, address, sessionToken) => {
   );
 
   if (res.headers.get("Content-Type").includes("application/json")) {
-    const jsonData = await res.json();
+    await res.json();
     throw new Error("Expected an image but got JSON response.");
   }
   const image = await res.blob();
@@ -181,7 +181,7 @@ export const getMediumButtImage = async (buttId) => {
   );
 
   if (res.headers.get("Content-Type").includes("application/json")) {
-    const jsonData = await res.json();
+    await res.json();
     throw new Error("Expected an image but got JSON response.");
   }
   const image = await res.blob();
@@ -269,5 +269,3 @@ export const checkSession = async (params) => {
   const data = await res.json();
   return data;
 };
-
-export const getTwitterFriendlyFullBody = async (buttId) => {};

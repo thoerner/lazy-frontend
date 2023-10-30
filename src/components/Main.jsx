@@ -1,3 +1,4 @@
+import PropType from 'prop-types'
 import ButtLogo from './ButtLogo.jsx'
 import ButtGif from './ButtGif.jsx'
 import BehindTheTail from './BehindTheTail.jsx'
@@ -28,6 +29,10 @@ const Main = ({ isMobile }) => {
             <TeamStatements />
         </div>
     )
+}
+
+Main.propTypes = {
+    isMobile: PropType.bool.isRequired,
 }
 
 export default Main;

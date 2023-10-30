@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import PropType from "prop-types";
 import MyLions from "./MyLions";
 import EmptyLion from "../assets/lion-silhouette.png";
 import toast from "react-hot-toast";
@@ -92,7 +93,7 @@ const MyLionsSection = ({
             </div>
           ) : isConnected && myLions.length === 0 ? (
             <div className="my-lions-empty">
-              <p>You don't own any Lazy Lions yet.</p>
+              <p>You don&apos;t own any Lazy Lions yet.</p>
               <p>
                 Head over to the{" "}
                 <a
@@ -127,6 +128,31 @@ const MyLionsSection = ({
       </div>
     </div>
   );
+};
+
+MyLionsSection.propTypes = {
+  isConnected: PropType.bool.isRequired,
+  myLions: PropType.arrayOf(
+    PropType.shape({
+      id: PropType.number.isRequired,
+    })
+  ).isRequired,
+  handleLionClick: PropType.func.isRequired,
+  selectedLions: PropType.arrayOf(
+    PropType.shape({
+      id: PropType.number.isRequired,
+    })
+  ).isRequired,
+  address: PropType.string.isRequired,
+  myButts: PropType.arrayOf(
+    PropType.shape({
+      id: PropType.number.isRequired,
+    })
+  ).isRequired,
+  setIsClaiming: PropType.func.isRequired,
+  setRefreshButts: PropType.func.isRequired,
+  setIsClaimed: PropType.func.isRequired,
+  mintActive: PropType.bool.isRequired,
 };
 
 export default MyLionsSection;

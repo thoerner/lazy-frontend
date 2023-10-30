@@ -59,7 +59,7 @@ const MintButton = ({
                 setIsClaiming(false)
             }
         },
-        onSuccess(data) {
+        onSuccess() {
             toast.success(`Transaction submitted!`)
         }
     }
@@ -83,7 +83,7 @@ const MintButton = ({
                 setIsClaiming(false)
             }
         },
-        onSuccess(data) {
+        onSuccess() {
             toast.success(`Transaction submitted!`)
         }
     }

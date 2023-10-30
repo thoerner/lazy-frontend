@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import PropType from "prop-types";
 import { useAccount, useContractWrite, useContractRead } from "wagmi";
 import LazyButtsAbi from "../contracts/LazyButts.js";
 import toast from "react-hot-toast";
@@ -64,7 +65,7 @@ const AdminPage = ({ setActivePage }) => {
     if (address === "") return;
     write?.();
     setAddress("");
-  }, [address]);
+  }, [address, write]);
 
   function getTotalReleasedParams() {
     return {
@@ -163,7 +164,7 @@ const AdminPage = ({ setActivePage }) => {
         toast.success("Transaction confirmed");
       }
     },
-    onSuccess(data) {
+    onSuccess() {
       toast.success("Transaction submitted!");
     },
   };
@@ -211,6 +212,10 @@ const AdminPage = ({ setActivePage }) => {
       </div>
     </div>
   );
+};
+
+AdminPage.propTypes = {
+  setActivePage: PropType.func.isRequired,
 };
 
 export default AdminPage;
