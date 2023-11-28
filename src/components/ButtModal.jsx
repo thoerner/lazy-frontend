@@ -49,7 +49,7 @@ const ButtModal = ({ butt, myLions }) => {
     const [isLoading, setIsLoading] = useState(true)
     const [buttImage, setButtImage] = useState(null)
     const [buttMetadata, setButtMetadata] = useState(null)
-    const [selectedType, setSelectedType] = useState('social')
+    const [selectedType, setSelectedType] = useState('full-res')
 
     useEffect(() => {
         const handleEscape = (e) => {

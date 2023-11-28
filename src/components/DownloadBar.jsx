@@ -27,11 +27,12 @@ const DownloadBar = ({
   const [blobs, setBlobs] = useState({}); // TODO: change to preview blobs and then when download is clicked, download the full res
   const { address } = useAccount();
   const sessionToken = getSessionToken();
+  const { id: buttId } = butt;
 
   useEffect(() => {
     const fetchButtImage = async () => {
-      const socialBlob = await getSocialImage(butt.id);
-      setBlobs({ social: socialBlob });
+      const mediumBlob = await getMediumButtImage(buttId);
+      setBlobs({ medium: mediumBlob });
     };
     fetchButtImage();
   }, [butt, address, sessionToken]);
@@ -42,9 +43,9 @@ const DownloadBar = ({
 
   const downloadBlob = async (type) => {
     downloadImage(
-      butt.id,
+      buttId,
       type,
-      `lazy-butt_${type}_${butt.id}.png`,
+      `lazy-butt_${type}_${buttId}.png`,
       address,
       sessionToken
     );
@@ -55,13 +56,26 @@ const DownloadBar = ({
     setButtImage(buttImage);
   };
 
+  const handleMediumButtonClick = async () => {
+    setIsLoading(true);
+    setSelectedType("medium");
+    if (blobs["medium"]) {
+      setImage(blobs["medium"]);
+    } else {
+      const mediumBlob = await getMediumButtImage(buttId);
+      setBlobs({ ...blobs, medium: mediumBlob });
+      setImage(mediumBlob);
+    }
+    setIsLoading(false);
+  };
+
   const handleFullResButtonClick = async () => {
     setIsLoading(true);
     setSelectedType("full-res");
     if (blobs["full-res"]) {
       setImage(blobs["full-res"]);
     } else {
-      const fullResBlob = await getMediumButtImage(butt.id);
+      const fullResBlob = await getMediumButtImage(buttId);
       setBlobs({ ...blobs, "full-res": fullResBlob });
       setImage(fullResBlob);
     }
@@ -70,7 +84,7 @@ const DownloadBar = ({
 
   const handleFullBodyButtonClick = async () => {
     console.log(myLions);
-    if (!myLions.some((lion) => lion.id === butt.id)) {
+    if (!myLions.some((lion) => lion.id === buttId)) {
       toast(
         <div
           style={{
@@ -80,10 +94,10 @@ const DownloadBar = ({
             justifyContent: "center",
           }}
         >
-          You must own Lazy Lion #{butt.id} to download the Full Body image!
+          You must own Lazy Lion #{buttId} to download the Full Body image!
           <br />
           <a
-            href={`https://opensea.io/assets/ethereum/0x8943c7bac1914c9a7aba750bf2b6b09fd21037e0/${butt.id}`}
+            href={`https://opensea.io/assets/ethereum/0x8943c7bac1914c9a7aba750bf2b6b09fd21037e0/${buttId}`}
             target="_blank"
             rel="noreferrer"
           >
@@ -111,7 +125,7 @@ const DownloadBar = ({
       setImage(blobs["full-body"]);
     } else {
       const fullBodyBlob = await getFullBodyThumbImage(
-        butt.id,
+        buttId,
         address,
         sessionToken
       );
@@ -122,7 +136,7 @@ const DownloadBar = ({
   };
 
   const handleSocialImageButtonClick = async () => {
-    if (!myLions.some((lion) => lion.id === butt.id)) {
+    if (!myLions.some((lion) => lion.id === buttId)) {
       toast(
         <div
           style={{
@@ -132,10 +146,10 @@ const DownloadBar = ({
             justifyContent: "center",
           }}
         >
-          You must own Lazy Lion #{butt.id} to download the Social image!
+          You must own Lazy Lion #{buttId} to download the Social image!
           <br />
           <a
-            href={`https://opensea.io/assets/ethereum/0x8943c7bac1914c9a7aba750bf2b6b09fd21037e0/${butt.id}`}
+            href={`https://opensea.io/assets/ethereum/0x8943c7bac1914c9a7aba750bf2b6b09fd21037e0/${buttId}`}
             target="_blank"
             rel="noreferrer"
           >
@@ -162,7 +176,7 @@ const DownloadBar = ({
     if (blobs["social"]) {
       setImage(blobs["social"]);
     } else {
-      const socialBlob = await getSocialImage(butt.id, address, sessionToken);
+      const socialBlob = await getSocialImage(buttId, address, sessionToken);
       setBlobs({ ...blobs, social: socialBlob });
       setImage(socialBlob);
     }
@@ -170,7 +184,7 @@ const DownloadBar = ({
   };
 
   const handleTransparentImageButtonClick = async () => {
-    if (!myLions.some((lion) => lion.id === butt.id)) {
+    if (!myLions.some((lion) => lion.id === buttId)) {
       toast(
         <div
           style={{
@@ -180,10 +194,10 @@ const DownloadBar = ({
             justifyContent: "center",
           }}
         >
-          You must own Lazy Lion #{butt.id} to download the Social image!
+          You must own Lazy Lion #{buttId} to download the Social image!
           <br />
           <a
-            href={`https://opensea.io/assets/ethereum/0x8943c7bac1914c9a7aba750bf2b6b09fd21037e0/${butt.id}`}
+            href={`https://opensea.io/assets/ethereum/0x8943c7bac1914c9a7aba750bf2b6b09fd21037e0/${buttId}`}
             target="_blank"
             rel="noreferrer"
           >
@@ -211,7 +225,7 @@ const DownloadBar = ({
       setImage(blobs["transparent"]);
     } else {
       const transparentBlob = await getTransparentImage(
-        butt.id,
+        buttId,
         address,
         sessionToken
       );
@@ -222,7 +236,7 @@ const DownloadBar = ({
   };
 
   const handleSeasonalButtonClick = async () => {
-    if (!myLions.some((lion) => lion.id === butt.id)) {
+    if (!myLions.some((lion) => lion.id === buttId)) {
       toast(
         <div
           style={{
@@ -232,10 +246,10 @@ const DownloadBar = ({
             justifyContent: "center",
           }}
         >
-          You must own Lazy Lion #{butt.id} to download the Social image!
+          You must own Lazy Lion #{buttId} to download the Social image!
           <br />
           <a
-            href={`https://opensea.io/assets/ethereum/0x8943c7bac1914c9a7aba750bf2b6b09fd21037e0/${butt.id}`}
+            href={`https://opensea.io/assets/ethereum/0x8943c7bac1914c9a7aba750bf2b6b09fd21037e0/${buttId}`}
             target="_blank"
             rel="noreferrer"
           >
@@ -263,7 +277,7 @@ const DownloadBar = ({
       setImage(blobs["seasonal"]);
     } else {
       const seasonalBlob = await getSeasonalButtImage(
-        butt.id,
+        buttId,
         address,
         sessionToken
       );
@@ -328,7 +342,7 @@ const DownloadBar = ({
             className={`downloadButtonDropdownItem ${
               selectedType === "transparent" ? "selected" : null
             }`}
-            onClick={() => handleTransparentImageButtonClick(butt.id)}
+            onClick={() => handleTransparentImageButtonClick(buttId)}
           >
             Transparent {!isMobile ? `(5k × 10k)` : null}
           </div>
@@ -390,6 +404,20 @@ const DownloadBar = ({
         </div>
         <div
           className={`downloadButtonDropdownItem ${
+            selectedType === "medium" ? "selected" : null
+          }`}
+          onClick={() => handleTransparentImageButtonClick()}
+        >
+          Transparent{" "}
+          {!isMobile ? (
+            <>
+              <br />
+              5k×10k
+            </>
+          ) : null}
+        </div>
+        <div
+          className={`downloadButtonDropdownItem ${
             selectedType === "full-body" ? "selected" : null
           }`}
           onClick={() => handleFullBodyButtonClick()}
@@ -399,20 +427,6 @@ const DownloadBar = ({
             <>
               <br />
               8k×16k
-            </>
-          ) : null}
-        </div>
-        <div
-          className={`downloadButtonDropdownItem ${
-            selectedType === "transparent" ? "selected" : null
-          }`}
-          onClick={() => handleTransparentImageButtonClick(butt.id)}
-        >
-          Transparent{" "}
-          {!isMobile ? (
-            <>
-              <br />
-              5k×10k
             </>
           ) : null}
         </div>
