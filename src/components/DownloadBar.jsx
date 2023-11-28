@@ -4,6 +4,7 @@ import {
   getFullBodyImage,
   getFullBodyThumbImage,
   getMediumButtImage,
+  getTransparentImage,
   getSocialImage,
   getSeasonalButtImage,
 } from "../utils/api.js";
@@ -181,6 +182,58 @@ const DownloadBar = ({
     setIsLoading(false);
   };
 
+  const handleTransparentImageButtonClick = async () => {
+    if (!myLions.some((lion) => lion.id === butt.id)) {
+      toast(
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          You must own Lazy Lion #{butt.id} to download the Social image!
+          <br />
+          <a
+            href={`https://opensea.io/assets/ethereum/0x8943c7bac1914c9a7aba750bf2b6b09fd21037e0/${butt.id}`}
+            target="_blank"
+            rel="noreferrer"
+          >
+            <div
+              style={{
+                backgroundColor: "#00caf8aa",
+                borderRadius: "0.5rem",
+                height: "2rem",
+                lineHeight: "2rem",
+                padding: "0.5rem 1rem",
+                marginTop: "0.5rem",
+                border: "1px solid #00caf8",
+              }}
+            >
+              Buy on OpenSea
+            </div>
+          </a>
+        </div>
+      );
+      return;
+    }
+    setIsLoading(true);
+    setSelectedType("transparent");
+    if (blobs["transparent"]) {
+      setImage(blobs["transparent"]);
+    } else {
+      const transparentBlob = await getTransparentImage(
+        butt.id,
+        address,
+        sessionToken
+      );
+      setBlobs({ ...blobs, transparent: transparentBlob });
+      setImage(transparentBlob);
+    }
+    setIsLoading(false);
+  };
+
   const handleSeasonalButtonClick = async () => {
     if (!myLions.some((lion) => lion.id === butt.id)) {
       toast(
@@ -245,6 +298,8 @@ const DownloadBar = ({
         ? getSocialImage
         : type === "seasonal"
         ? getSeasonalButtImage
+        : type === "transparent"
+        ? getTransparentImage
         : getMediumButtImage;
 
     function createTempAnchor(url, filename) {
@@ -280,11 +335,11 @@ const DownloadBar = ({
         <div className="downloadBar">
           <div
             className={`downloadButtonDropdownItem ${
-              selectedType === "medium" ? "selected" : null
+              selectedType === "transparent" ? "selected" : null
             }`}
-            onClick={() => handleMediumButtonClick(butt.id)}
+            onClick={() => handleTransparentImageButtonClick(butt.id)}
           >
-            Original {!isMobile ? `(2k × 2k)` : null}
+            Transparent {!isMobile ? `(5k × 10k)` : null}
           </div>
           <div
             className={`downloadButtonDropdownItem ${
@@ -330,15 +385,15 @@ const DownloadBar = ({
       <div className="downloadBar">
         <div
           className={`downloadButtonDropdownItem ${
-            selectedType === "medium" ? "selected" : null
+            selectedType === "transparent" ? "selected" : null
           }`}
-          onClick={() => handleMediumButtonClick(butt.id)}
+          onClick={() => handleTransparentImageButtonClick(butt.id)}
         >
-          Original{" "}
+          Transparent{" "}
           {!isMobile ? (
             <>
               <br />
-              2k×2k
+              5k×10k
             </>
           ) : null}
         </div>

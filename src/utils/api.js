@@ -92,6 +92,27 @@ export const getSeasonalButtImage = async (buttId, address, sessionToken) => {
   return image;
 };
 
+export const getTransparentImage = async (buttId, address, sessionToken) => {
+  const res = await fetch(
+    `${import.meta.env.VITE_API_URL}/api/images/transparent/${buttId}.png`,
+    {
+      method: "GET", // Specify the method
+      headers: {
+        "Content-Type": "application/json", // Specify the content type of the request body
+        Authorization: `${sessionToken}`, // Specify the token
+        Address: `${address}`, // Specify the address
+      },
+    }
+  );
+
+  if (res.headers.get("Content-Type").includes("application/json")) {
+    const jsonData = await res.json();
+    throw new Error("Expected an image but got JSON response.");
+  }
+  const image = await res.blob();
+  return image;
+}
+
 export const getSocialImage = async (buttId, address, sessionToken) => {
   const res = await fetch(
     `${import.meta.env.VITE_API_URL}/api/images/social/${buttId}.png`,
