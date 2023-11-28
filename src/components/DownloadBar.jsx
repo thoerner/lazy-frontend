@@ -30,8 +30,8 @@ const DownloadBar = ({
 
   useEffect(() => {
     const fetchButtImage = async () => {
-      const mediumBlob = await getMediumButtImage(butt.id);
-      setBlobs({ medium: mediumBlob });
+      const socialBlob = await getSocialImage(butt.id);
+      setBlobs({ social: socialBlob });
     };
     fetchButtImage();
   }, [butt, address, sessionToken]);
@@ -53,19 +53,6 @@ const DownloadBar = ({
   const setImage = (imageBlob) => {
     const buttImage = URL.createObjectURL(imageBlob);
     setButtImage(buttImage);
-  };
-
-  const handleMediumButtonClick = async () => {
-    setIsLoading(true);
-    setSelectedType("medium");
-    if (blobs["medium"]) {
-      setImage(blobs["medium"]);
-    } else {
-      const mediumBlob = await getMediumButtImage(butt.id);
-      setBlobs({ ...blobs, medium: mediumBlob });
-      setImage(mediumBlob);
-    }
-    setIsLoading(false);
   };
 
   const handleFullResButtonClick = async () => {
@@ -275,7 +262,11 @@ const DownloadBar = ({
     if (blobs["seasonal"]) {
       setImage(blobs["seasonal"]);
     } else {
-      const seasonalBlob = await getSeasonalButtImage(butt.id, address, sessionToken);
+      const seasonalBlob = await getSeasonalButtImage(
+        butt.id,
+        address,
+        sessionToken
+      );
       setBlobs({ ...blobs, seasonal: seasonalBlob });
       setImage(seasonalBlob);
     }
@@ -343,21 +334,21 @@ const DownloadBar = ({
           </div>
           <div
             className={`downloadButtonDropdownItem ${
-              selectedType === "full-res" ? "selected" : null
-            }`}
-            onClick={() => handleFullResButtonClick()}
-          >
-            Full Res {!isMobile ? `(8k × 8k)` : null}
-          </div>
-        </div>
-        <div className="downloadBar">
-          <div
-            className={`downloadButtonDropdownItem ${
               selectedType === "full-body" ? "selected" : null
             }`}
             onClick={() => handleFullBodyButtonClick()}
           >
             Full Body {!isMobile ? `(8k × 16k)` : null}
+          </div>
+        </div>
+        <div className="downloadBar">
+          <div
+            className={`downloadButtonDropdownItem ${
+              selectedType === "full-res" ? "selected" : null
+            }`}
+            onClick={() => handleFullResButtonClick()}
+          >
+            Butt {!isMobile ? `(8k × 8k)` : null}
           </div>
           <div
             className={`downloadButtonDropdownItem ${
@@ -385,25 +376,11 @@ const DownloadBar = ({
       <div className="downloadBar">
         <div
           className={`downloadButtonDropdownItem ${
-            selectedType === "transparent" ? "selected" : null
-          }`}
-          onClick={() => handleTransparentImageButtonClick(butt.id)}
-        >
-          Transparent{" "}
-          {!isMobile ? (
-            <>
-              <br />
-              5k×10k
-            </>
-          ) : null}
-        </div>
-        <div
-          className={`downloadButtonDropdownItem ${
             selectedType === "full-res" ? "selected" : null
           }`}
           onClick={() => handleFullResButtonClick()}
         >
-          Full Res{" "}
+          Butt Only{" "}
           {!isMobile ? (
             <>
               <br />
@@ -422,6 +399,20 @@ const DownloadBar = ({
             <>
               <br />
               8k×16k
+            </>
+          ) : null}
+        </div>
+        <div
+          className={`downloadButtonDropdownItem ${
+            selectedType === "transparent" ? "selected" : null
+          }`}
+          onClick={() => handleTransparentImageButtonClick(butt.id)}
+        >
+          Transparent{" "}
+          {!isMobile ? (
+            <>
+              <br />
+              5k×10k
             </>
           ) : null}
         </div>
