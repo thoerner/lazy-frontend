@@ -319,7 +319,7 @@ const DownloadBar = ({
     const downloadToast = toast
       .promise(
         () => {
-          if (blobs[type]) {
+          if (blobs[type] !== undefined) {
             return blobs[type];
           } else {
           return address && sessionToken
