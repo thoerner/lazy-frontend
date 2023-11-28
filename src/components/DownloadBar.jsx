@@ -322,9 +322,9 @@ const DownloadBar = ({
           if (blobs[type] !== undefined) {
             return blobs[type];
           } else {
-          return address && sessionToken
-            ? getImage(buttId, address, sessionToken)
-            : getImage(buttId)
+            return address && sessionToken
+              ? getImage(buttId, address, sessionToken)
+              : getImage(buttId);
           }
         },
         {
