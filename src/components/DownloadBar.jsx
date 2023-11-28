@@ -318,9 +318,15 @@ const DownloadBar = ({
 
     const downloadToast = toast
       .promise(
-        address && sessionToken
-          ? getImage(buttId, address, sessionToken)
-          : getImage(buttId),
+        () => {
+          if (blobs[type]) {
+            return blobs[type];
+          } else {
+          return address && sessionToken
+            ? getImage(buttId, address, sessionToken)
+            : getImage(buttId)
+          }
+        },
         {
           loading: "Downloading...",
           success: "Download complete!",
