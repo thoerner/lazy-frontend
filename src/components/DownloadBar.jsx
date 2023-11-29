@@ -316,17 +316,19 @@ const DownloadBar = ({
       document.body.removeChild(a);
     }
 
+    const toastPromiseFunction = () => {
+      if (blobs[type] !== undefined) {
+        return blobs[type];
+      } else {
+        return address && sessionToken
+          ? getImage(buttId, address, sessionToken)
+          : getImage(buttId);
+      }
+    };
+
     const downloadToast = toast
       .promise(
-        (() => {
-          if (blobs[type] !== undefined) {
-            return blobs[type];
-          } else {
-            return address && sessionToken
-              ? getImage(buttId, address, sessionToken)
-              : getImage(buttId);
-          }
-        })(),
+        toastPromiseFunction,
         {
           loading: "Downloading...",
           success: "Download complete!",
