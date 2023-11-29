@@ -323,9 +323,9 @@ const DownloadBar = ({
         return blobs[type];
       } else {
         console.log(`blob ${type} does not exist. fetching...`)
-        return address && sessionToken
-          ? getImage(buttId, address, sessionToken)
-          : getImage(buttId);
+        const blob = address && sessionToken ? getImage(buttId, address, sessionToken) : getImage(buttId);
+        console.log(blob);
+        return blob;
       }
     })();
 
