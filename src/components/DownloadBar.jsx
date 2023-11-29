@@ -318,8 +318,11 @@ const DownloadBar = ({
 
     const toastPromiseFunction = () => {
       if (blobs[type] !== undefined) {
+        console.log(`blob ${type} already exists. trying to download...`)
+        console.log(blobs[type]);
         return blobs[type];
       } else {
+        console.log(`blob ${type} does not exist. fetching...`)
         return address && sessionToken
           ? getImage(buttId, address, sessionToken)
           : getImage(buttId);
@@ -327,14 +330,11 @@ const DownloadBar = ({
     };
 
     const downloadToast = toast
-      .promise(
-        toastPromiseFunction,
-        {
-          loading: "Downloading...",
-          success: "Download complete!",
-          error: "Download failed",
-        }
-      )
+      .promise(toastPromiseFunction, {
+        loading: "Downloading...",
+        success: "Download complete!",
+        error: "Download failed",
+      })
       .then((imageBlob) => {
         const url = window.URL.createObjectURL(imageBlob);
         createTempAnchor(url, fileName);
