@@ -316,7 +316,7 @@ const DownloadBar = ({
       document.body.removeChild(a);
     }
 
-    const toastPromiseFunction = () => {
+    const toastPromiseFunction = (() => {
       if (blobs[type] !== undefined) {
         console.log(`blob ${type} already exists. trying to download...`)
         console.log(blobs[type]);
@@ -327,7 +327,7 @@ const DownloadBar = ({
           ? getImage(buttId, address, sessionToken)
           : getImage(buttId);
       }
-    };
+    })();
 
     const downloadToast = toast
       .promise(toastPromiseFunction, {
