@@ -318,13 +318,9 @@ const DownloadBar = ({
 
     const toastPromiseFunction = (() => {
       if (blobs[type] !== undefined) {
-        console.log(`blob ${type} already exists. trying to download...`)
-        console.log(blobs[type]);
         return Promise.resolve(blobs[type]);
       } else {
-        console.log(`blob ${type} does not exist. fetching...`)
         const blob = address && sessionToken ? getImage(buttId, address, sessionToken) : getImage(buttId);
-        console.log(blob);
         return blob;
       }
     })();
