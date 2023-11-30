@@ -4,7 +4,6 @@ import { getMediumButtImage, getMetadata } from "../utils/api";
 import DownloadBar from "./DownloadBar";
 import Traits from "./Traits";
 import { useIsMobile } from "../utils/tools";
-import toast from "react-hot-toast";
 
 const ModalContent = ({
   butt,
