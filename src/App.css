@@ -177,7 +177,7 @@ a:active {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 1rem;
+  /* padding: 1rem; */
 }
 
 /* Styles for cards */
@@ -453,8 +453,6 @@ p {
   justify-content: space-evenly;
   align-items: center;
   flex-wrap: wrap;
-  padding: 1rem;
-  margin: 1rem;
   border-radius: 0.5em;
   box-shadow: 0px 0px 5px #333;
   background-color: #333;
@@ -465,9 +463,17 @@ p {
 }
 
 @media screen and (max-width: 800px) {
+  .claim {
+  }
+  .claim-area {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
   .claim-area-main {
-    min-width: 90%;
-    width: 90%;
+    min-width: 85%;
+    width: 85%;
     padding: 0;
   }
 }
@@ -708,6 +714,7 @@ p {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  max-width: 90vw;
 }
 
 .disclaimer {
