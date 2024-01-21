@@ -174,6 +174,25 @@ export const getSmallButtImage = async (buttId, address, sessionToken) => {
   return image;
 };
 
+export const getRexRoarImage = async (buttId, address, sessionToken) => {
+  const res = await fetch(
+    `${import.meta.env.VITE_API_URL}/api/create/rex/${buttId}`,
+    {
+      method: "GET", // Specify the method
+      headers: {
+        "Content-Type": "application/json", // Specify the content type of the request body
+      },
+    }
+  );
+
+  if (res.headers.get("Content-Type").includes("application/json")) {
+    const jsonData = await res.json();
+    throw new Error("Expected an image but got JSON response.");
+  }
+  const image = await res.blob();
+  return image;
+};
+
 export const getMediumButtImage = async (buttId) => {
   const res = await fetch(
     `${import.meta.env.VITE_API_URL}/api/images/medium/${buttId}.png`,

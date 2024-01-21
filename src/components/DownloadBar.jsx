@@ -7,6 +7,7 @@ import {
   getTransparentImage,
   getSocialImage,
   getSeasonalButtImage,
+  getRexRoarImage,
 } from "../utils/api.js";
 import { getSessionToken } from "../utils/session.js";
 import { useIsMobile } from "../utils/tools.js";
@@ -65,6 +66,19 @@ const DownloadBar = ({
       const mediumBlob = await getMediumButtImage(buttId);
       setBlobs({ ...blobs, medium: mediumBlob });
       setImage(mediumBlob);
+    }
+    setIsLoading(false);
+  };
+
+  const handleRexRoarButtonClick = async () => {
+    setIsLoading(true);
+    setSelectedType("rex-roar");
+    if (blobs["rex-roar"]) {
+      setImage(blobs["rex-roar"]);
+    } else {
+      const rexRoarBlob = await getRexRoarImage(buttId);
+      setBlobs({ ...blobs, "rex-roar": rexRoarBlob });
+      setImage(rexRoarBlob);
     }
     setIsLoading(false);
   };
@@ -305,6 +319,8 @@ const DownloadBar = ({
         ? getSeasonalButtImage
         : type === "transparent"
         ? getTransparentImage
+        : type === "rex-roar"
+        ? getRexRoarImage
         : getMediumButtImage;
 
     function createTempAnchor(url, filename) {
@@ -398,7 +414,7 @@ const DownloadBar = ({
           }`}
           onClick={() => handleFullResButtonClick()}
         >
-          Butt Only{" "}
+          Da Butt{" "}
           {!isMobile ? (
             <>
               <br />
@@ -431,6 +447,20 @@ const DownloadBar = ({
             <>
               <br />
               8k×16k
+            </>
+          ) : null}
+        </div>
+        <div
+          className={`downloadButtonDropdownItem ${
+            selectedType === "rex-roar" ? "selected" : null
+          }`}
+          onClick={() => handleRexRoarButtonClick()}
+        >
+          Rex Roar{" "}
+          {!isMobile ? (
+            <>
+              <br />
+              3.8kx2.4k
             </>
           ) : null}
         </div>
