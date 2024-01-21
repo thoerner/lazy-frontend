@@ -428,13 +428,7 @@ const DownloadBar = ({
           }`}
           onClick={() => handleTransparentImageButtonClick()}
         >
-          Transparent{" "}
-          {!isMobile ? (
-            <>
-              <br />
-              5k×10k
-            </>
-          ) : null}
+          No BG{" "}
         </div>
         <div
           className={`downloadButtonDropdownItem ${
@@ -443,12 +437,6 @@ const DownloadBar = ({
           onClick={() => handleFullBodyButtonClick()}
         >
           Full Body{" "}
-          {!isMobile ? (
-            <>
-              <br />
-              8k×16k
-            </>
-          ) : null}
         </div>
         <div
           className={`downloadButtonDropdownItem ${
@@ -457,12 +445,6 @@ const DownloadBar = ({
           onClick={() => handleRexRoarButtonClick()}
         >
           Rex Roar{" "}
-          {!isMobile ? (
-            <>
-              <br />
-              3.8kx2.4k
-            </>
-          ) : null}
         </div>
         <div
           className={`downloadButtonDropdownItem ${
@@ -471,12 +453,6 @@ const DownloadBar = ({
           onClick={() => handleSeasonalButtonClick()}
         >
           Seasonal{" "}
-          {!isMobile ? (
-            <>
-              <br />
-              2k×2k
-            </>
-          ) : null}
         </div>
         <div
           className={`downloadButtonDropdownItem ${
@@ -485,12 +461,6 @@ const DownloadBar = ({
           onClick={() => handleSocialImageButtonClick()}
         >
           Social{" "}
-          {!isMobile ? (
-            <>
-              <br />
-              1k×1k
-            </>
-          ) : null}
         </div>
       </div>
     );
