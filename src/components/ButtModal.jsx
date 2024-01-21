@@ -26,6 +26,8 @@ const ModalContent = ({
           className={
             ["full-body", "transparent"].includes(selectedType)
               ? "buttModalImage fullBody"
+              : selectedType === "rex-roar"
+              ? "buttModalImage rexRoar"
               : selectedType === "medium"
               ? "buttModalImage medium"
               : "buttModalImage fullRes"

@@ -1212,6 +1212,13 @@ p {
   max-width: 50vw;
 }
 
+.buttModalImage.rexRoar {
+  padding: 63.16% 0.5rem;
+  margin: 0.5rem;
+  height: 0;
+  width: 50vw;
+}
+
 .buttModalImage.fullRes {
   padding: 0.5rem;
   margin: 0.5rem;
