@@ -1222,10 +1222,12 @@ p {
 }
 
 .buttModalImage.rexRoar.mobile {
-  height: calc(12 / 19 * 90vw);
-  width: 90vw;
-  max-height: 90vw;
-  max-width: 90vw;
+  padding: calc((12 / 19 * 90vw / 2) + 0.5rem) 0.5rem; /* Maintain aspect ratio in padding */
+  margin: 0.5rem;
+  height: calc(12 / 19 * 90vw); /* Height maintains the 19:12 aspect ratio based on the width */
+  width: 90vw; /* Set width relative to 90% of the viewport width */
+  max-height: 90vw; /* You can adjust or remove this as needed */
+  max-width: 90vw; /* You can adjust or remove this as needed */
 }
 
 .buttModalImage.fullRes {
