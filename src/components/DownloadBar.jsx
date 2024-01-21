@@ -450,12 +450,6 @@ const DownloadBar = ({
           onClick={() => handleFullResButtonClick()}
         >
           Da Butt{" "}
-          {!isMobile ? (
-            <>
-              <br />
-              8k×8k
-            </>
-          ) : null}
         </div>
         <div
           className={`downloadButtonDropdownItem ${
