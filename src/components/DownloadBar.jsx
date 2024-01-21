@@ -399,7 +399,15 @@ const DownloadBar = ({
             }`}
             onClick={() => handleTransparentImageButtonClick(buttId)}
           >
-            Transparent {!isMobile ? `(5k × 10k)` : null}
+            No BG
+          </div>
+          <div 
+            className={`downloadButtonDropdownItem ${
+              selectedType === "rex-roar" ? "selected" : null
+            }`}
+            onClick={() => handleRexRoarButtonClick()}
+          >
+            Rex Roar
           </div>
           <div
             className={`downloadButtonDropdownItem ${
@@ -407,7 +415,7 @@ const DownloadBar = ({
             }`}
             onClick={() => handleFullBodyButtonClick()}
           >
-            Full Body {!isMobile ? `(8k × 16k)` : null}
+            Full Body
           </div>
         </div>
         <div className="downloadBar">
@@ -417,7 +425,7 @@ const DownloadBar = ({
             }`}
             onClick={() => handleFullResButtonClick()}
           >
-            Butt {!isMobile ? `(8k × 8k)` : null}
+            Da Butt
           </div>
           <div
             className={`downloadButtonDropdownItem ${
@@ -425,7 +433,7 @@ const DownloadBar = ({
             }`}
             onClick={() => handleSeasonalButtonClick()}
           >
-            Seasonal {!isMobile ? `(2k × 2k)` : null}
+            Seasonal
           </div>
           <div
             className={`downloadButtonDropdownItem ${
@@ -433,7 +441,7 @@ const DownloadBar = ({
             }`}
             onClick={() => handleSocialImageButtonClick()}
           >
-            Social {!isMobile ? `(1k × 1k)` : null}
+            Social
           </div>
         </div>
       </div>
