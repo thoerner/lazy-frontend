@@ -345,9 +345,7 @@ const DownloadBar = ({
     }
     setIsLoading(true);
     setSelectedType("seasonal");
-    if (blobs["seasonal"]) {
-      setImage(blobs["seasonal"]);
-    } else {
+
       const seasonalBlob = await getSeasonalButtImage(
         buttId,
         address,
@@ -355,7 +353,7 @@ const DownloadBar = ({
       );
       setBlobs({ ...blobs, seasonal: seasonalBlob });
       setImage(seasonalBlob);
-    }
+    
     setIsLoading(false);
   };
 
