@@ -6,9 +6,9 @@ import Traits from "./Traits";
 import { useIsMobile } from "../utils/tools";
 
 const ModalContent = ({
-  butt,
-  buttMetadata,
-  buttImage,
+  butt: cub,
+  buttMetadata: cubMetadata,
+  buttImage: cubImage,
   isLoading,
   selectedType,
 }) => {
@@ -22,17 +22,9 @@ const ModalContent = ({
         </div>
       ) : (
         <img
-          className={
-            ["full-body", "transparent"].includes(selectedType)
-              ? "buttModalImage fullBody"
-              : selectedType === "rex-roar"
-              ? "buttModalImage rexRoar"
-              : selectedType === "medium"
-              ? "buttModalImage medium"
-              : "buttModalImage fullRes"
-          }
-          src={buttImage}
-          alt={`Lazy Butt #${butt.id}`}
+          className={"buttModalImage fullRes"}
+          src={cubImage}
+          alt={`Lazy Butt #${cub.id}`}
         />
       )}
     </div>
@@ -46,20 +38,11 @@ const ModalContent = ({
         </div>
       ) : (
         <img
-          className={`${
-            ["full-body", "transparent"].includes(selectedType)
-              ? "buttModalImage fullBody"
-              : selectedType === "rex-roar"
-              ? "buttModalImage rexRoar"
-              : selectedType === "medium"
-              ? "buttModalImage medium"
-              : "buttModalImage fullRes"
-          } mobile`}
-          src={buttImage}
-          alt={`Lazy Butt #${butt.id}`}
+          className={`buttModalImage fullRes mobile`}
+          src={cubImage}
+          alt={`Lazy Butt #${cub.id}`}
         />
       )}
-      <Traits buttMetadata={buttMetadata} />
     </div>
   );
 
@@ -67,13 +50,13 @@ const ModalContent = ({
 };
 
 // modal for displaying butt details and download button
-const CubModal = ({ butt, myLions }) => {
+const CubModal = ({ butt: cub, myLions }) => {
   const isMobile = useIsMobile();
   const { closeModal } = useModal();
   const [isLoading, setIsLoading] = useState(true);
   const [cubImage, setCubImage] = useState(null);
   const [buttMetadata, setButtMetadata] = useState(null);
-  const [selectedType, setSelectedType] = useState("full-res");
+  const [selectedType, setSelectedType] = useState("seasonal");
 
   useEffect(() => {
     const handleEscape = (e) => {
@@ -106,18 +89,18 @@ const CubModal = ({ butt, myLions }) => {
 
   useEffect(() => {
     const fetchCubImage = async () => {
-      const imageBlob = await getSeasonalCubImage(butt.id);
-      const buttImage = URL.createObjectURL(imageBlob);
-      setCubImage(buttImage);
+      const imageBlob = await getSeasonalCubImage(cub.id);
+      const cubImage = URL.createObjectURL(imageBlob);
+      setCubImage(cubImage);
       setIsLoading(false);
     };
     const fetchMetadata = async () => {
-      const metadata = await getMetadata(butt.id);
+      const metadata = await getMetadata(cub.id);
       setButtMetadata(metadata);
     };
     fetchMetadata();
     fetchCubImage();
-  }, [butt]);
+  }, [cub]);
 
   const handleModalClose = () => {
     closeModal();
@@ -128,7 +111,7 @@ const CubModal = ({ butt, myLions }) => {
       <div className="buttModalOverlay"></div>
       <div className="buttModal">
         <DownloadBar
-          butt={butt}
+          butt={cub}
           cubImage={cubImage}
           setButtImage={setCubImage}
           setIsLoading={setIsLoading}
@@ -143,10 +126,10 @@ const CubModal = ({ butt, myLions }) => {
             <div className="buttModalCloseInner">x</div>
           </div>
           <div className={`buttModalTitle ${isMobile ? "mobile" : null}`}>
-            Lazy Cub #{butt.id}
+            Lazy Cub #{cub.id}
           </div>
           <ModalContent
-            butt={butt}
+            butt={cub}
             buttMetadata={buttMetadata}
             buttImage={cubImage}
             isLoading={isLoading}

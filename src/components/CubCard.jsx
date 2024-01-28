@@ -11,7 +11,7 @@ const LoadingSpinner = () => {
 };
 
 // card for displaying butt image and butt number
-const CubCard = ({ butt, buttImage, myLions, cubImagesLoading }) => {
+const CubCard = ({ butt, buttImage, myLions }) => {
   const [isModalOpen, setModalOpen] = useState(false);
   const openModal = () => setModalOpen(true);
   const closeModal = () => setModalOpen(false);
