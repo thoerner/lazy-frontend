@@ -51,10 +51,15 @@ const MyButts = ({
   const [myCubs, setMyCubs] = useState([]);
   const [buttImages, setButtImages] = useState([]);
   const [cubImages, setCubImages] = useState([]);
+  const [cubImagesLoading, setCubImagesLoading] = useState(true);
   const [isLoadingPage, setIsLoadingPage] = useState(true);
   const { data, isError, isLoading, isSuccess, signMessage } = useSignMessage({
     message,
   });
+
+  useEffect(() => {
+    console.log(`cub images loading: ${cubImagesLoading}`)
+  }, [cubImagesLoading]);
 
   // Determine whether to request a message signature.
   const shouldRequestSignMessage = () => {
@@ -220,7 +225,7 @@ const MyButts = ({
     const fetchCubImages = async () => {
       const cubImagesPromises = myCubs.map(async (cub) => {
         const imageBlob = await getCubImage(cub.id);
-        console.log(typeof imageBlob)
+        console.log(typeof imageBlob);
         const imageUrl = URL.createObjectURL(imageBlob);
         return {
           id: cub.id,
@@ -233,6 +238,7 @@ const MyButts = ({
     };
 
     fetchCubImages();
+    setCubImagesLoading(false);
   }, [myCubs]);
 
   // Formulate the message for signing based on the token.
@@ -259,6 +265,7 @@ const MyButts = ({
         butts={myButts}
         buttImages={buttImages}
         cubImages={cubImages}
+        cubImagesLoading={cubImagesLoading}
         myLions={myLions}
         myCubs={myCubs}
       />
