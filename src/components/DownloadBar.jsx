@@ -15,6 +15,15 @@ import { useAccount } from "wagmi";
 import toast from "react-hot-toast";
 import "../styles/DownloadButton.css";
 
+function createTempAnchor(url, filename) {
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+}
+
 // button for downloading butt images
 const DownloadBar = ({
   butt,
@@ -23,6 +32,8 @@ const DownloadBar = ({
   selectedType,
   setSelectedType,
   myLions,
+  type = "butt",
+  cubImage,
 }) => {
   const isMobile = useIsMobile();
   const [blobs, setBlobs] = useState({}); // TODO: change to preview blobs and then when download is clicked, download the full res
@@ -32,6 +43,13 @@ const DownloadBar = ({
 
   useEffect(() => {
     const fetchButtImage = async () => {
+      if (type === "cub") {
+        console.log(`typeof cubImage: ${typeof cubImage}`)
+        console.log(JSON.stringify(cubImage))
+        setBlobs({ seasonal: cubImage });
+        setSelectedType("seasonal");
+        return;
+      }
       const mediumBlob = await getMediumButtImage(buttId);
       setBlobs({ medium: mediumBlob });
     };
@@ -39,6 +57,11 @@ const DownloadBar = ({
   }, [butt, address, sessionToken]);
 
   const handleDownloadClick = async () => {
+    if (type === "cub") {
+      // blob is already url
+      createTempAnchor(cubImage, `lazy-cub_seasonal_${buttId}.png`);
+      return;
+    }
     await downloadBlob(selectedType);
   };
 
@@ -371,7 +394,10 @@ const DownloadBar = ({
       if (blobs[type] !== undefined) {
         return Promise.resolve(blobs[type]);
       } else {
-        const blob = address && sessionToken ? getImage(buttId, address, sessionToken) : getImage(buttId);
+        const blob =
+          address && sessionToken
+            ? getImage(buttId, address, sessionToken)
+            : getImage(buttId);
         return blob;
       }
     })();
@@ -401,7 +427,7 @@ const DownloadBar = ({
           >
             No BG
           </div>
-          <div 
+          <div
             className={`downloadButtonDropdownItem ${
               selectedType === "rex-roar" ? "selected" : null
             }`}
@@ -503,9 +529,18 @@ const DownloadBar = ({
     );
   };
 
+  // Only the big red Download button for cubs
+  const cubLayout = () => {
+    return <></>;
+  };
+
   return (
     <div className="downloadBarsContainer">
-      {isMobile ? mobileLayout() : desktopLayout()}
+      {type === "cub"
+        ? cubLayout()
+        : isMobile
+        ? mobileLayout()
+        : desktopLayout()}
       <div
         className="downloadButtonDropdownItem download"
         onClick={() => handleDownloadClick()}

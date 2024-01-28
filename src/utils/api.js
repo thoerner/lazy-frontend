@@ -1,3 +1,22 @@
+export const getCubs = async (address) => {
+  const res = await fetch(
+    `${import.meta.env.VITE_API_URL}/api/lions/cubs/${address}`
+  );
+  const cubs = await res.json();
+  if (!cubs.message) {
+    cubs;
+  }
+  return cubs;
+}
+
+export const getCubImage = async (cubId) => {
+  const res = await fetch(
+    `${import.meta.env.VITE_API_URL}/api/images/cub/${cubId}`
+  );
+  const image = await res.blob();
+  return image;
+};
+
 export const getLions = async (address) => {
   const res = await fetch(
     `${import.meta.env.VITE_API_URL}/api/lions/${address}`
@@ -73,13 +92,32 @@ export const getFullBodyImage = async (buttId, address, sessionToken) => {
 
 export const getSeasonalButtImage = async (buttId, address, sessionToken) => {
   const res = await fetch(
-    `${import.meta.env.VITE_API_URL}/api/images/seasonal/${buttId}.png`,
+    `${import.meta.env.VITE_API_URL}/api/create/valentine/${buttId}`,
     {
       method: "GET", // Specify the method
       headers: {
         "Content-Type": "application/json", // Specify the content type of the request body
         Authorization: `${sessionToken}`, // Specify the token
         Address: `${address}`, // Specify the address
+      },
+    }
+  );
+
+  if (res.headers.get("Content-Type").includes("application/json")) {
+    const jsonData = await res.json();
+    throw new Error("Expected an image but got JSON response.");
+  }
+  const image = await res.blob();
+  return image;
+};
+
+export const getSeasonalCubImage = async (cubId) => {
+  const res = await fetch(
+    `${import.meta.env.VITE_API_URL}/api/create/valentine/cub/${cubId}`,
+    {
+      method: "GET", // Specify the method
+      headers: {
+        "Content-Type": "application/json", // Specify the content type of the request body
       },
     }
   );

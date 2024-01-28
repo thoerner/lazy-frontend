@@ -1,7 +1,8 @@
 import ButtCard from "./ButtCard.jsx";
+import CubCard from "./CubCard.jsx";
 
 // grid for displaying butt cards
-const ButtGrid = ({ butts, buttImages, myLions }) => {
+const ButtGrid = ({ butts, buttImages, cubImages, myLions, myCubs }) => {
 
     const buttCards = butts.map((butt) => {
         const buttImage = buttImages.find(buttImage => buttImage.id === butt.id)
@@ -10,9 +11,17 @@ const ButtGrid = ({ butts, buttImages, myLions }) => {
         )
     })
 
+    const cubCards = myCubs.map((cub) => {
+        const cubImage = cubImages.find(cubImage => cubImage.id === cub.id)
+        return (
+            <CubCard butt={cub} key={cub.id} buttImage={cubImage ? cubImage.image : null} myLions={myLions} />
+        )
+    })
+
     return (
         <div className="buttGrid">
             {buttCards}
+            {cubCards}
         </div>
     )
 }
