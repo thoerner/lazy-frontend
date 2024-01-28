@@ -4,14 +4,14 @@ import CubModal from "./CubModal.jsx";
 
 const LoadingSpinner = () => {
   return (
-    <div className="loading-message">
+    <div style={{display: "flex", alignItems: "center", justifyContent: "center", width: "250px", height: "250px"}}>
       <div className="loading"></div>
     </div>
   );
 };
 
 // card for displaying butt image and butt number
-const CubCard = ({ butt, buttImage, myLions, imageLoading }) => {
+const CubCard = ({ butt, buttImage, myLions, cubImagesLoading }) => {
   const [isModalOpen, setModalOpen] = useState(false);
   const openModal = () => setModalOpen(true);
   const closeModal = () => setModalOpen(false);
@@ -32,13 +32,15 @@ const CubCard = ({ butt, buttImage, myLions, imageLoading }) => {
         ></i>
         <div className="buttCardTitle">Lazy Cub #{butt.id}</div>
         <div style={{ maxWidth: "250x", maxHeight: "250px" }}>
-          <img
-            src={buttImage}
-            alt="Lazy Cubs"
-            style={{ maxWidth: "250px", maxHeight: "250px" }}
-            onClick={handleButtClick}
-          />
-          {imageLoading && <>Loading</>}
+          {!buttImage && <LoadingSpinner />}
+          {buttImage && (
+            <img
+              src={buttImage}
+              alt="Lazy Cubs"
+              style={{ maxWidth: "250px", maxHeight: "250px" }}
+              onClick={handleButtClick}
+            />
+          )}
         </div>
       </div>
     </ModalContext.Provider>

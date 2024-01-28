@@ -58,7 +58,7 @@ const MyButts = ({
   });
 
   useEffect(() => {
-    console.log(`cub images loading: ${cubImagesLoading}`)
+    console.log("cub images loading", cubImagesLoading);
   }, [cubImagesLoading]);
 
   // Determine whether to request a message signature.
@@ -218,7 +218,7 @@ const MyButts = ({
     };
 
     fetchButtImages();
-  }, [myButts]);
+  }, [myButts, address]);
 
   // Fetch the cub images, if the user has any.
   useEffect(() => {
@@ -235,10 +235,10 @@ const MyButts = ({
 
       const cubImages = await Promise.all(cubImagesPromises);
       setCubImages(cubImages);
+      setCubImagesLoading(false); // Set loading to false here
     };
 
     fetchCubImages();
-    setCubImagesLoading(false);
   }, [myCubs]);
 
   // Formulate the message for signing based on the token.
@@ -265,7 +265,7 @@ const MyButts = ({
         butts={myButts}
         buttImages={buttImages}
         cubImages={cubImages}
-        cubImagesLoading={cubImagesLoading}
+        cubImagesLoading={cubImagesLoading ? true : false}
         myLions={myLions}
         myCubs={myCubs}
       />
