@@ -113,6 +113,7 @@ const Claim = ({ isMobile, setActivePage, myLions, setMyLions }) => {
   const [buttToCheck, setButtToCheck] = useState(null);
   const [isButtChecked, setIsButtChecked] = useState(false);
   const [isButtMinted, setIsButtMinted] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
 
   useEffect(() => {
     const fetchProof = async () => {
@@ -204,6 +205,10 @@ const Claim = ({ isMobile, setActivePage, myLions, setMyLions }) => {
     setTotalPrice(total);
   }, [selectedLions, setTotalPrice, isAllowListActive, myButts]);
 
+  const toggleCollapse = () => {
+    setIsExpanded(!isExpanded);
+  };
+
   const handleLionClick = (lion) => {
     const lionIndex = selectedLions.findIndex((l) => l.id === lion.id);
     if (lionIndex === -1) {
@@ -246,27 +251,32 @@ const Claim = ({ isMobile, setActivePage, myLions, setMyLions }) => {
         isAllowListed={isAllowListed}
       />
       <div className="butt-checker">
-        <div className="butt-checker-label">Butt Checker</div>
-        <div className="butt-checker-description">
-          Enter a Lazy Lion ID to check if its butt has been minted.
+        <div className="butt-checker-label" onClick={toggleCollapse}>
+          Butt Checker {isExpanded ? "▲" : "▼"}
         </div>
-        <div className="butt-checker-input-group">
-          <input
-            type="text"
-            value={buttToCheck}
-            onChange={(e) => setButtToCheck(e.target.value)}
-          />
-          <button onClick={checkButt}>Check</button>
-        </div>
-        <div className="butt-checker-result">
-          {isButtMinted && isButtChecked ? (
-            <>
-              <span style={{ color: "green" }}>Minted</span>
-            </>
-          ) : isButtChecked ? (
-            <span style={{ color: "red" }}>Not Minted</span>
-          ) : null}
-        </div>
+
+        {isExpanded && (
+          <div>
+            <div className="butt-checker-description">
+              Enter a Lazy Lion ID to check if its butt has been minted.
+            </div>
+            <div className="butt-checker-input-group">
+              <input
+                type="text"
+                value={buttToCheck}
+                onChange={(e) => setButtToCheck(e.target.value)}
+              />
+              <button onClick={checkButt}>Check</button>
+            </div>
+            <div className="butt-checker-result">
+              {isButtMinted && isButtChecked ? (
+                <span style={{ color: "green" }}>Minted</span>
+              ) : isButtChecked ? (
+                <span style={{ color: "red" }}>Not Minted</span>
+              ) : null}
+            </div>
+          </div>
+        )}
       </div>
       <div className="claim-area">
         <div className="claim-area-title">

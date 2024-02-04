@@ -724,7 +724,7 @@ p {
   align-items: center;
   background-color: #d6b33add;
   margin-top: 10px;
-  padding: 1rem;
+  padding: 0.2rem 1rem;
   border-radius: 0.5em;
   box-shadow: 0 0 3px #d6b33a;
   border: 1px solid #d6b33a;
@@ -753,7 +753,7 @@ p {
 .butt-checker-label {
   font-size: 1.5rem;
   font-weight: bold;
-  cursor: default;
+  cursor: pointer;
   font-family: 'Permanent Marker', cursive;
 }
 
