@@ -1352,6 +1352,14 @@ p {
   color: #d6b33a;
 }
 
+.gold {
+  color: #d6b33a;
+}
+
+.xl {
+  font-size: 2rem;
+}
+
 @media screen and (max-width: 800px) {
   .quote {
     font-size: 1rem;
@@ -1457,7 +1465,7 @@ p {
 }
 
 .zoomy {
-  animation: zoom-in-and-out 1s infinite;
+  animation: zoom-in-and-out 0.588s infinite;
 }
 
 .threeDeeDiv {

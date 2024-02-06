@@ -11,6 +11,7 @@ import MyButts from "./pages/MyButts.jsx";
 import Butt from "./pages/Butt.jsx";
 import AdminPage from "./pages/Admin.jsx";
 import TopNavBar from "./components/TopNavBar.jsx";
+import WelcomePopup from "./components/WelcomePopup.jsx";
 import { WagmiConfig, wagmiConfig, projectId, chains } from "./utils/w3m.js";
 import { createWeb3Modal } from "@web3modal/wagmi/react";
 import { useIsMobile } from "./utils/tools.js";
@@ -43,6 +44,7 @@ function Root() {
     <div className="app">
       <WagmiConfig config={wagmiConfig}>
         <Toaster />
+        <WelcomePopup />
         <TopNavBar
           isMobile={isMobile}
           setActivePage={setActivePage}
