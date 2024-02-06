@@ -13,6 +13,8 @@
   display: none;
 }
 
+
+
 .welcome-popup-content {
   display: flex;
   flex-direction: column;
@@ -26,6 +28,12 @@
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   border: 1px solid #d6b33a;
+}
+
+@media (max-width: 768px) {
+  .welcome-popup-content {
+    max-width: 80vw;
+  }
 }
 
 .welcome-popup-content button {
