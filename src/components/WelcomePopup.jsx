@@ -34,7 +34,7 @@ const AudioControls = ({ audio, isPlaying, setIsPlaying }) => {
 const WelcomePopup = () => {
   const [open, setOpen] = useState(true);
   const [isPlaying, setIsPlaying] = useState(false);
-  const audio = useAudio("https://lazybutts.s3.amazonaws.com/public/audio/Aces_High.mp3", {
+  const audio = useAudio("https://lazybutts.s3.amazonaws.com/public/audio/Tiki_Bar_Mixer.mp3", {
     volume: 0.8,
     playbackRate: 1,
     loop: true,
