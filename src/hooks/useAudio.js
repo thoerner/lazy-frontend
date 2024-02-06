@@ -1,6 +1,6 @@
 import { useRef, useEffect } from 'react'
 
-export const useAudio = (src, { volume = 1, playbackRate = 1 }) => {
+export const useAudio = (src, { volume = 1, playbackRate = 1, loop = true }) => {
   const audio = useRef(new Audio(src))
 
   useEffect(() => {
@@ -10,6 +10,10 @@ export const useAudio = (src, { volume = 1, playbackRate = 1 }) => {
   useEffect(() => {
     audio.current.playbackRate = playbackRate
   }, [playbackRate])
+
+  useEffect(() => {
+    audio.current.loop = loop;
+  }, [loop])
 
   return audio.current
 }

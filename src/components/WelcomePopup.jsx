@@ -36,7 +36,8 @@ const WelcomePopup = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const audio = useAudio("https://lazybutts.s3.amazonaws.com/public/audio/Aces_High.mp3", {
     volume: 0.8,
-    playbackRate: 1.0,
+    playbackRate: 1,
+    loop: true,
   });
 
   const handleClose = () => {
