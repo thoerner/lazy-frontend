@@ -124,6 +124,7 @@ const MyButts = ({
   // Request message signing based on certain conditions.
   useEffect(() => {
     if (shouldRequestSignMessage()) {
+      console.log("Requesting message signature");
       setSigningMessage(true);
       signMessage();
       setSigningMessage(false);
