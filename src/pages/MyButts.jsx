@@ -135,7 +135,10 @@ const MyButts = ({
     const fetchToken = async (address) => {
       const data = await getToken(address);
       if (data) {
+        console.log(`Fetched token for ${address}`);
         setToken(data);
+      } else {
+        console.log(`problem fetching token for ${address}`);
       }
     };
     const fetchButts = async (address) => {
