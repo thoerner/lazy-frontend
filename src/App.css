@@ -1041,6 +1041,10 @@ p {
   color: #d6b33a;
 }
 
+.traits {
+  width: 220px;
+}
+
 .traits a:hover {
   /* color: #d6b33a; */
   text-shadow: none;
