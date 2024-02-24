@@ -52,18 +52,18 @@ export const getFullResButtImage = async (buttId, address, sessionToken) => {
   const res = await fetch(
     `${import.meta.env.VITE_API_URL}/api/images/butt/${buttId}.png`,
     {
-      method: "GET", // Specify the method
+      method: "GET", 
       headers: {
-        "Content-Type": "application/json", // Specify the content type of the request body
-        Authorization: `${sessionToken}`, // Specify the token
-        Address: `${address}`, // Specify the address
+        "Content-Type": "application/json",
+        Authorization: `${sessionToken}`,
+        Address: `${address}`, 
       },
     }
   );
 
   if (res.headers.get("Content-Type").includes("application/json")) {
     const jsonData = await res.json();
-    throw new Error("Expected an image but got JSON response.");
+    throw new Error(`Expected an image but got JSON response: ${jsonData}`);
   }
   const image = await res.blob();
   return image;
@@ -73,18 +73,18 @@ export const getFullBodyImage = async (buttId, address, sessionToken) => {
   const res = await fetch(
     `${import.meta.env.VITE_API_URL}/api/images/full/${buttId}.png`,
     {
-      method: "GET", // Specify the method
+      method: "GET", 
       headers: {
-        "Content-Type": "application/json", // Specify the content type of the request body
-        Authorization: `${sessionToken}`, // Specify the token
-        Address: `${address}`, // Specify the address
+        "Content-Type": "application/json",
+        Authorization: `${sessionToken}`,
+        Address: `${address}`, 
       },
     }
   );
 
   if (res.headers.get("Content-Type").includes("application/json")) {
     const jsonData = await res.json();
-    throw new Error("Expected an image but got JSON response.");
+    throw new Error(`Expected an image but got JSON response: ${jsonData}`);
   }
   const image = await res.blob();
   return image;
@@ -105,7 +105,7 @@ export const getSeasonalButtImage = async (buttId, address, sessionToken) => {
 
   if (res.headers.get("Content-Type").includes("application/json")) {
     const jsonData = await res.json();
-    throw new Error("Expected an image but got JSON response.");
+    throw new Error(`Expected an image but got JSON response: ${jsonData}`);
   }
   const image = await res.blob();
   return image;
@@ -115,16 +115,16 @@ export const getSeasonalCubImage = async (cubId) => {
   const res = await fetch(
     `${import.meta.env.VITE_API_URL}/api/create/valentine/cub/${cubId}`,
     {
-      method: "GET", // Specify the method
+      method: "GET", 
       headers: {
-        "Content-Type": "application/json", // Specify the content type of the request body
+        "Content-Type": "application/json", 
       },
     }
   );
 
   if (res.headers.get("Content-Type").includes("application/json")) {
     const jsonData = await res.json();
-    throw new Error("Expected an image but got JSON response.");
+    throw new Error(`Expected an image but got JSON response: ${jsonData}`);
   }
   const image = await res.blob();
   return image;
@@ -145,7 +145,7 @@ export const getTransparentImage = async (buttId, address, sessionToken) => {
 
   if (res.headers.get("Content-Type").includes("application/json")) {
     const jsonData = await res.json();
-    throw new Error("Expected an image but got JSON response.");
+    throw new Error(`Expected an image but got JSON response: ${jsonData}`);
   }
   const image = await res.blob();
   return image;
@@ -155,11 +155,11 @@ export const getSocialImage = async (buttId, address, sessionToken) => {
   const res = await fetch(
     `${import.meta.env.VITE_API_URL}/api/images/social/${buttId}.png`,
     {
-      method: "GET", // Specify the method
+      method: "GET", 
       headers: {
-        "Content-Type": "application/json", // Specify the content type of the request body
-        Authorization: `${sessionToken}`, // Specify the token
-        Address: `${address}`, // Specify the address
+        "Content-Type": "application/json", 
+        Authorization: `${sessionToken}`,
+        Address: `${address}`,
       },
     }
   );
@@ -176,18 +176,18 @@ export const getFullBodyThumbImage = async (buttId, address, sessionToken) => {
   const res = await fetch(
     `${import.meta.env.VITE_API_URL}/api/images/full-thumb/${buttId}.png`,
     {
-      method: "GET", // Specify the method
+      method: "GET", 
       headers: {
-        "Content-Type": "application/json", // Specify the content type of the request body
-        Authorization: `${sessionToken}`, // Specify the token
-        Address: `${address}`, // Specify the address
+        "Content-Type": "application/json", 
+        Authorization: `${sessionToken}`, 
+        Address: `${address}`, 
       },
     }
   );
 
   if (res.headers.get("Content-Type").includes("application/json")) {
     const jsonData = await res.json();
-    throw new Error("Expected an image but got JSON response.");
+    throw new Error(`Expected an image but got JSON response: ${jsonData}`);
   }
   const image = await res.blob();
   return image;
@@ -206,7 +206,7 @@ export const getSmallButtImage = async (buttId, address, sessionToken) => {
 
   if (res.headers.get("Content-Type").includes("application/json")) {
     const jsonData = await res.json();
-    throw new Error("Expected an image but got JSON response.");
+    throw new Error(`Expected an image but got JSON response: ${jsonData}`);
   }
   const image = await res.blob();
   return image;
@@ -216,16 +216,35 @@ export const getRexRoarImage = async (buttId, address, sessionToken) => {
   const res = await fetch(
     `${import.meta.env.VITE_API_URL}/api/create/rex/${buttId}`,
     {
-      method: "GET", // Specify the method
+      method: "GET", 
       headers: {
-        "Content-Type": "application/json", // Specify the content type of the request body
+        "Content-Type": "application/json", 
       },
     }
   );
 
   if (res.headers.get("Content-Type").includes("application/json")) {
     const jsonData = await res.json();
-    throw new Error("Expected an image but got JSON response.");
+    throw new Error(`Expected an image but got JSON response: ${jsonData}`);
+  }
+  const image = await res.blob();
+  return image;
+};
+
+export const getCocoPrideImage = async (buttId, address, sessionToken) => {
+  const res = await fetch(
+    `${import.meta.env.VITE_API_URL}/api/create/coco-pride/${buttId}`,
+    {
+      method: "GET", 
+      headers: {
+        "Content-Type": "application/json", 
+      },
+    }
+  );
+
+  if (res.headers.get("Content-Type").includes("application/json")) {
+    const jsonData = await res.json();
+    throw new Error(`Expected an image but got JSON response: ${jsonData}`);
   }
   const image = await res.blob();
   return image;

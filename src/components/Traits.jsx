@@ -33,10 +33,10 @@ const Traits = ({ buttMetadata }) => {
                         <span className="buttModalBold">Butt Background:</span> {!isLoading && traitValues ? traitValues[0] : null } <br />
                     </div>
                     <div className="trait-value">
-                        <span className="buttModalBold">Butt:</span> {!isLoading && traitValues ? traitValues[1] : null} <br />
+                        <span className="buttModalBold">Bodygear Bottom:</span> {!isLoading && traitValues ?  traitValues[2] : null} <br />
                     </div>
                     <div className="trait-value">
-                        <span className="buttModalBold">Bodygear Bottom:</span> {!isLoading && traitValues ?  traitValues[2] : null} <br />
+                        <span className="buttModalBold">Butt:</span> {!isLoading && traitValues ? traitValues[1] : null} <br />
                     </div>
                     <div className="trait-value">
                         <span className="buttModalBold">Accessories:</span> {!isLoading && traitValues ? traitValues[3] : null} <br />

@@ -11,13 +11,14 @@ import { CoinbaseWalletConnector } from "wagmi/connectors/coinbaseWallet";
 import { WalletConnectConnector } from "wagmi/connectors/walletConnect";
 import { InjectedConnector } from "wagmi/connectors/injected";
 import { alchemyProvider } from "@wagmi/core/providers/alchemy";
-import { mainnet } from "viem/chains";
+import { mainnet, localhost } from "viem/chains";
 
+const env = import.meta.env.VITE_ENV;
 const projectId = import.meta.env.VITE_WALLET_CONNECT_PROJECT_ID;
 const alchemyKey = import.meta.env.VITE_ALCHEMY_API_KEY;
 
 const { chains, publicClient } = configureChains(
-  [mainnet],
+  [env === "dev" ? localhost : mainnet],
   [
     alchemyProvider({ apiKey: alchemyKey }),
     walletConnectProvider({ projectId }),

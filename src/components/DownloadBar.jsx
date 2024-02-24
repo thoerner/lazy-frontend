@@ -8,12 +8,14 @@ import {
   getSocialImage,
   getSeasonalButtImage,
   getRexRoarImage,
+  getCocoPrideImage,
 } from "../utils/api.js";
 import { getSessionToken } from "../utils/session.js";
 import { useIsMobile } from "../utils/tools.js";
 import { useAccount } from "wagmi";
 import toast from "react-hot-toast";
 import "../styles/DownloadButton.css";
+import { FaDownload } from "react-icons/fa";
 
 function createTempAnchor(url, filename) {
   const a = document.createElement("a");
@@ -44,8 +46,8 @@ const DownloadBar = ({
   useEffect(() => {
     const fetchButtImage = async () => {
       if (type === "cub") {
-        console.log(`typeof cubImage: ${typeof cubImage}`)
-        console.log(JSON.stringify(cubImage))
+        console.log(`typeof cubImage: ${typeof cubImage}`);
+        console.log(JSON.stringify(cubImage));
         setBlobs({ seasonal: cubImage });
         setSelectedType("seasonal");
         return;
@@ -93,40 +95,48 @@ const DownloadBar = ({
     setIsLoading(false);
   };
 
-  const handleRexRoarButtonClick = async () => {
-    if (!myLions.some((lion) => lion.id === buttId)) {
-      toast(
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
+  function isEligibleForDownload() {
+    return myLions.some((lion) => lion.id === buttId);
+  }
+
+  function ineligibleToast(type) {
+    toast(
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        You must own Lazy Lion #{buttId} to download the {type} image!
+        <br />
+        <a
+          href={`https://opensea.io/assets/ethereum/0x8943c7bac1914c9a7aba750bf2b6b09fd21037e0/${buttId}`}
+          target="_blank"
+          rel="noreferrer"
         >
-          You must own Lazy Lion #{buttId} to download the Rex Roar image!
-          <br />
-          <a
-            href={`https://opensea.io/assets/ethereum/0x8943c7bac1914c9a7aba750bf2b6b09fd21037e0/${buttId}`}
-            target="_blank"
-            rel="noreferrer"
+          <div
+            style={{
+              backgroundColor: "#00caf8aa",
+              borderRadius: "0.5rem",
+              height: "2rem",
+              lineHeight: "2rem",
+              padding: "0.5rem 1rem",
+              marginTop: "0.5rem",
+              border: "1px solid #00caf8",
+            }}
           >
-            <div
-              style={{
-                backgroundColor: "#00caf8aa",
-                borderRadius: "0.5rem",
-                height: "2rem",
-                lineHeight: "2rem",
-                padding: "0.5rem 1rem",
-                marginTop: "0.5rem",
-                border: "1px solid #00caf8",
-              }}
-            >
-              Buy on OpenSea
-            </div>
-          </a>
-        </div>
-      );
+            Buy on OpenSea
+          </div>
+        </a>
+      </div>
+    );
+  }
+
+  const handleRexRoarButtonClick = async () => {
+    if (!isEligibleForDownload()) {
+      ineligibleToast("Rex Roar");
       return;
     }
     setIsLoading(true);
@@ -137,6 +147,23 @@ const DownloadBar = ({
       const rexRoarBlob = await getRexRoarImage(buttId);
       setBlobs({ ...blobs, "rex-roar": rexRoarBlob });
       setImage(rexRoarBlob);
+    }
+    setIsLoading(false);
+  };
+
+  const handleCocoPrideButtonClick = async () => {
+    if (!isEligibleForDownload()) {
+      ineligibleToast("Coco Pride");
+      return;
+    }
+    setIsLoading(true);
+    setSelectedType("coco-pride");
+    if (blobs["coco-pride"]) {
+      setImage(blobs["coco-pride"]);
+    } else {
+      const cocoPrideBlob = await getCocoPrideImage(buttId);
+      setBlobs({ ...blobs, "coco-pride": cocoPrideBlob });
+      setImage(cocoPrideBlob);
     }
     setIsLoading(false);
   };
@@ -156,39 +183,8 @@ const DownloadBar = ({
 
   const handleFullBodyButtonClick = async () => {
     console.log(myLions);
-    if (!myLions.some((lion) => lion.id === buttId)) {
-      toast(
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          You must own Lazy Lion #{buttId} to download the Full Body image!
-          <br />
-          <a
-            href={`https://opensea.io/assets/ethereum/0x8943c7bac1914c9a7aba750bf2b6b09fd21037e0/${buttId}`}
-            target="_blank"
-            rel="noreferrer"
-          >
-            <div
-              style={{
-                backgroundColor: "#00caf8aa",
-                borderRadius: "0.5rem",
-                height: "2rem",
-                lineHeight: "2rem",
-                padding: "0.5rem 1rem",
-                marginTop: "0.5rem",
-                border: "1px solid #00caf8",
-              }}
-            >
-              Buy on OpenSea
-            </div>
-          </a>
-        </div>
-      );
+    if (!isEligibleForDownload()) {
+      ineligibleToast("Full Body");
       return;
     }
     setIsLoading(true);
@@ -208,39 +204,8 @@ const DownloadBar = ({
   };
 
   const handleSocialImageButtonClick = async () => {
-    if (!myLions.some((lion) => lion.id === buttId)) {
-      toast(
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          You must own Lazy Lion #{buttId} to download the Social image!
-          <br />
-          <a
-            href={`https://opensea.io/assets/ethereum/0x8943c7bac1914c9a7aba750bf2b6b09fd21037e0/${buttId}`}
-            target="_blank"
-            rel="noreferrer"
-          >
-            <div
-              style={{
-                backgroundColor: "#00caf8aa",
-                borderRadius: "0.5rem",
-                height: "2rem",
-                lineHeight: "2rem",
-                padding: "0.5rem 1rem",
-                marginTop: "0.5rem",
-                border: "1px solid #00caf8",
-              }}
-            >
-              Buy on OpenSea
-            </div>
-          </a>
-        </div>
-      );
+    if (!isEligibleForDownload()) {
+      ineligibleToast("Social");
       return;
     }
     setIsLoading(true);
@@ -256,39 +221,8 @@ const DownloadBar = ({
   };
 
   const handleTransparentImageButtonClick = async () => {
-    if (!myLions.some((lion) => lion.id === buttId)) {
-      toast(
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          You must own Lazy Lion #{buttId} to download the Social image!
-          <br />
-          <a
-            href={`https://opensea.io/assets/ethereum/0x8943c7bac1914c9a7aba750bf2b6b09fd21037e0/${buttId}`}
-            target="_blank"
-            rel="noreferrer"
-          >
-            <div
-              style={{
-                backgroundColor: "#00caf8aa",
-                borderRadius: "0.5rem",
-                height: "2rem",
-                lineHeight: "2rem",
-                padding: "0.5rem 1rem",
-                marginTop: "0.5rem",
-                border: "1px solid #00caf8",
-              }}
-            >
-              Buy on OpenSea
-            </div>
-          </a>
-        </div>
-      );
+    if (!isEligibleForDownload()) {
+      ineligibleToast("Transparent");
       return;
     }
     setIsLoading(true);
@@ -308,52 +242,21 @@ const DownloadBar = ({
   };
 
   const handleSeasonalButtonClick = async () => {
-    if (!myLions.some((lion) => lion.id === buttId)) {
-      toast(
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          You must own Lazy Lion #{buttId} to download the Social image!
-          <br />
-          <a
-            href={`https://opensea.io/assets/ethereum/0x8943c7bac1914c9a7aba750bf2b6b09fd21037e0/${buttId}`}
-            target="_blank"
-            rel="noreferrer"
-          >
-            <div
-              style={{
-                backgroundColor: "#00caf8aa",
-                borderRadius: "0.5rem",
-                height: "2rem",
-                lineHeight: "2rem",
-                padding: "0.5rem 1rem",
-                marginTop: "0.5rem",
-                border: "1px solid #00caf8",
-              }}
-            >
-              Buy on OpenSea
-            </div>
-          </a>
-        </div>
-      );
+    if (!isEligibleForDownload()) {
+      ineligibleToast("Seasonal");
       return;
     }
     setIsLoading(true);
     setSelectedType("seasonal");
 
-      const seasonalBlob = await getSeasonalButtImage(
-        buttId,
-        address,
-        sessionToken
-      );
-      setBlobs({ ...blobs, seasonal: seasonalBlob });
-      setImage(seasonalBlob);
-    
+    const seasonalBlob = await getSeasonalButtImage(
+      buttId,
+      address,
+      sessionToken
+    );
+    setBlobs({ ...blobs, seasonal: seasonalBlob });
+    setImage(seasonalBlob);
+
     setIsLoading(false);
   };
 
@@ -419,11 +322,46 @@ const DownloadBar = ({
         <div className="downloadBar">
           <div
             className={`downloadButtonDropdownItem ${
+              selectedType === "full-res" ? "selected" : null
+            }`}
+            onClick={() => handleFullResButtonClick()}
+          >
+            Da Butt
+          </div>
+          <div
+            className={`downloadButtonDropdownItem ${
               selectedType === "transparent" ? "selected" : null
             }`}
             onClick={() => handleTransparentImageButtonClick(buttId)}
           >
             No BG
+          </div>
+
+          <div
+            className={`downloadButtonDropdownItem ${
+              selectedType === "full-body" ? "selected" : null
+            }`}
+            onClick={() => handleFullBodyButtonClick()}
+          >
+            Full Body
+          </div>
+          <div
+            className={`downloadButtonDropdownItem ${
+              selectedType === "social" ? "selected" : null
+            }`}
+            onClick={() => handleSocialImageButtonClick()}
+          >
+            Social
+          </div>
+        </div>
+        <div className="downloadBar">
+          <div
+            className={`downloadButtonDropdownItem ${
+              selectedType === "seasonal" ? "selected" : null
+            }`}
+            onClick={() => handleSeasonalButtonClick()}
+          >
+            Seasonal
           </div>
           <div
             className={`downloadButtonDropdownItem ${
@@ -435,37 +373,11 @@ const DownloadBar = ({
           </div>
           <div
             className={`downloadButtonDropdownItem ${
-              selectedType === "full-body" ? "selected" : null
+              selectedType === "coco-pride" ? "selected" : null
             }`}
-            onClick={() => handleFullBodyButtonClick()}
+            onClick={() => handleCocoPrideButtonClick()}
           >
-            Full Body
-          </div>
-        </div>
-        <div className="downloadBar">
-          <div
-            className={`downloadButtonDropdownItem ${
-              selectedType === "full-res" ? "selected" : null
-            }`}
-            onClick={() => handleFullResButtonClick()}
-          >
-            Da Butt
-          </div>
-          <div
-            className={`downloadButtonDropdownItem ${
-              selectedType === "seasonal" ? "selected" : null
-            }`}
-            onClick={() => handleSeasonalButtonClick()}
-          >
-            Seasonal
-          </div>
-          <div
-            className={`downloadButtonDropdownItem ${
-              selectedType === "social" ? "selected" : null
-            }`}
-            onClick={() => handleSocialImageButtonClick()}
-          >
-            Social
+            Coco Pride
           </div>
         </div>
       </div>
@@ -474,54 +386,72 @@ const DownloadBar = ({
 
   const desktopLayout = () => {
     return (
-      <div className="downloadBar">
-        <div
-          className={`downloadButtonDropdownItem ${
-            selectedType === "full-res" ? "selected" : null
-          }`}
-          onClick={() => handleFullResButtonClick()}
-        >
-          Da Butt{" "}
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          flexWrap: "wrap",
+        }}
+      >
+        <div className="downloadBar">
+          <div
+            className={`downloadButtonDropdownItem ${
+              selectedType === "full-res" ? "selected" : null
+            }`}
+            onClick={() => handleFullResButtonClick()}
+          >
+            Da Butt{" "}
+          </div>
+          <div
+            className={`downloadButtonDropdownItem ${
+              selectedType === "medium" ? "selected" : null
+            }`}
+            onClick={() => handleTransparentImageButtonClick()}
+          >
+            No BG{" "}
+          </div>
+          <div
+            className={`downloadButtonDropdownItem ${
+              selectedType === "full-body" ? "selected" : null
+            }`}
+            onClick={() => handleFullBodyButtonClick()}
+          >
+            Full Body{" "}
+          </div>
+          <div
+            className={`downloadButtonDropdownItem ${
+              selectedType === "social" ? "selected" : null
+            }`}
+            onClick={() => handleSocialImageButtonClick()}
+          >
+            Social{" "}
+          </div>
         </div>
-        <div
-          className={`downloadButtonDropdownItem ${
-            selectedType === "medium" ? "selected" : null
-          }`}
-          onClick={() => handleTransparentImageButtonClick()}
-        >
-          No BG{" "}
-        </div>
-        <div
-          className={`downloadButtonDropdownItem ${
-            selectedType === "full-body" ? "selected" : null
-          }`}
-          onClick={() => handleFullBodyButtonClick()}
-        >
-          Full Body{" "}
-        </div>
-        <div
-          className={`downloadButtonDropdownItem ${
-            selectedType === "rex-roar" ? "selected" : null
-          }`}
-          onClick={() => handleRexRoarButtonClick()}
-        >
-          Rex Roar{" "}
-        </div>
-        <div
-          className={`downloadButtonDropdownItem ${
-            selectedType === "seasonal" ? "selected" : null
-          }`}
-          onClick={() => handleSeasonalButtonClick()}
-        >
-          Seasonal{" "}
-        </div>
-        <div
-          className={`downloadButtonDropdownItem ${
-            selectedType === "social" ? "selected" : null
-          }`}
-          onClick={() => handleSocialImageButtonClick()}
-        >
-          Social{" "}
+        <div className="downloadBar">
+          <div
+            className={`downloadButtonDropdownItem ${
+              selectedType === "seasonal" ? "selected" : null
+            }`}
+            onClick={() => handleSeasonalButtonClick()}
+          >
+            Seasonal{" "}
+          </div>
+          <div
+            className={`downloadButtonDropdownItem ${
+              selectedType === "rex-roar" ? "selected" : null
+            }`}
+            onClick={() => handleRexRoarButtonClick()}
+          >
+            Rex Roar{" "}
+          </div>
+          <div
+            className={`downloadButtonDropdownItem ${
+              selectedType === "coco-pride" ? "selected" : null
+            }`}
+            onClick={() => handleCocoPrideButtonClick()}
+          >
+            Coco Pride{" "}
+          </div>
         </div>
       </div>
     );
@@ -543,7 +473,7 @@ const DownloadBar = ({
         className="downloadButtonDropdownItem download"
         onClick={() => handleDownloadClick()}
       >
-        Download
+        <FaDownload />
       </div>
     </div>
   );
