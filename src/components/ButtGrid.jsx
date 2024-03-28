@@ -21,7 +21,7 @@ const ButtGrid = ({ butts, buttImages, cubImages, myLions, myCubs }) => {
     return (
         <div className="buttGrid">
             {buttCards}
-            {cubCards}
+            {/* {cubCards} */}
         </div>
     )
 }
