@@ -24,7 +24,7 @@ const MintButton = ({
         watch: true,
     })
 
-    const value = BigInt(totalPrice * 10 ** 18)
+    const value = import.meta.env.VITE_ENV === 'dev' ? 0 : BigInt(totalPrice * 10 ** 18)
     
     const handleClaimButtClick = async (selectedLions) => {
         if (!isConnected) {

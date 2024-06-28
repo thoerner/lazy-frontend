@@ -80,7 +80,7 @@ const ClaimModal = ({
               <a
                 href="https://twitter.com/intent/tweet?text=I%20just%20claimed%20my%20Lazy%20Butt%20by%20@3DKingsNFT%20for%20my%20Lazy%20Lion!&url=https://the3dkings.io/"
                 target="_blank"
-                rel="referrer"
+                rel="noreferrer"
               >
                 Share on X!
               </a>

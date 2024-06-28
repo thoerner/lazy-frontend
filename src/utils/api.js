@@ -92,7 +92,7 @@ export const getFullBodyImage = async (buttId, address, sessionToken) => {
 
 export const getSeasonalButtImage = async (buttId, address, sessionToken) => {
   const res = await fetch(
-    `${import.meta.env.VITE_API_URL}/api/create/spring/${buttId}`,
+    `${import.meta.env.VITE_API_URL}/api/create/summer/${buttId}`,
     {
       method: "GET", // Specify the method
       headers: {
