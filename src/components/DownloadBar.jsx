@@ -71,7 +71,7 @@ const DownloadBar = ({
     downloadImage(
       buttId,
       type,
-      `lazy-butt_${type}_${buttId}.png`,
+      `lazy-butt_${type}_${buttId}.${type === "seasonal" ? "mp4" : "png"}`,
       address,
       sessionToken
     );
@@ -311,9 +311,7 @@ const DownloadBar = ({
       })
       .then((imageBlob) => {
         const url = window.URL.createObjectURL(imageBlob);
-        // Ensure correct extension
-        const extension = type === "seasonal" ? "mp4" : "png";
-        createTempAnchor(url, fileName.replace(".png", `.${extension}`));
+        createTempAnchor(url, fileName);
         window.URL.revokeObjectURL(url); // Free up memory
       });
   };
