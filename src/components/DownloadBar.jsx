@@ -311,7 +311,9 @@ const DownloadBar = ({
       })
       .then((imageBlob) => {
         const url = window.URL.createObjectURL(imageBlob);
-        createTempAnchor(url, fileName);
+        // Ensure correct extension
+        const extension = type === "seasonal" ? "mp4" : "png";
+        createTempAnchor(url, fileName.replace(".png", `.${extension}`));
         window.URL.revokeObjectURL(url); // Free up memory
       });
   };
