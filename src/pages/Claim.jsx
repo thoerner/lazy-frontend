@@ -101,7 +101,7 @@ const Claim = ({ isMobile, setActivePage, myLions, setMyLions }) => {
   const { address, isConnected } = useAccount();
   const [myButts, setMyButts] = useState([]);
   const [selectedLions, setSelectedLions] = useState([]);
-  const [price, setPrice] = useState(0.02);
+  const [price, setPrice] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
   const [allowListActive, setAllowListActive] = useState(false);
   const [mintActive, setMintActive] = useState(false);
@@ -114,6 +114,17 @@ const Claim = ({ isMobile, setActivePage, myLions, setMyLions }) => {
   const [isButtChecked, setIsButtChecked] = useState(false);
   const [isButtMinted, setIsButtMinted] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
+
+  useEffect(() => {
+    const setInitialPrice = () => {
+      if (import.meta.env.VITE_ENV === "dev") {
+        setPrice(0.0);
+      } else {
+        setPrice(0.02);
+      }
+    };
+    setInitialPrice();
+  }, []);
 
   useEffect(() => {
     const fetchProof = async () => {
@@ -203,7 +214,7 @@ const Claim = ({ isMobile, setActivePage, myLions, setMyLions }) => {
         : total;
     total = total.toFixed(2);
     setTotalPrice(total);
-  }, [selectedLions, setTotalPrice, isAllowListActive, myButts]);
+  }, [selectedLions, price, allowListActive, isAllowListed, myButts]);
 
   const toggleCollapse = () => {
     setIsExpanded(!isExpanded);

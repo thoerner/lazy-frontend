@@ -71,7 +71,7 @@ const DownloadBar = ({
     downloadImage(
       buttId,
       type,
-      `lazy-butt_${type}_${buttId}.${type === "seasonal" ? "mp4" : "png"}`,
+      `lazy-butt_${type}_${buttId}.png`,
       address,
       sessionToken
     );
