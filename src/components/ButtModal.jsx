@@ -21,10 +21,10 @@ const ModalContent = ({
         <div className="loading-container">
           <div className="loading"></div>
         </div>
-      ) : selectedType === "seasonal" ? (
-        <div className="buttModalVideo">
-          <video src={buttImage} autoPlay loop playsInline />
-        </div>
+      // ) : selectedType === "seasonal" ? (
+      //   <div className="buttModalVideo">
+      //     <video src={buttImage} autoPlay loop playsInline />
+      //   </div>
       ) : (
         <img
           className={

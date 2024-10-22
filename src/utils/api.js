@@ -92,7 +92,7 @@ export const getFullBodyImage = async (buttId, address, sessionToken) => {
 
 export const getSeasonalButtImage = async (buttId, address, sessionToken) => {
   const res = await fetch(
-    `${import.meta.env.VITE_API_URL}/api/create/summer/${buttId}`,
+    `${import.meta.env.VITE_API_URL}/api/create/halloween/${buttId}`,
     {
       method: "GET", // Specify the method
       headers: {
@@ -206,7 +206,7 @@ export const getSmallButtImage = async (buttId, address, sessionToken) => {
 
   if (res.headers.get("Content-Type").includes("application/json")) {
     const jsonData = await res.json();
-    throw new Error(`Expected an image but got JSON response: ${jsonData}`);
+    throw new Error(`Expected an image but got JSON response: ${JSON.stringify(jsonData)}`);
   }
   const image = await res.blob();
   return image;
