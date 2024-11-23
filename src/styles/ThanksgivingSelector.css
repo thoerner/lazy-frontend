@@ -180,11 +180,18 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem;
   background: #00caf8;
   border-radius: 0.5rem;
   color: white;
   font-weight: bold;
+}
+
+.selectedFriendImage {
+  width: 40px;
+  height: 40px;
+  border-radius: 4px;
+  object-fit: cover;
 }
 
 .selectedFriend button {
