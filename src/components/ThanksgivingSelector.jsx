@@ -4,6 +4,22 @@ import '../styles/ThanksgivingSelector.css';
 import EmptyLion from '../assets/lion-silhouette.png';
 
 const ThanksgivingSelector = ({ myLions, selectedLionId, onConfirm, onCancel }) => {
+  if (!myLions || !selectedLionId) {
+    return (
+      <div className="thanksgivingSelector">
+        <div className="thanksgivingHeader">
+          <h3>Error Loading Selector</h3>
+          <p>Please try again later</p>
+        </div>
+        <div className="thanksgivingActions">
+          <button className="cancelButton" onClick={onCancel}>
+            Close
+          </button>
+        </div>
+      </div>
+    );
+  }
+
   const [selectedFriends, setSelectedFriends] = useState([]);
   const [customLionId, setCustomLionId] = useState('');
   const [customLionImages, setCustomLionImages] = useState({});

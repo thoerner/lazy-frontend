@@ -490,12 +490,14 @@ const DownloadBar = ({
       </div>
       {showThanksgivingSelector && (
         <div className="modalOverlay">
-          <ThanksgivingSelector
-            myLions={myLions}
-            selectedLionId={buttId}
-            onConfirm={handleThanksgivingConfirm}
-            onCancel={() => setShowThanksgivingSelector(false)}
-          />
+          <div className="thanksgivingSelector">
+            <ThanksgivingSelector
+              myLions={myLions}
+              selectedLionId={buttId}
+              onConfirm={handleThanksgivingConfirm}
+              onCancel={() => setShowThanksgivingSelector(false)}
+            />
+          </div>
         </div>
       )}
     </div>

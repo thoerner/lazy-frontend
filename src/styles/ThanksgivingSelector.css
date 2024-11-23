@@ -6,9 +6,12 @@
   max-width: 800px;
   margin: 2rem auto;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  max-height: 90vh;
+  max-height: 80vh;
   overflow-y: auto;
-  position: relative;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   z-index: 10001;
 }
 
@@ -114,13 +117,16 @@
   .thanksgivingSelector {
     padding: 1rem;
     width: 95%;
-    margin: 1rem;
-    max-height: 80vh;
+    margin: 0;
+    max-height: 85vh;
+    top: 50%;
+    transform: translate(-50%, -50%);
   }
 
   .friendsGrid {
     grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
     gap: 0.75rem;
+    max-height: 30vh;
   }
 
   .thanksgivingHeader h3 {
@@ -129,6 +135,15 @@
 
   .thanksgivingHeader p {
     font-size: 0.9rem;
+  }
+
+  .customLionInput {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .customLionInput button {
+    width: 100%;
   }
 }
 
@@ -240,4 +255,17 @@
 .friendsGrid::-webkit-scrollbar-thumb {
   background: #00caf8;
   border-radius: 4px;
+}
+
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.75);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
 } 
