@@ -8,11 +8,9 @@
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   max-height: 80vh;
   overflow-y: auto;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  position: relative;
   z-index: 10001;
+  -webkit-transform: translate3d(0,0,0);
 }
 
 .thanksgivingHeader {
@@ -117,10 +115,12 @@
   .thanksgivingSelector {
     padding: 1rem;
     width: 95%;
-    margin: 0;
+    margin: 1rem;
     max-height: 85vh;
-    top: 50%;
-    transform: translate(-50%, -50%);
+    position: relative;
+    transform: none;
+    top: auto;
+    left: auto;
   }
 
   .friendsGrid {
@@ -144,6 +144,11 @@
 
   .customLionInput button {
     width: 100%;
+  }
+
+  .modalOverlay {
+    padding: 0;
+    align-items: center;
   }
 }
 
@@ -268,4 +273,5 @@
   justify-content: center;
   align-items: center;
   z-index: 10000;
+  -webkit-transform: translate3d(0,0,0);
 } 
