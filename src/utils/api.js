@@ -90,18 +90,20 @@ export const getFullBodyImage = async (buttId, address, sessionToken) => {
   return image;
 };
 
-export const getSeasonalButtImage = async (buttId, address, sessionToken) => {
-  const res = await fetch(
-    `${import.meta.env.VITE_API_URL}/api/create/halloween/${buttId}`,
-    {
-      method: "GET", // Specify the method
-      headers: {
-        "Content-Type": "application/json", // Specify the content type of the request body
-        Authorization: `${sessionToken}`, // Specify the token
-        Address: `${address}`, // Specify the address
-      },
-    }
-  );
+export const getSeasonalButtImage = async (buttId, address, sessionToken, additionalLions = '') => {
+  const url = new URL(`${import.meta.env.VITE_API_URL}/api/create/thanksgiving/${buttId}`);
+  if (additionalLions) {
+    url.searchParams.append('additional', additionalLions);
+  }
+  
+  const res = await fetch(url, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `${sessionToken}`,
+      Address: `${address}`,
+    },
+  });
 
   if (res.headers.get("Content-Type").includes("application/json")) {
     const jsonData = await res.json();

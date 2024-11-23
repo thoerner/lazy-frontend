@@ -16,6 +16,7 @@ import { useAccount } from "wagmi";
 import toast from "react-hot-toast";
 import "../styles/DownloadButton.css";
 import { FaDownload } from "react-icons/fa";
+import ThanksgivingSelector from './ThanksgivingSelector';
 
 function createTempAnchor(url, filename) {
   const a = document.createElement("a");
@@ -42,6 +43,7 @@ const DownloadBar = ({
   const { address } = useAccount();
   const sessionToken = getSessionToken();
   const { id: buttId } = butt;
+  const [showThanksgivingSelector, setShowThanksgivingSelector] = useState(false);
 
   useEffect(() => {
     const fetchButtImage = async () => {
@@ -246,18 +248,29 @@ const DownloadBar = ({
       ineligibleToast("Seasonal");
       return;
     }
-    setIsLoading(true);
     setSelectedType("seasonal");
+    setShowThanksgivingSelector(true);
+  };
 
-    const seasonalBlob = await getSeasonalButtImage(
-      buttId,
-      address,
-      sessionToken
-    );
-    setBlobs({ ...blobs, seasonal: seasonalBlob });
-    setImage(seasonalBlob);
-
-    setIsLoading(false);
+  const handleThanksgivingConfirm = async (selectedFriends) => {
+    setShowThanksgivingSelector(false);
+    setIsLoading(true);
+    
+    try {
+      const seasonalBlob = await getSeasonalButtImage(
+        buttId,
+        address,
+        sessionToken,
+        selectedFriends.join(',')
+      );
+      setBlobs({ ...blobs, seasonal: seasonalBlob });
+      setImage(seasonalBlob);
+    } catch (error) {
+      console.error('Error generating Thanksgiving image:', error);
+      toast.error('Failed to generate Thanksgiving image');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const downloadImage = async (
@@ -475,6 +488,16 @@ const DownloadBar = ({
       >
         <FaDownload />
       </div>
+      {showThanksgivingSelector && (
+        <div className="modalOverlay">
+          <ThanksgivingSelector
+            myLions={myLions}
+            selectedLionId={buttId}
+            onConfirm={handleThanksgivingConfirm}
+            onCancel={() => setShowThanksgivingSelector(false)}
+          />
+        </div>
+      )}
     </div>
   );
 };
