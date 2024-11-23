@@ -8,6 +8,8 @@
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   max-height: 90vh;
   overflow-y: auto;
+  position: relative;
+  z-index: 10001;
 }
 
 .thanksgivingHeader {
@@ -112,6 +114,8 @@
   .thanksgivingSelector {
     padding: 1rem;
     width: 95%;
+    margin: 1rem;
+    max-height: 80vh;
   }
 
   .friendsGrid {

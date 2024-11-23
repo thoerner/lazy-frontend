@@ -10,7 +10,7 @@
   height: 8rem;
   background-color: #333;
   color: white;
-  z-index: 0;
+  z-index: 100;
   transition: all 300ms ease;
   overflow: hidden;
 }
@@ -191,5 +191,5 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 9999;
+  z-index: 10000;
 }
