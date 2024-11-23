@@ -112,14 +112,18 @@ const ThanksgivingSelector = ({ myLions, selectedLionId, onConfirm, onCancel }) 
       
       <div className="selectedFriends">
         {selectedFriends.map(lionId => (
-          <div key={lionId} className="selectedFriend">
+          <div 
+            key={lionId} 
+            className="selectedFriend"
+            onClick={() => handleFriendToggle(lionId)}
+            title="Click to remove"
+          >
             <img 
               src={getLionImage(lionId)} 
               alt={`Lion #${lionId}`} 
               className="selectedFriendImage"
             />
             <span>#{lionId}</span>
-            <button onClick={() => handleFriendToggle(lionId)}>✕</button>
           </div>
         ))}
       </div>

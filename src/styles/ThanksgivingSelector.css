@@ -171,7 +171,7 @@
 .selectedFriends {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
+  gap: 0.75rem;
   margin-bottom: 1.5rem;
   padding: 0 1rem;
 }
@@ -179,12 +179,20 @@
 .selectedFriend {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.75rem;
   padding: 0.5rem;
-  background: #00caf8;
+  background: #222;
+  border: 2px solid #00caf8;
   border-radius: 0.5rem;
   color: white;
   font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.selectedFriend:hover {
+  background: #333;
+  border-color: #ff4444;
 }
 
 .selectedFriendImage {
@@ -192,21 +200,6 @@
   height: 40px;
   border-radius: 4px;
   object-fit: cover;
-}
-
-.selectedFriend button {
-  background: none;
-  border: none;
-  color: white;
-  cursor: pointer;
-  font-size: 1.2rem;
-  padding: 0;
-  display: flex;
-  align-items: center;
-}
-
-.selectedFriend button:hover {
-  color: #ff4444;
 }
 
 .divider {
