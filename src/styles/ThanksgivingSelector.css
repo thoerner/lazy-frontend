@@ -6,6 +6,8 @@
   max-width: 800px;
   margin: 2rem auto;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  max-height: 90vh;
+  overflow-y: auto;
 }
 
 .thanksgivingHeader {
@@ -29,6 +31,9 @@
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   gap: 1rem;
   margin-bottom: 2rem;
+  max-height: 40vh;
+  overflow-y: auto;
+  padding: 0 1rem;
 }
 
 .friendOption {
@@ -121,4 +126,114 @@
   .thanksgivingHeader p {
     font-size: 0.9rem;
   }
+}
+
+.customLionInput {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  padding: 0 1rem;
+}
+
+.customLionInput input {
+  flex: 1;
+  padding: 0.75rem;
+  border: 2px solid #444;
+  border-radius: 0.5rem;
+  background: #222;
+  color: white;
+  font-size: 1rem;
+}
+
+.customLionInput input:focus {
+  outline: none;
+  border-color: #00caf8;
+}
+
+.customLionInput button {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 0.5rem;
+  background: #00caf8;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.customLionInput button:hover {
+  background: #0099cc;
+}
+
+.selectedFriends {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  padding: 0 1rem;
+}
+
+.selectedFriend {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: #00caf8;
+  border-radius: 0.5rem;
+  color: white;
+  font-weight: bold;
+}
+
+.selectedFriend button {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 1.2rem;
+  padding: 0;
+  display: flex;
+  align-items: center;
+}
+
+.selectedFriend button:hover {
+  color: #ff4444;
+}
+
+.divider {
+  position: relative;
+  text-align: center;
+  margin: 2rem 0;
+}
+
+.divider::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 100%;
+  height: 1px;
+  background: #444;
+}
+
+.divider span {
+  position: relative;
+  background: #333;
+  padding: 0 1rem;
+  color: #fff;
+  font-weight: bold;
+}
+
+.thanksgivingSelector::-webkit-scrollbar,
+.friendsGrid::-webkit-scrollbar {
+  width: 8px;
+}
+
+.thanksgivingSelector::-webkit-scrollbar-track,
+.friendsGrid::-webkit-scrollbar-track {
+  background: #222;
+}
+
+.thanksgivingSelector::-webkit-scrollbar-thumb,
+.friendsGrid::-webkit-scrollbar-thumb {
+  background: #00caf8;
+  border-radius: 4px;
 } 
