@@ -94,7 +94,7 @@ const ThanksgivingSelector = ({ myLions, selectedLionId, onConfirm, onCancel }) 
     <div className="thanksgivingSelector">
       <div className="thanksgivingHeader">
         <h3>Select Lions to Join Your Thanksgiving Dinner</h3>
-        <p>Choose up to 4 friends to join your lion at the table</p>
+        <p>Choose up to 4 friends to join your Lazy Butt at the table</p>
       </div>
 
       <div className="customLionInput">
